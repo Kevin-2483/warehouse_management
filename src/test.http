@@ -1,0 +1,15 @@
+GET https://10.0.0.101:8000/ HTTP/1.1
+
+###
+
+GET https://10.0.0.101:8000/api/warehouses HTTP/1.1
+
+###
+
+POST https://10.0.0.101:8000/api/warehouses HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "location": "127.0.0.1"
+}

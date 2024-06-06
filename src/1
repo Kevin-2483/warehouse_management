@@ -1,0 +1,29 @@
+fn init_db(conn: DbConn) {
+    tokio::spawn(async move {
+        const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
+
+        // Run migrations
+        conn.run(|c| {
+            c.run_pending_migrations(MIGRATIONS).expect("Failed to run migrations");
+
+            use schema::administrators::dsl::*;
+
+            let admin_count: i64 = administrators.count().get_result(c).expect("Error counting admins");
+
+            if admin_count == 0 {
+                let random_password: String = rand::thread_rng()
+                    .sample_iter(&rand::distributions::Alphanumeric)
+                    .take(12)
+                    .map(char::from)
+                    .collect();
+
+                println!("默认管理员已创建，用户名: admin, 密码: {}", random_password);
+
+                insert_into(administrators)
+                    .values((username.eq("admin"), password.eq(random_password)))
+                    .execute(c)
+                    .expect("Error inserting admin");
+            }
+        }).await;
+    });
+}
