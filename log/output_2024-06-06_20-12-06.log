@@ -1,0 +1,52 @@
+2024-06-06T20:12:06.036880198+08:00 - INFO - Local peer id: PeerId("12D3KooWLC9snQh6HDJsQWpPnjZQJv6bNqQA96V59iMsS6Xp7R5e")
+2024-06-06T20:12:06.039433802+08:00 - ERROR - Warning: BOOTSTRAP_PEER_ID environment variable is not set, using radmon value
+2024-06-06T20:12:06.039520306+08:00 - ERROR - Warning: BOOTSTRAP_ADDR environment variable is not set,using default value:/ip4/127.0.0.1/tcp/8080
+2024-06-06T20:12:06.039536696+08:00 - ERROR - Warning: LISTENING_ADDR environment variable is not set, using default value:/ip4/0.0.0.0/tcp/12345
+2024-06-06T20:12:06.047893746+08:00 - INFO - All pending migrations were run successfully: []
+2024-06-06T20:12:06.048538634+08:00 - INFO - 🔧 Configured for [4mdebug[0m.
+2024-06-06T20:12:06.048575946+08:00 - INFO - address: [1;39m127.0.0.1[0m
+2024-06-06T20:12:06.048591164+08:00 - INFO - port: [1;39m8000[0m
+2024-06-06T20:12:06.048607820+08:00 - INFO - workers: [1;39m8[0m
+2024-06-06T20:12:06.048624749+08:00 - INFO - max blocking threads: [1;39m512[0m
+2024-06-06T20:12:06.048639196+08:00 - INFO - ident: [1;39mRocket[0m
+2024-06-06T20:12:06.048653822+08:00 - INFO - IP header: [1;39mX-Real-IP[0m
+2024-06-06T20:12:06.048673724+08:00 - INFO - limits: [1;39mbytes = 8KiB, data-form = 2MiB, file = 1MiB, form = 32KiB, json = 1MiB, msgpack = 1MiB, string = 8KiB[0m
+2024-06-06T20:12:06.048693780+08:00 - INFO - temp dir: [1;39m/tmp[0m
+2024-06-06T20:12:06.048709843+08:00 - INFO - http/2: [1;39mtrue[0m
+2024-06-06T20:12:06.048727624+08:00 - INFO - keep-alive: [1;39m5[0m[1;39ms[0m
+2024-06-06T20:12:06.048741608+08:00 - INFO - tls: [1;39mdisabled[0m
+2024-06-06T20:12:06.048763726+08:00 - INFO - shutdown: [1;39mctrlc = true, force = true, signals = [SIGTERM], grace = 2s, mercy = 3s[0m
+2024-06-06T20:12:06.048779287+08:00 - INFO - log level: [1;39mnormal[0m
+2024-06-06T20:12:06.048796384+08:00 - INFO - cli colors: [1;39mtrue[0m
+2024-06-06T20:12:06.048890165+08:00 - INFO - 📬 [35mRoutes[0m:
+2024-06-06T20:12:06.048954161+08:00 - INFO - [36m([0m[39mindex[0m[36m)[0m [32mGET[0m [34m/[0m
+2024-06-06T20:12:06.048985295+08:00 - INFO - [36m([0m[39mget_warehouses[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/warehouses[0m
+2024-06-06T20:12:06.049011522+08:00 - INFO - [36m([0m[39mcreate_warehouse[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/warehouses[0m [33mapplication/json[0m
+2024-06-06T20:12:06.049047560+08:00 - INFO - 📡 [35mFairings[0m:
+2024-06-06T20:12:06.049073680+08:00 - INFO - [1;39mAdmin Initialization[0m ([1;34mignite[0m)
+2024-06-06T20:12:06.049092108+08:00 - INFO - [1;39mShield[0m ([1;34mliftoff, response, singleton[0m)
+2024-06-06T20:12:06.049107130+08:00 - INFO - [1;39m'sqlite_db' Database Pool[0m ([1;34mignite[0m)
+2024-06-06T20:12:06.049147429+08:00 - INFO - [1;39mDatabase Migrations[0m ([1;34mignite[0m)
+2024-06-06T20:12:06.049525501+08:00 - INFO - 🛡️ [35mShield[0m:
+2024-06-06T20:12:06.049570896+08:00 - INFO - X-Frame-Options: [39mSAMEORIGIN[0m
+2024-06-06T20:12:06.049593882+08:00 - INFO - Permissions-Policy: [39minterest-cohort=()[0m
+2024-06-06T20:12:06.049615864+08:00 - INFO - X-Content-Type-Options: [39mnosniff[0m
+2024-06-06T20:12:06.049650430+08:00 - WARN - 🚀 [1;39mRocket has launched from [4mhttp://127.0.0.1:8000[0m
+2024-06-06T20:12:06.049777087+08:00 - WARN - Rocket is executing inside of a custom runtime.
+2024-06-06T20:12:06.049821043+08:00 - INFO - Rocket's runtime is enabled via `#[rocket::main]` or `#[launch]`.
+2024-06-06T20:12:06.049837994+08:00 - INFO - Forced shutdown is disabled. Runtime settings may be suboptimal.
+2024-06-06T20:12:35.163087514+08:00 - WARN - Received SIGINT. Requesting shutdown.
+2024-06-06T20:12:35.163255067+08:00 - INFO - Shutdown requested. Waiting for pending I/O...
+2024-06-06T20:12:35.163352170+08:00 - INFO - Graceful shutdown completed successfully.
+2024-06-06T20:12:35.163607815+08:00 - INFO - Discovered peer via Kademlia: PeerId("12D3KooW9pNAk8aiBuGVQtWRdbkLmo5qVL3e2h5UxbN2Nz9ttwiw")
+2024-06-06T20:12:35.163750033+08:00 - INFO - creating instance on iface 10.0.0.101
+2024-06-06T20:13:16.588153769+08:00 - WARN - Received SIGINT. Shutdown already in progress.
+2024-06-06T20:13:50.964160632+08:00 - WARN - Received SIGINT. Shutdown already in progress.
+2024-06-06T20:16:42.202302887+08:00 - WARN - Received SIGINT. Shutdown already in progress.
+2024-06-06T20:16:42.718576654+08:00 - WARN - Received SIGINT. Shutdown already in progress.
+2024-06-06T20:16:42.983915171+08:00 - WARN - Received SIGINT. Shutdown already in progress.
+2024-06-06T20:16:43.122481523+08:00 - WARN - Received SIGINT. Shutdown already in progress.
+2024-06-06T20:16:43.402516215+08:00 - WARN - Received SIGINT. Shutdown already in progress.
+2024-06-06T20:16:43.701325829+08:00 - WARN - Received SIGINT. Shutdown already in progress.
+2024-06-06T20:16:43.876992787+08:00 - WARN - Received SIGINT. Shutdown already in progress.
+2024-06-06T20:16:44.067845694+08:00 - WARN - Received SIGINT. Shutdown already in progress.
