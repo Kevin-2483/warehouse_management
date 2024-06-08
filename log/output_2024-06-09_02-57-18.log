@@ -1,0 +1,77 @@
+2024-06-09T02:57:18.433904985+08:00 - INFO - Database migrations executed successfully
+2024-06-09T02:57:18.434043158+08:00 - ERROR - Failed to get warehouse local key: Record not found
+2024-06-09T02:57:18.434305156+08:00 - INFO - Generated and inserted new key "o7qF4zfqNZC+pJyKkdyjT6jOJn6Zr7jD3FQp9JXfvw5b9/vB5DyZcYTnQ0XFCL0qWv6UZchbiqFxykyG4XMpwg==" for warehouse ThisWarehouse
+2024-06-09T02:57:18.437814489+08:00 - INFO - Local peer id: PeerId("12D3KooWG1Nb1HFP5h4szmHwzCJHXeQiSjaBrUpSFTdmkWYGfXVs")
+2024-06-09T02:57:18.440269232+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
+2024-06-09T02:57:18.440328546+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
+2024-06-09T02:57:18.440375501+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node
+2024-06-09T02:57:18.440742508+08:00 - INFO - creating instance on iface 10.0.0.101
+2024-06-09T02:57:18.442804809+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.442866344+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.442951596+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443037293+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443080983+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443173612+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443193326+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443311003+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443347190+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443410434+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443447851+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443514210+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443539315+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443620985+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443646812+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443733520+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443770583+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443818863+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443876775+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.443906487+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444023263+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444044997+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444164081+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444195080+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444296848+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444318931+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444427231+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444455573+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444536981+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444558292+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.444629191+08:00 - ERROR - database is locked
+2024-06-09T02:57:18.843573556+08:00 - ERROR - database is locked
+2024-06-09T02:57:19.644944990+08:00 - INFO - 默认管理员已创建，用户名: admin, 密码: 5VU6o4iQlE0t
+2024-06-09T02:57:19.648439639+08:00 - INFO - 🔧 Configured for [4mdebug[0m.
+2024-06-09T02:57:19.648492311+08:00 - INFO - address: [1;39m127.0.0.1[0m
+2024-06-09T02:57:19.648513186+08:00 - INFO - port: [1;39m0[0m
+2024-06-09T02:57:19.648532129+08:00 - INFO - workers: [1;39m8[0m
+2024-06-09T02:57:19.648549261+08:00 - INFO - max blocking threads: [1;39m512[0m
+2024-06-09T02:57:19.648567332+08:00 - INFO - ident: [1;39mRocket[0m
+2024-06-09T02:57:19.648587722+08:00 - INFO - IP header: [1;39mX-Real-IP[0m
+2024-06-09T02:57:19.648607029+08:00 - INFO - limits: [1;39mbytes = 8KiB, data-form = 2MiB, file = 1MiB, form = 32KiB, json = 1MiB, msgpack = 1MiB, string = 8KiB[0m
+2024-06-09T02:57:19.648632312+08:00 - INFO - temp dir: [1;39m/tmp[0m
+2024-06-09T02:57:19.648648766+08:00 - INFO - http/2: [1;39mtrue[0m
+2024-06-09T02:57:19.648672612+08:00 - INFO - keep-alive: [1;39m5[0m[1;39ms[0m
+2024-06-09T02:57:19.648686317+08:00 - INFO - tls: [1;39mdisabled[0m
+2024-06-09T02:57:19.648714766+08:00 - INFO - shutdown: [1;39mctrlc = true, force = true, signals = [SIGTERM], grace = 2s, mercy = 3s[0m
+2024-06-09T02:57:19.648743578+08:00 - INFO - log level: [1;39mnormal[0m
+2024-06-09T02:57:19.648762368+08:00 - INFO - cli colors: [1;39mtrue[0m
+2024-06-09T02:57:19.648875599+08:00 - INFO - 📬 [35mRoutes[0m:
+2024-06-09T02:57:19.648945878+08:00 - INFO - [36m([0m[39mindex[0m[36m)[0m [32mGET[0m [34m/[0m
+2024-06-09T02:57:19.649011960+08:00 - INFO - [36m([0m[39mget_warehouses[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/warehouses[0m
+2024-06-09T02:57:19.649062943+08:00 - INFO - [36m([0m[39mcreate_warehouse[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/warehouses[0m [33mapplication/json[0m
+2024-06-09T02:57:19.649114026+08:00 - INFO - 📡 [35mFairings[0m:
+2024-06-09T02:57:19.649145308+08:00 - INFO - [1;39mShield[0m ([1;34mliftoff, response, singleton[0m)
+2024-06-09T02:57:19.649165403+08:00 - INFO - [1;39mAdmin Initialization[0m ([1;34mignite[0m)
+2024-06-09T02:57:19.649179220+08:00 - INFO - [1;39m'sqlite_db' Database Pool[0m ([1;34mignite[0m)
+2024-06-09T02:57:19.649338582+08:00 - INFO - 🛡️ [35mShield[0m:
+2024-06-09T02:57:19.649371635+08:00 - INFO - X-Frame-Options: [39mSAMEORIGIN[0m
+2024-06-09T02:57:19.649383804+08:00 - INFO - Permissions-Policy: [39minterest-cohort=()[0m
+2024-06-09T02:57:19.649397793+08:00 - INFO - X-Content-Type-Options: [39mnosniff[0m
+2024-06-09T02:57:19.649421102+08:00 - WARN - 🚀 [1;39mRocket has launched from [4mhttp://127.0.0.1:33609[0m
+2024-06-09T02:57:19.649493279+08:00 - WARN - Rocket is executing inside of a custom runtime.
+2024-06-09T02:57:19.649512494+08:00 - INFO - Rocket's runtime is enabled via `#[rocket::main]` or `#[launch]`.
+2024-06-09T02:57:19.649527527+08:00 - INFO - Forced shutdown is disabled. Runtime settings may be suboptimal.
+2024-06-09T02:57:31.468492587+08:00 - WARN - Received shutdown signal, shutting down...
+2024-06-09T02:57:31.468589604+08:00 - WARN - Received SIGINT. Requesting shutdown.
+2024-06-09T02:57:31.468641772+08:00 - INFO - Waiting for tasks to finish...
+2024-06-09T02:57:31.468709592+08:00 - INFO - Shutdown requested. Waiting for pending I/O...
+2024-06-09T02:57:31.468807139+08:00 - INFO - Graceful shutdown completed successfully.

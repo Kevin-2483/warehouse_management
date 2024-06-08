@@ -1,6 +1,8 @@
 #[macro_use]
 extern crate rocket;
 
+extern crate base64;
+
 use rocket::fairing::AdHoc;
 use rocket::fairing::{Fairing, Info, Kind};
 use rocket::figment::{
@@ -19,10 +21,10 @@ use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use rand::distributions::Alphanumeric;
 use rand::Rng;
 use std::collections::HashMap;
+use std::collections::HashSet;
 use std::env;
 use std::error::Error;
 use std::result::Result as StdResult; // 为了避免名称冲突，使用别名
-use std::io;
 
 use chrono::Local;
 use chrono::Utc;
@@ -30,29 +32,36 @@ use serde::Deserialize;
 use uuid::Uuid;
 
 use libp2p::futures::StreamExt;
+use libp2p::identity::{self, ed25519, Keypair, PublicKey};
 use libp2p::kad::{record::store::MemoryStore, Kademlia, KademliaConfig, KademliaEvent};
 use libp2p::mdns::{Mdns, MdnsConfig, MdnsEvent};
+use libp2p::ping::{Ping, PingConfig, PingEvent};
+use libp2p::request_response::{
+    ProtocolName, RequestResponse, RequestResponseCodec, RequestResponseEvent,
+    RequestResponseMessage,
+};
 use libp2p::swarm::{
     NetworkBehaviour, NetworkBehaviourEventProcess, Swarm, SwarmBuilder, SwarmEvent,
 };
-use libp2p::{development_transport, identity, Multiaddr, NetworkBehaviour, PeerId};
-use libp2p::request_response::{RequestResponse, ProtocolName, RequestResponseCodec, RequestResponseMessage};
-
+use libp2p::{development_transport, Multiaddr, NetworkBehaviour, PeerId};
 
 use tokio;
+use tokio::io::{self, AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
 use tokio::signal;
 use tokio::task;
 // use libp2p::dns::DnsConfig;
 // use libp2p::tcp::GenTcpConfig;
 
 use log::LevelFilter;
-use log::{debug, error, info};
+use log::{debug, error, info, warn};
 use log4rs::append::console::ConsoleAppender;
 use log4rs::append::file::FileAppender;
 use log4rs::config::Config as LogConfig;
 use log4rs::config::{Appender, Root};
 use log4rs::encode::pattern::PatternEncoder;
 use log4rs::init_config;
+
+use base64::{engine::general_purpose, Engine as _};
 
 mod models;
 mod schema;
@@ -62,71 +71,15 @@ mod schema;
 struct KMBehaviour {
     kademlia: Kademlia<MemoryStore>,
     mdns: Mdns,
+    ping: Ping,
 }
 
 #[derive(Debug)]
 enum KMBehaviourEvent {
     Kademlia(KademliaEvent),
     Mdns(MdnsEvent),
+    Ping(PingEvent),
 }
-
-// 协议结构体
-#[derive(Debug, Clone)]
-struct SyncProtocol;
-// 编解码器结构体
-#[derive(Clone)]
-struct SyncCodec;
-// 请求和响应的结构体，都是简单的字符串包装器
-#[derive(Debug, Clone, PartialEq, Eq)]
-struct SyncRequest(String);
-
-#[derive(Debug, Clone, PartialEq, Eq)]
-struct SyncResponse(String);
-// 为SyncProtocol实现了ProtocolName特征，定义了协议的名称为"/sync/1.0.0"
-impl ProtocolName for SyncProtocol {
-    fn protocol_name(&self) -> &[u8] {
-        "/sync/1.0.0".as_bytes()
-    }
-}
-
-// #[async_trait::async_trait]
-// impl RequestResponseCodec for SyncCodec {
-//     type Protocol = SyncProtocol;
-//     type Request = SyncRequest;
-//     type Response = SyncResponse;
-
-//     async fn read_request<T>(&mut self, _: &SyncProtocol, io: &mut T) -> io::Result<Self::Request>
-//     where
-//         T: AsyncRead + Unpin + Send,
-//     {
-//         let mut buf = vec![0; 1024];
-//         let n = io.read(&mut buf).await?;
-//         Ok(SyncRequest(String::from_utf8_lossy(&buf[..n]).to_string()))
-//     }
-
-//     async fn read_response<T>(&mut self, _: &SyncProtocol, io: &mut T) -> io::Result<Self::Response>
-//     where
-//         T: AsyncRead + Unpin + Send,
-//     {
-//         let mut buf = vec![0; 1024];
-//         let n = io.read(&mut buf).await?;
-//         Ok(SyncResponse(String::from_utf8_lossy(&buf[..n]).to_string()))
-//     }
-
-//     async fn write_request<T>(&mut self, _: &SyncProtocol, io: &mut T, SyncRequest(data): SyncRequest) -> io::Result<()>
-//     where
-//         T: AsyncWrite + Unpin + Send,
-//     {
-//         io.write_all(data.as_bytes()).await
-//     }
-
-//     async fn write_response<T>(&mut self, _: &SyncProtocol, io: &mut T, SyncResponse(data): SyncResponse) -> io::Result<()>
-//     where
-//         T: AsyncWrite + Unpin + Send,
-//     {
-//         io.write_all(data.as_bytes()).await
-//     }
-// }
 
 impl From<KademliaEvent> for KMBehaviourEvent {
     fn from(event: KademliaEvent) -> Self {
@@ -137,6 +90,12 @@ impl From<KademliaEvent> for KMBehaviourEvent {
 impl From<MdnsEvent> for KMBehaviourEvent {
     fn from(event: MdnsEvent) -> Self {
         KMBehaviourEvent::Mdns(event)
+    }
+}
+
+impl From<PingEvent> for KMBehaviourEvent {
+    fn from(event: PingEvent) -> Self {
+        KMBehaviourEvent::Ping(event)
     }
 }
 
@@ -192,6 +151,7 @@ fn index() -> &'static str {
 #[derive(Insertable, Deserialize)]
 #[diesel(table_name = warehouses)]
 pub struct NewWarehouse {
+    pub id: String,
     pub name: String,
     pub location: String,
 }
@@ -229,10 +189,9 @@ async fn create_warehouse(
                 return Err("Warehouse with this location already exists".to_string());
             }
 
-            let new_id = Uuid::new_v4().as_u128() as i32;
-
             let new_warehouse = Warehouse {
-                id: new_id,
+                id: new_warehouse.id.clone(),
+                localkey: "".to_string(),
                 name: new_warehouse.name.clone(),
                 location: new_warehouse.location.clone(),
                 created_at: Some(Utc::now().naive_utc()),
@@ -293,38 +252,61 @@ impl Fairing for AdminInit {
     }
 }
 
-async fn run_db_migrations(rocket: Rocket<Build>) -> Result<Rocket<Build>, Rocket<Build>> {
+async fn run_db_migrations(conn: &mut SqliteConnection) {
     const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
-    let db = DbConn::get_one(&rocket).await.expect("database connection");
-
-    match db
-        .run(|conn| {
-            conn.run_pending_migrations(MIGRATIONS).map(|versions| {
-                // Log each version of the migration
-                versions
-                    .into_iter()
-                    .map(|v| {
-                        let version_str = v.to_string();
-                        info!("Successfully applied migration: {}", version_str);
-                        version_str
-                    })
-                    .collect::<Vec<_>>()
-            })
-        })
-        .await
-    {
-        Ok(versions) => {
-            info!(
-                "All pending migrations were run successfully: {:?}",
-                versions
-            );
-            Ok(rocket)
-        }
-        Err(e) => {
-            error!("Failed to run database migrations: {:?}", e);
-            Err(rocket)
-        }
+    if let Err(err) = conn.run_pending_migrations(MIGRATIONS) {
+        error!("Error running migrations: {}", err);
+    } else {
+        info!("Database migrations executed successfully");
     }
+}
+
+// 建立数据库连接
+fn establish_connection() -> SqliteConnection {
+    let database_url = "sqlite://./warehouse.db";
+    SqliteConnection::establish(&database_url)
+        .expect(&format!("Error connecting to {}", database_url))
+}
+
+// 获取名为"ThisWarehouse"的仓库ID MpHCXo8e0RfSru1kQQKoJawUgEUs9oYmktHPF+bT26o=
+fn get_warehouse_id(
+    conn: &mut SqliteConnection,
+) -> Result<ed25519::Keypair, diesel::result::Error> {
+    use self::warehouses::dsl::*;
+    let warehouse: Warehouse = warehouses.filter(localkey.is_not_null()).first(conn)?;
+    info!("Found warehouse: {:?}", warehouse.localkey);
+    let mut local_key_bytes = general_purpose::STANDARD
+        .decode(warehouse.localkey)
+        .expect("Base64 decode error");
+    let keypair =
+        ed25519::Keypair::decode(local_key_bytes.as_mut_slice()).expect("Keypair decode error");
+    Ok(keypair)
+}
+
+fn generate_and_insert_new_local_key(conn: &mut SqliteConnection) -> ed25519::Keypair {
+    let local_key = ed25519::Keypair::generate();
+    let local_key_base64 = general_purpose::STANDARD.encode(local_key.encode());
+    info!(
+        "Generated and inserted new key {:?} for warehouse ThisWarehouse",
+        local_key_base64
+    );
+    let local_peer_id = PeerId::from(PublicKey::Ed25519(local_key.public()));
+    let new_warehouse = Warehouse {
+        id: local_peer_id.to_string(),
+        localkey: local_key_base64,
+        name: "ThisWarehouse".to_string(),
+        location: "/ip4/127.0.0.1/tcp/8080".to_string(),
+        created_at: Some(Utc::now().naive_utc()),
+        updated_at: Some(Utc::now().naive_utc()),
+    };
+
+    use self::warehouses::dsl::*;
+    diesel::insert_into(warehouses)
+        .values(&new_warehouse)
+        .execute(conn)
+        .expect("Error inserting new warehouse");
+
+    local_key
 }
 
 #[tokio::main]
@@ -360,13 +342,21 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
     init_config(logconfig).unwrap();
 
     // 创建本地PeerId
-    let local_key = identity::Keypair::generate_ed25519();
-    let local_peer_id = PeerId::from(local_key.public());
+    let mut connection = establish_connection();
+    run_db_migrations(&mut connection).await;
+    let local_key = match get_warehouse_id(&mut connection) {
+        Ok(id) => id,
+        Err(err) => {
+            error!("Failed to get warehouse local key: {}", err);
+            generate_and_insert_new_local_key(&mut connection)
+        }
+    };
 
+    let local_peer_id = PeerId::from(PublicKey::Ed25519(local_key.public()));
     info!("Local peer id: {:?}", local_peer_id);
 
     // 创建传输层
-    let transport = development_transport(local_key.clone()).await?;
+    let transport = development_transport(libp2p::identity::Keypair::Ed25519(local_key)).await?;
 
     // 创建Kademlia DHT
     let store = MemoryStore::new(local_peer_id.clone());
@@ -376,8 +366,14 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
     // 创建mDNS
     let mdns = Mdns::new(MdnsConfig::default()).await?;
 
+    let ping = Ping::new(PingConfig::new().with_keep_alive(true));
+
     // 创建网络行为
-    let behaviour = KMBehaviour { kademlia, mdns };
+    let behaviour = KMBehaviour {
+        kademlia,
+        mdns,
+        ping,
+    };
 
     // 构建Swarm
     let mut swarm = SwarmBuilder::new(transport, behaviour, local_peer_id)
@@ -388,11 +384,12 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
 
     // 获取环境变量中的 bootstrap_peer_id
     let bootstrap_peer_id_str = match env::var("BOOTSTRAP_PEER_ID") {
-        Ok(val) => val,
+        Ok(val) => {
+            info!("Find BOOTSTRAP_PEER_ID {:?}", val);
+            val
+        }
         Err(_) => {
-            error!(
-                "Warning: BOOTSTRAP_PEER_ID environment variable is not set, using radmon value"
-            );
+            warn!("Warning: BOOTSTRAP_PEER_ID environment variable is not set");
             PeerId::from_public_key(&identity::PublicKey::Ed25519(
                 identity::ed25519::PublicKey::decode(&[0u8; 32]).unwrap(),
             ))
@@ -402,28 +399,51 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
 
     // 获取环境变量中的 bootstrap_addr
     let bootstrap_addr_str = match env::var("BOOTSTRAP_ADDR") {
-        Ok(val) => val,
+        Ok(val) => {
+            info!("Find BOOTSTRAP_ADDR {:?}", val);
+            val
+        }
         Err(_) => {
-            error!("Warning: BOOTSTRAP_ADDR environment variable is not set,using default value:/ip4/127.0.0.1/tcp/8080");
+            warn!("Warning: BOOTSTRAP_ADDR environment variable is not set");
             "/ip4/127.0.0.1/tcp/8080".to_string()
         }
     };
     // 获取环境变量中的 listening_addr_str
     let listening_addr_str = match env::var("LISTENING_ADDR") {
-        Ok(val) => val,
+        Ok(val) => {
+            info!("Find LISTENING_ADDR {:?}", val);
+            val
+        }
         Err(_) => {
-            error!("Warning: LISTENING_ADDR environment variable is not set, using default value:/ip4/0.0.0.0/tcp/12345");
+            warn!("Warning: LISTENING_ADDR environment variable is not set, using default value:/ip4/0.0.0.0/tcp/12345");
             "/ip4/0.0.0.0/tcp/12345".to_string()
         }
     };
     // 添加引导节点
     let bootstrap_peer_id = bootstrap_peer_id_str.parse::<PeerId>()?;
     let bootstrap_addr: Multiaddr = bootstrap_addr_str.parse().unwrap();
-    swarm
-        .behaviour_mut()
-        .kademlia
-        .add_address(&bootstrap_peer_id, bootstrap_addr);
 
+    match env::var_os("BOOTSTRAP_ADDR") {
+        Some(addr_value) => {
+            info!("find BOOTSTRAP_ADDR {:?}", addr_value);
+            match env::var_os("BOOTSTRAP_PEER_ID") {
+                Some(id_value) => {
+                    info!(
+                        "via {:?} discover node which peer id is {:?}",
+                        addr_value, id_value
+                    );
+                    swarm
+                        .behaviour_mut()
+                        .kademlia
+                        .add_address(&bootstrap_peer_id, bootstrap_addr);
+                }
+                None => {
+                    warn!("BOOTSTRAP_PEER_ID environment variable is not set,run as bootstrap node")
+                }
+            }
+        }
+        None => warn!("BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node"),
+    }
     // 设置监听地址
     let listen_addr: Multiaddr = env::var("LISTEN_ADDR")
         .unwrap_or_else(|_| listening_addr_str.to_string())
@@ -443,11 +463,17 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
     });
 
     let swarm_handle = task::spawn(async move {
+        let mut discovered_peers = HashSet::new();
         loop {
             match swarm.next().await.unwrap() {
                 SwarmEvent::Behaviour(KMBehaviourEvent::Mdns(MdnsEvent::Discovered(peers))) => {
                     for (peer_id, _) in peers {
-                        info!("Discovered peer via mDNS: {:?}", peer_id);
+                        if discovered_peers.insert(peer_id.clone()) {
+                            info!("Discovered peer via mDNS: {:?}", peer_id);
+                            if let Err(e) = swarm.dial(peer_id.clone()) {
+                                info!("Failed to dial discovered peer: {:?}", e);
+                            }
+                        }
                     }
                 }
                 SwarmEvent::Behaviour(KMBehaviourEvent::Mdns(MdnsEvent::Expired(peers))) => {
@@ -458,7 +484,12 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
                 SwarmEvent::Behaviour(KMBehaviourEvent::Kademlia(
                     KademliaEvent::RoutingUpdated { peer, .. },
                 )) => {
-                    info!("Discovered peer via Kademlia: {:?}", peer);
+                    if discovered_peers.insert(peer.clone()) {
+                        info!("Discovered peer via Kademlia: {:?}", peer);
+                        if let Err(e) = swarm.dial(peer) {
+                            info!("Failed to dial discovered peer: {:?}", e);
+                        }
+                    }
                 }
                 SwarmEvent::ConnectionEstablished { peer_id, .. } => {
                     info!("Connected to peer: {:?}", peer_id);
@@ -473,6 +504,9 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
                         info!("Connection to peer {:?} closed.", peer_id);
                     }
                 }
+                SwarmEvent::Behaviour(KMBehaviourEvent::Ping(event)) => {
+                    info!("Ping: {:?}", event);
+                }
                 _ => {}
             }
         }
@@ -484,7 +518,7 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
     // 处理 SIGINT 信号
     tokio::select! {
         _ = signal::ctrl_c() => {
-            info!("Received shutdown signal, shutting down...");
+            warn!("Received shutdown signal, shutting down...");
         }
         _ = async { if let Some(handle) = rocket_handle.take() { handle.await.unwrap(); } } => {
             info!("Rocket task completed.");
@@ -508,6 +542,7 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
 async fn rocket() -> Rocket<Build> {
     // 从默认配置创建 Figment 实例
     let figment = Figment::from(Config::default())
+        .merge(("port", 0))
         // 合并自定义的数据库配置
         .merge(Serialized::default("databases", {
             let mut databases: HashMap<&str, HashMap<&str, &str>> = HashMap::new();
@@ -524,10 +559,10 @@ async fn rocket() -> Rocket<Build> {
         // 附加数据库连接
         .attach(DbConn::fairing())
         // 添加数据库迁移 fairing
-        .attach(AdHoc::try_on_ignite(
-            "Database Migrations",
-            run_db_migrations,
-        ))
+        // .attach(AdHoc::try_on_ignite(
+        //     "Database Migrations",
+        //     run_db_migrations,
+        // ))
         .attach(AdminInit)
         // 挂载路由
         .mount("/", routes![index])

@@ -24,7 +24,7 @@ diesel::table! {
     inventory (id) {
         id -> Nullable<Integer>,
         product_id -> Integer,
-        warehouse_id -> Integer,
+        warehouse_id -> Text,
         quantity -> Integer,
         created_at -> Nullable<Timestamp>,
         updated_at -> Nullable<Timestamp>,
@@ -46,8 +46,8 @@ diesel::table! {
     warehouse_transfers (id) {
         id -> Nullable<Integer>,
         product_id -> Integer,
-        from_warehouse_id -> Integer,
-        to_warehouse_id -> Integer,
+        from_warehouse_id -> Text,
+        to_warehouse_id -> Text,
         quantity -> Integer,
         transfer_date -> Nullable<Timestamp>,
         created_at -> Nullable<Timestamp>,
@@ -57,7 +57,8 @@ diesel::table! {
 
 diesel::table! {
     warehouses (id) {
-        id -> Integer,
+        id -> Text,
+        localkey -> Text,
         name -> Text,
         location -> Text,
         created_at -> Nullable<Timestamp>,

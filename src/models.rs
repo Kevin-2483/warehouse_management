@@ -34,7 +34,7 @@ pub struct Category {
 pub struct Inventory {
     pub id: i32,
     pub product_id: i32,
-    pub warehouse_id: i32,
+    pub warehouse_id: String,
     pub quantity: i32,
     pub created_at: Option<NaiveDateTime>,
     pub updated_at: Option<NaiveDateTime>,
@@ -44,7 +44,8 @@ pub struct Inventory {
 
 #[diesel(table_name = warehouses)]
 pub struct Warehouse {
-    pub id: i32,
+    pub id: String,
+    pub localkey: String,
     pub name: String,
     pub location: String,
     pub created_at: Option<NaiveDateTime>,
@@ -58,8 +59,8 @@ pub struct Warehouse {
 pub struct WarehouseTransfer {
     pub id: i32,
     pub product_id: i32,
-    pub from_warehouse_id: i32,
-    pub to_warehouse_id: i32,
+    pub from_warehouse_id: String,
+    pub to_warehouse_id: String,
     pub quantity: i32,
     pub transfer_date: Option<NaiveDateTime>,
     pub created_at: Option<NaiveDateTime>,

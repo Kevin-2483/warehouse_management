@@ -22,7 +22,7 @@ CREATE TABLE categories (
 CREATE TABLE inventory (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     product_id INTEGER NOT NULL,
-    warehouse_id INTEGER NOT NULL,
+    warehouse_id VARCHAR(255) NOT NULL,
     quantity INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -32,7 +32,8 @@ CREATE TABLE inventory (
 
 -- 仓库表
 CREATE TABLE warehouses (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id Text PRIMARY KEY,
+    localkey Text NOT NULL,
     name TEXT NOT NULL,
     location TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -43,8 +44,8 @@ CREATE TABLE warehouses (
 CREATE TABLE warehouse_transfers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     product_id INTEGER NOT NULL,
-    from_warehouse_id INTEGER NOT NULL,
-    to_warehouse_id INTEGER NOT NULL,
+    from_warehouse_id VARCHAR(64) NOT NULL,
+    to_warehouse_id VARCHAR(64) NOT NULL,
     quantity INTEGER NOT NULL,
     transfer_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

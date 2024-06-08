@@ -1,0 +1,130 @@
+2024-06-09T02:19:52.991656684+08:00 - ERROR - Failed to get warehouse local key: Record not found
+2024-06-09T02:19:52.995262643+08:00 - INFO - Generated and inserted new key
+2024-06-09T02:19:52.995306769+08:00 - INFO - Local peer id: PeerId("12D3KooWNStXeMxZpCn2pUyDXryiB6d7QNnr92gz6NPGoCPEYyB5")
+2024-06-09T02:19:52.997495041+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
+2024-06-09T02:19:52.997554989+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
+2024-06-09T02:19:52.997607099+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node
+2024-06-09T02:19:52.997948941+08:00 - INFO - creating instance on iface 10.0.0.101
+2024-06-09T02:19:53.000014976+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000085335+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000272044+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000298709+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000425817+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000459534+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000582873+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000630435+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000737578+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000780009+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000887429+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.000919200+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001059588+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001087207+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001256447+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001283785+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001390034+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001414878+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001525702+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001543885+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001675094+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001721871+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001817825+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001843427+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001956108+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.001984519+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.002141974+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.002167385+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.002362680+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.002396146+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.002510045+08:00 - ERROR - database is locked
+2024-06-09T02:19:53.407245393+08:00 - INFO - 默认管理员已创建，用户名: admin, 密码: fy5mcldSu9pC
+2024-06-09T02:19:53.411121206+08:00 - INFO - 🔧 Configured for [4mdebug[0m.
+2024-06-09T02:19:53.411156038+08:00 - INFO - address: [1;39m127.0.0.1[0m
+2024-06-09T02:19:53.411175588+08:00 - INFO - port: [1;39m0[0m
+2024-06-09T02:19:53.411192271+08:00 - INFO - workers: [1;39m8[0m
+2024-06-09T02:19:53.411211255+08:00 - INFO - max blocking threads: [1;39m512[0m
+2024-06-09T02:19:53.411230260+08:00 - INFO - ident: [1;39mRocket[0m
+2024-06-09T02:19:53.411247903+08:00 - INFO - IP header: [1;39mX-Real-IP[0m
+2024-06-09T02:19:53.411265351+08:00 - INFO - limits: [1;39mbytes = 8KiB, data-form = 2MiB, file = 1MiB, form = 32KiB, json = 1MiB, msgpack = 1MiB, string = 8KiB[0m
+2024-06-09T02:19:53.411288416+08:00 - INFO - temp dir: [1;39m/tmp[0m
+2024-06-09T02:19:53.411304018+08:00 - INFO - http/2: [1;39mtrue[0m
+2024-06-09T02:19:53.411317892+08:00 - INFO - keep-alive: [1;39m5[0m[1;39ms[0m
+2024-06-09T02:19:53.411335629+08:00 - INFO - tls: [1;39mdisabled[0m
+2024-06-09T02:19:53.411355712+08:00 - INFO - shutdown: [1;39mctrlc = true, force = true, signals = [SIGTERM], grace = 2s, mercy = 3s[0m
+2024-06-09T02:19:53.411374820+08:00 - INFO - log level: [1;39mnormal[0m
+2024-06-09T02:19:53.411389148+08:00 - INFO - cli colors: [1;39mtrue[0m
+2024-06-09T02:19:53.411497470+08:00 - INFO - 📬 [35mRoutes[0m:
+2024-06-09T02:19:53.411568714+08:00 - INFO - [36m([0m[39mindex[0m[36m)[0m [32mGET[0m [34m/[0m
+2024-06-09T02:19:53.411601565+08:00 - INFO - [36m([0m[39mget_warehouses[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/warehouses[0m
+2024-06-09T02:19:53.411629939+08:00 - INFO - [36m([0m[39mcreate_warehouse[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/warehouses[0m [33mapplication/json[0m
+2024-06-09T02:19:53.411666880+08:00 - INFO - 📡 [35mFairings[0m:
+2024-06-09T02:19:53.411688375+08:00 - INFO - [1;39mShield[0m ([1;34mliftoff, response, singleton[0m)
+2024-06-09T02:19:53.411705310+08:00 - INFO - [1;39m'sqlite_db' Database Pool[0m ([1;34mignite[0m)
+2024-06-09T02:19:53.411732286+08:00 - INFO - [1;39mAdmin Initialization[0m ([1;34mignite[0m)
+2024-06-09T02:19:53.411907651+08:00 - INFO - 🛡️ [35mShield[0m:
+2024-06-09T02:19:53.411930887+08:00 - INFO - Permissions-Policy: [39minterest-cohort=()[0m
+2024-06-09T02:19:53.411949139+08:00 - INFO - X-Content-Type-Options: [39mnosniff[0m
+2024-06-09T02:19:53.411964783+08:00 - INFO - X-Frame-Options: [39mSAMEORIGIN[0m
+2024-06-09T02:19:53.412013603+08:00 - WARN - 🚀 [1;39mRocket has launched from [4mhttp://127.0.0.1:35907[0m
+2024-06-09T02:19:53.412090846+08:00 - WARN - Rocket is executing inside of a custom runtime.
+2024-06-09T02:19:53.412123694+08:00 - INFO - Rocket's runtime is enabled via `#[rocket::main]` or `#[launch]`.
+2024-06-09T02:19:53.412146423+08:00 - INFO - Forced shutdown is disabled. Runtime settings may be suboptimal.
+2024-06-09T02:20:59.864252581+08:00 - INFO - discovered: 12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH /ip4/10.0.0.101/tcp/12345
+2024-06-09T02:20:59.864347327+08:00 - INFO - discovered: 12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH /ip4/127.0.0.1/tcp/12345
+2024-06-09T02:20:59.864455017+08:00 - INFO - Discovered peer via mDNS: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH")
+2024-06-09T02:20:59.867623229+08:00 - INFO - Connected to peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH")
+2024-06-09T02:20:59.868264214+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:20:59.868621389+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 264.773µs }) }
+2024-06-09T02:21:14.868693736+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:21:14.869215340+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 385.968µs }) }
+2024-06-09T02:21:29.869215261+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:21:29.869673595+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 256.201µs }) }
+2024-06-09T02:21:44.869808872+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:21:44.870122566+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 286.665µs }) }
+2024-06-09T02:21:59.870165238+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:21:59.870827187+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 530.369µs }) }
+2024-06-09T02:22:14.870572625+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:22:14.871291551+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 270.343µs }) }
+2024-06-09T02:22:29.871385941+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:22:29.872110486+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 628.151µs }) }
+2024-06-09T02:22:44.871778362+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:22:44.874943628+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 1.432463ms }) }
+2024-06-09T02:22:59.872257258+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:22:59.875638621+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 384.25µs }) }
+2024-06-09T02:23:14.872705259+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:23:14.876127908+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 295.129µs }) }
+2024-06-09T02:23:29.873442670+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:23:29.877804983+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 1.622967ms }) }
+2024-06-09T02:23:44.873726880+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:23:44.878316315+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 346.446µs }) }
+2024-06-09T02:23:59.874420134+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:23:59.878781518+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 262.878µs }) }
+2024-06-09T02:24:14.874904835+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:24:14.879293625+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 289.544µs }) }
+2024-06-09T02:24:29.875239133+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:24:29.879828998+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 300.602µs }) }
+2024-06-09T02:24:44.875684958+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:24:44.880375608+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 359.665µs }) }
+2024-06-09T02:24:59.876258985+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:24:59.880819970+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 312.486µs }) }
+2024-06-09T02:25:14.876649368+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:25:14.881354146+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 343.788µs }) }
+2024-06-09T02:25:29.877342759+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:25:29.881952709+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 318.596µs }) }
+2024-06-09T02:25:44.877722178+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Pong) }
+2024-06-09T02:25:44.882407092+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH"), result: Ok(Ping { rtt: 309.7µs }) }
+2024-06-09T02:25:47.232069953+08:00 - INFO - Connection to peer PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH") closed with error: IO(Custom { kind: Other, error: A(YamuxError(Closed)) })
+2024-06-09T02:25:47.232190586+08:00 - INFO - expired: 12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH /ip4/10.0.0.101/tcp/12345
+2024-06-09T02:25:47.232243602+08:00 - INFO - expired: 12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH /ip4/127.0.0.1/tcp/12345
+2024-06-09T02:25:47.232285779+08:00 - INFO - Expired peer via mDNS: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH")
+2024-06-09T02:25:47.232351420+08:00 - INFO - Expired peer via mDNS: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH")
+2024-06-09T02:25:52.045244223+08:00 - INFO - discovered: 12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH /ip4/10.0.0.101/tcp/12345
+2024-06-09T02:25:52.045351565+08:00 - INFO - discovered: 12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH /ip4/127.0.0.1/tcp/12345
+2024-06-09T02:31:52.045303836+08:00 - INFO - expired: 12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH /ip4/10.0.0.101/tcp/12345
+2024-06-09T02:31:52.045384464+08:00 - INFO - expired: 12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH /ip4/127.0.0.1/tcp/12345
+2024-06-09T02:31:52.045439761+08:00 - INFO - Expired peer via mDNS: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH")
+2024-06-09T02:31:52.045482750+08:00 - INFO - Expired peer via mDNS: PeerId("12D3KooWCuk8tAgDNZEbNe3fRrxQquQNbiUEGHpNV2afoP51GpGH")
+2024-06-09T02:32:54.788034771+08:00 - WARN - Received shutdown signal, shutting down...
+2024-06-09T02:32:54.788139129+08:00 - WARN - Received SIGINT. Requesting shutdown.
+2024-06-09T02:32:54.788178341+08:00 - INFO - Waiting for tasks to finish...
+2024-06-09T02:32:54.788263351+08:00 - INFO - Shutdown requested. Waiting for pending I/O...
+2024-06-09T02:32:54.788387112+08:00 - INFO - Graceful shutdown completed successfully.
