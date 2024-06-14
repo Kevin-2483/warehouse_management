@@ -12,6 +12,7 @@ use rocket::figment::{
 use rocket::serde::json::Json;
 use rocket::{Build, Config, Rocket};
 use rocket_sync_db_pools::{database, diesel};
+use rocket::response::status;
 
 use crate::models::*;
 use crate::schema::*;
@@ -28,9 +29,12 @@ use std::result::Result as StdResult; // 为了避免名称冲突，使用别名
 
 use chrono::Local;
 use chrono::Utc;
+use chrono::NaiveDateTime;
 use serde::Deserialize;
+use serde::Serialize;
 use uuid::Uuid;
 
+use libp2p::floodsub::{self, Floodsub, FloodsubEvent, Topic};
 use libp2p::futures::StreamExt;
 use libp2p::identity::{self, ed25519, Keypair, PublicKey};
 use libp2p::kad::{record::store::MemoryStore, Kademlia, KademliaConfig, KademliaEvent};
@@ -46,9 +50,10 @@ use libp2p::swarm::{
 use libp2p::{development_transport, Multiaddr, NetworkBehaviour, PeerId};
 
 use tokio;
-use tokio::io::{self, AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
+use tokio::io::{self, AsyncBufReadExt, AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
 use tokio::signal;
 use tokio::task;
+use tokio_util::compat::{FuturesAsyncReadCompatExt, TokioAsyncReadCompatExt};
 // use libp2p::dns::DnsConfig;
 // use libp2p::tcp::GenTcpConfig;
 
@@ -62,6 +67,7 @@ use log4rs::encode::pattern::PatternEncoder;
 use log4rs::init_config;
 
 use base64::{engine::general_purpose, Engine as _};
+use futures::prelude::*;
 
 mod models;
 mod schema;
@@ -72,13 +78,15 @@ struct KMBehaviour {
     kademlia: Kademlia<MemoryStore>,
     mdns: Mdns,
     ping: Ping,
+    floodsub: Floodsub,
 }
 
-#[derive(Debug)]
+
 enum KMBehaviourEvent {
     Kademlia(KademliaEvent),
     Mdns(MdnsEvent),
     Ping(PingEvent),
+    Floodsub(FloodsubEvent),
 }
 
 impl From<KademliaEvent> for KMBehaviourEvent {
@@ -99,46 +107,73 @@ impl From<PingEvent> for KMBehaviourEvent {
     }
 }
 
-impl NetworkBehaviourEventProcess<KademliaEvent> for KMBehaviour {
-    fn inject_event(&mut self, event: KademliaEvent) {
-        // 处理 Kademlia 事件
-        match event {
-            KademliaEvent::RoutingUpdated { peer, .. } => {
-                info!("Kademlia RoutingUpdated: {:?}", peer);
-            }
-            KademliaEvent::UnroutablePeer { peer } => {
-                info!("Kademlia UnroutablePeer: {:?}", peer);
-            }
-            KademliaEvent::RoutablePeer { peer, .. } => {
-                info!("Kademlia RoutablePeer: {:?}", peer);
-            }
-            KademliaEvent::PendingRoutablePeer { peer, .. } => {
-                info!("Kademlia PendingRoutablePeer: {:?}", peer);
-            }
-            _ => {
-                info!("Unhandled Kademlia event: {:?}", event);
-            }
-        }
+impl From<FloodsubEvent> for KMBehaviourEvent {
+    fn from(event: FloodsubEvent) -> Self {
+        KMBehaviourEvent::Floodsub(event)
     }
 }
 
-impl NetworkBehaviourEventProcess<MdnsEvent> for KMBehaviour {
-    fn inject_event(&mut self, event: MdnsEvent) {
-        // 处理 mDNS 事件
-        match event {
-            MdnsEvent::Discovered(peers) => {
-                for (peer_id, _) in peers {
-                    info!("mDNS discovered: {:?}", peer_id);
-                }
-            }
-            MdnsEvent::Expired(peers) => {
-                for (peer_id, _) in peers {
-                    info!("mDNS expired: {:?}", peer_id);
-                }
-            }
-        }
-    }
-}
+// impl NetworkBehaviourEventProcess<KademliaEvent> for KMBehaviour {
+//     fn inject_event(&mut self, event: KademliaEvent) {
+//         // 处理 Kademlia 事件
+//         match event {
+//             KademliaEvent::RoutingUpdated { peer, .. } => {
+//                 info!("Kademlia RoutingUpdated: {:?}", peer);
+//             }
+//             KademliaEvent::UnroutablePeer { peer } => {
+//                 info!("Kademlia UnroutablePeer: {:?}", peer);
+//             }
+//             KademliaEvent::RoutablePeer { peer, .. } => {
+//                 info!("Kademlia RoutablePeer: {:?}", peer);
+//             }
+//             KademliaEvent::PendingRoutablePeer { peer, .. } => {
+//                 info!("Kademlia PendingRoutablePeer: {:?}", peer);
+//             }
+//             _ => {
+//                 info!("Unhandled Kademlia event: {:?}", event);
+//             }
+//         }
+//     }
+// }
+
+// impl NetworkBehaviourEventProcess<MdnsEvent> for KMBehaviour {
+//     fn inject_event(&mut self, event: MdnsEvent) {
+//         // 处理 mDNS 事件
+//         match event {
+//             MdnsEvent::Discovered(peers) => {
+//                 for (peer_id, _) in peers {
+//                     info!("mDNS discovered: {:?}", peer_id);
+//                 }
+//             }
+//             MdnsEvent::Expired(peers) => {
+//                 for (peer_id, _) in peers {
+//                     info!("mDNS expired: {:?}", peer_id);
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// impl NetworkBehaviourEventProcess<PingEvent> for KMBehaviour {
+//     fn inject_event(&mut self, event: PingEvent) {
+//         // 处理 Ping 事件
+//         info!("Ping event: {:?}", event);
+//     }
+// }
+
+// impl NetworkBehaviourEventProcess<FloodsubEvent> for KMBehaviour {
+//     fn inject_event(&mut self, event: FloodsubEvent) {
+//         // 处理 Floodsub 事件
+//         match event {
+//             FloodsubEvent::Message(message) => {
+//                 info!("Received: '{}' from {:?}", String::from_utf8_lossy(&message.data), message.source);
+//             }
+//             _ => {
+//                 info!("Unhandled Floodsub event: {:?}", event);
+//             }
+//         }
+//     }
+// }
 
 #[database("sqlite_db")]
 pub struct DbConn(SqliteConnection);
@@ -156,6 +191,30 @@ pub struct NewWarehouse {
     pub location: String,
 }
 
+
+#[derive(Insertable, Serialize, Deserialize)]
+#[diesel(table_name = categories)]
+pub struct NewCategory {
+    pub name: String,
+    pub description: Option<String>,
+}
+
+#[derive(Insertable, Serialize, Deserialize)]
+#[diesel(table_name = products)]
+pub struct NewProduct {
+    pub name: String,
+    pub description: Option<String>,
+    pub category_id: Option<i32>,
+}
+
+
+
+#[derive(Deserialize)]
+struct TimeRange {
+    start: NaiveDateTime,
+    end: NaiveDateTime,
+}
+
 #[get("/warehouses")]
 async fn get_warehouses(conn: DbConn) -> Json<Vec<Warehouse>> {
     conn.run(|c| {
@@ -166,6 +225,75 @@ async fn get_warehouses(conn: DbConn) -> Json<Vec<Warehouse>> {
             .expect("Error loading warehouses")
     })
     .await
+}
+
+#[post("/products", format = "application/json", data = "<new_product>")]
+async fn create_product (
+    conn: DbConn, 
+    new_product: Json<NewProduct>
+) -> Result<Json<NewProduct>, String> {
+    let db = conn;
+    let new_product = db
+    .run(move |c| {
+        use crate::schema::products::dsl::*;
+        let new_product = NewProduct {
+            name: new_product.name.clone(),
+            description: new_product.description.clone(),
+            category_id: new_product.category_id.clone(),
+        };
+
+        let existing_product = products
+            .filter(name.eq(&new_product.name))
+            .first::<Product>(c)
+            .optional()
+            .map_err(|_| "Error checking for existing product")?;
+
+            if let Some(_) = existing_product {
+                return Err("Product with this name already exists".to_string());
+            }
+
+        diesel::insert_into(products)
+        .values(&new_product)
+        .execute(c)
+        .map_err(|_| "Error inserting new Product")?;
+        Ok(Json(new_product))
+    })
+    .await?;
+    Ok(new_product)
+}
+
+#[post("/categories", format = "application/json", data = "<new_category>")]
+async fn create_category(
+    conn: DbConn, 
+    new_category: Json<NewCategory>
+) -> Result<Json<NewCategory>, String> {
+    let db = conn;
+    let new_category = db
+    .run(move |c| {
+        use crate::schema::categories::dsl::*;
+        let new_category = NewCategory {
+            name: new_category.name.clone(),
+            description: new_category.description.clone(),
+        };
+
+        let existing_category = categories
+            .filter(name.eq(&new_category.name))
+            .first::<Category>(c)
+            .optional()
+            .map_err(|_| "Error checking for existing warehouse")?;
+
+            if let Some(_) = existing_category {
+                return Err("Category with this name already exists".to_string());
+            }
+
+        diesel::insert_into(categories)
+        .values(&new_category)
+        .execute(c)
+        .map_err(|_| "Error inserting new Category")?;
+        Ok(Json(new_category))
+    })
+    .await?;
+    Ok(new_category)
 }
 
 #[post("/warehouses", format = "json", data = "<new_warehouse>")]
@@ -208,6 +336,41 @@ async fn create_warehouse(
         .await?;
     Ok(new_warehouse)
 }
+
+// #[get("/products?<start>&<end>&<category_id>")]
+// async fn get_products(
+//     conn: DbConn, 
+//     start: String, 
+//     end: String, 
+//     category_id: Option<i32>
+// ) -> Result<Json<Vec<Product>>, status::BadRequest<String>> {
+//     use crate::schema::products::dsl::*;
+    
+//     let start = match NaiveDateTime::parse_from_str(&start, "%Y-%m-%d %H:%M:%S") {
+//         Ok(s) => s,
+//         Err(_) => return Err(status::BadRequest(Some("Invalid start date format".into()))),
+//     };
+
+//     let end = match NaiveDateTime::parse_from_str(&end, "%Y-%m-%d %H:%M:%S") {
+//         Ok(e) => e,
+//         Err(_) => return Err(status::BadRequest(Some("Invalid end date format".into()))),
+//     };
+
+//     let mut query = products
+//         .filter(created_at.between(start, end).or(updated_at.between(start, end)))
+//         .into_boxed();
+
+//     if let Some(cat_id) = category_id {
+//         query = query.filter(category_id.eq(cat_id));
+//     }
+
+//     let results = query
+//         .load::<Product>(&mut conn)
+//         .map_err(|e| status::BadRequest(Some(format!("Error loading products: {}", e))))?;
+
+//     Ok(Json(results))
+// }
+
 
 struct AdminInit;
 
@@ -354,7 +517,7 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
 
     let local_peer_id = PeerId::from(PublicKey::Ed25519(local_key.public()));
     info!("Local peer id: {:?}", local_peer_id);
-
+    let floodsub = Floodsub::new(local_peer_id.clone());
     // 创建传输层
     let transport = development_transport(libp2p::identity::Keypair::Ed25519(local_key)).await?;
 
@@ -373,6 +536,7 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
         kademlia,
         mdns,
         ping,
+        floodsub,
     };
 
     // 构建Swarm
@@ -382,6 +546,7 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
         }))
         .build();
 
+    let topic = Topic::new("dev");
     // 获取环境变量中的 bootstrap_peer_id
     let bootstrap_peer_id_str = match env::var("BOOTSTRAP_PEER_ID") {
         Ok(val) => {
@@ -449,13 +614,12 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
         .unwrap_or_else(|_| listening_addr_str.to_string())
         .parse()
         .unwrap();
+    Swarm::behaviour_mut(&mut swarm)
+        .floodsub
+        .subscribe(topic.clone());
+    
+
     Swarm::listen_on(&mut swarm, listen_addr)?;
-    // 连接到其他节点
-    // let remote_peer_id = PeerId::from_public_key(&identity::PublicKey::Ed25519(identity::ed25519::PublicKey::decode(&[1u8; 32]).unwrap()));
-    // let remote_addr: Multiaddr = env::var("REMOTE_ADDR").unwrap_or_else(|_| "/ip4/127.0.0.1/tcp/8080".to_string()).parse().unwrap();
-    // Swarm::dial(&mut swarm, remote_addr.clone()).expect("Failed to dial address");
-    // swarm.behaviour_mut().kademlia.add_address(&remote_peer_id, remote_addr);
-    // 并发运行 Rocket 和 Swarm
 
     let rocket_handle = task::spawn(async {
         let rocket = rocket().await;
@@ -464,50 +628,73 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
 
     let swarm_handle = task::spawn(async move {
         let mut discovered_peers = HashSet::new();
+        let mut stdin = io::BufReader::new(io::stdin()).compat().lines();
         loop {
-            match swarm.next().await.unwrap() {
-                SwarmEvent::Behaviour(KMBehaviourEvent::Mdns(MdnsEvent::Discovered(peers))) => {
-                    for (peer_id, _) in peers {
-                        if discovered_peers.insert(peer_id.clone()) {
-                            info!("Discovered peer via mDNS: {:?}", peer_id);
-                            if let Err(e) = swarm.dial(peer_id.clone()) {
-                                info!("Failed to dial discovered peer: {:?}", e);
+            tokio::select! {
+                    line = stdin.next() => {
+                        match line {
+                            Some(Ok(line)) => {
+                                let _ = swarm.behaviour_mut().floodsub.publish(topic.clone(), line.as_bytes());
+                                info!("floodsub {:?} publish: {:?}", topic.clone(), line);
                             }
+                            Some(Err(e)) => {
+                                info!("Error reading from stdin: {:?}", e);
+                            }
+                            None => break, // EOF reached
                         }
                     }
-                }
-                SwarmEvent::Behaviour(KMBehaviourEvent::Mdns(MdnsEvent::Expired(peers))) => {
-                    for (peer_id, _) in peers {
-                        info!("Expired peer via mDNS: {:?}", peer_id);
-                    }
-                }
-                SwarmEvent::Behaviour(KMBehaviourEvent::Kademlia(
-                    KademliaEvent::RoutingUpdated { peer, .. },
-                )) => {
-                    if discovered_peers.insert(peer.clone()) {
-                        info!("Discovered peer via Kademlia: {:?}", peer);
-                        if let Err(e) = swarm.dial(peer) {
-                            info!("Failed to dial discovered peer: {:?}", e);
+                    event = swarm.next() => {
+                        match event {
+                            Some(event) => match event {
+                                SwarmEvent::Behaviour(KMBehaviourEvent::Mdns(MdnsEvent::Discovered(peers))) => {
+                                    for (peer_id, _) in peers {
+                                        if discovered_peers.insert(peer_id.clone()) {
+                                            info!("Discovered peer via mDNS: {:?}", peer_id);
+                                            if let Err(e) = swarm.dial(peer_id.clone()) {
+                                                info!("Failed to dial discovered peer: {:?}", e);
+                                            }
+                                        }
+                                    }
+                                }
+                                SwarmEvent::Behaviour(KMBehaviourEvent::Mdns(MdnsEvent::Expired(peers))) => {
+                                    for (peer_id, _) in peers {
+                                        info!("Expired peer via mDNS: {:?}", peer_id);
+                                    }
+                                }
+                                SwarmEvent::Behaviour(KMBehaviourEvent::Kademlia(
+                                    KademliaEvent::RoutingUpdated { peer, .. },
+                                )) => {
+                                    if discovered_peers.insert(peer.clone()) {
+                                        info!("Discovered peer via Kademlia: {:?}", peer);
+                                        if let Err(e) = swarm.dial(peer) {
+                                            info!("Failed to dial discovered peer: {:?}", e);
+                                        }
+                                    }
+                                }
+                                SwarmEvent::ConnectionEstablished { peer_id, .. } => {
+                                    info!("Connected to peer: {:?}", peer_id);
+                                }
+                                SwarmEvent::ConnectionClosed { peer_id, cause, .. } => {
+                                    if let Some(err) = cause {
+                                        info!(
+                                            "Connection to peer {:?} closed with error: {:?}",
+                                            peer_id, err
+                                        );
+                                    } else {
+                                        info!("Connection to peer {:?} closed.", peer_id);
+                                    }
+                                }
+                                SwarmEvent::Behaviour(KMBehaviourEvent::Ping(event)) => {
+                                    info!("Ping: {:?}", event);
+                                }
+                                SwarmEvent::Behaviour(KMBehaviourEvent::Floodsub(FloodsubEvent::Message(message))) => {
+                                    info!("Received: '{:?}' from {:?}", String::from_utf8_lossy(&message.data), message.source);
+                                }
+                                _ => { }
+                            },
+                            None => break, // Swarm event stream ended
                         }
                     }
-                }
-                SwarmEvent::ConnectionEstablished { peer_id, .. } => {
-                    info!("Connected to peer: {:?}", peer_id);
-                }
-                SwarmEvent::ConnectionClosed { peer_id, cause, .. } => {
-                    if let Some(err) = cause {
-                        info!(
-                            "Connection to peer {:?} closed with error: {:?}",
-                            peer_id, err
-                        );
-                    } else {
-                        info!("Connection to peer {:?} closed.", peer_id);
-                    }
-                }
-                SwarmEvent::Behaviour(KMBehaviourEvent::Ping(event)) => {
-                    info!("Ping: {:?}", event);
-                }
-                _ => {}
             }
         }
     });
@@ -558,15 +745,10 @@ async fn rocket() -> Rocket<Build> {
     let rocket = rocket::custom(figment)
         // 附加数据库连接
         .attach(DbConn::fairing())
-        // 添加数据库迁移 fairing
-        // .attach(AdHoc::try_on_ignite(
-        //     "Database Migrations",
-        //     run_db_migrations,
-        // ))
         .attach(AdminInit)
         // 挂载路由
         .mount("/", routes![index])
-        .mount("/api", routes![get_warehouses, create_warehouse]);
+        .mount("/api", routes![get_warehouses, create_warehouse, create_category, create_product]);
 
     rocket
 }

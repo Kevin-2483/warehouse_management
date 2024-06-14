@@ -11,18 +11,19 @@ use chrono::NaiveDateTime;
 #[diesel(table_name = products)]
 #[diesel(belongs_to(Category))]
 pub struct Product {
-    pub id: i32,
+    pub id: Option<i32>,
     pub name: String,
     pub description: Option<String>,
     pub category_id: Option<i32>,
+    pub deleted: Option<i32>,
     pub created_at: Option<NaiveDateTime>,
     pub updated_at: Option<NaiveDateTime>,
 }
 
-#[derive(Queryable, Identifiable, Serialize, Deserialize)]
+#[derive(Queryable, Identifiable, Serialize, Deserialize, Insertable)]
 #[diesel(table_name = categories)]
 pub struct Category {
-    pub id: i32,
+    pub id: Option<i32>,
     pub name: String,
     pub description: Option<String>,
 }

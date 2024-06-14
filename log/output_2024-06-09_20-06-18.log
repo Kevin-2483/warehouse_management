@@ -1,0 +1,58 @@
+2024-06-09T20:06:18.661349046+08:00 - INFO - Database migrations executed successfully
+2024-06-09T20:06:18.661553467+08:00 - INFO - Found warehouse: "o7qF4zfqNZC+pJyKkdyjT6jOJn6Zr7jD3FQp9JXfvw5b9/vB5DyZcYTnQ0XFCL0qWv6UZchbiqFxykyG4XMpwg=="
+2024-06-09T20:06:18.661782964+08:00 - INFO - Local peer id: PeerId("12D3KooWG1Nb1HFP5h4szmHwzCJHXeQiSjaBrUpSFTdmkWYGfXVs")
+2024-06-09T20:06:18.672619102+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
+2024-06-09T20:06:18.672740089+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
+2024-06-09T20:06:18.672771958+08:00 - INFO - Find LISTENING_ADDR "/ip4/0.0.0.0/tcp/12333"
+2024-06-09T20:06:18.672844037+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node
+2024-06-09T20:06:18.673331397+08:00 - INFO - creating instance on iface 10.0.0.101
+2024-06-09T20:06:18.682044314+08:00 - INFO - 🔧 Configured for [4mdebug[0m.
+2024-06-09T20:06:18.682090610+08:00 - INFO - address: [1;39m127.0.0.1[0m
+2024-06-09T20:06:18.682109938+08:00 - INFO - port: [1;39m0[0m
+2024-06-09T20:06:18.682127008+08:00 - INFO - workers: [1;39m8[0m
+2024-06-09T20:06:18.682143854+08:00 - INFO - max blocking threads: [1;39m512[0m
+2024-06-09T20:06:18.682161450+08:00 - INFO - ident: [1;39mRocket[0m
+2024-06-09T20:06:18.682179371+08:00 - INFO - IP header: [1;39mX-Real-IP[0m
+2024-06-09T20:06:18.682201010+08:00 - INFO - limits: [1;39mbytes = 8KiB, data-form = 2MiB, file = 1MiB, form = 32KiB, json = 1MiB, msgpack = 1MiB, string = 8KiB[0m
+2024-06-09T20:06:18.682231458+08:00 - INFO - temp dir: [1;39m/tmp[0m
+2024-06-09T20:06:18.682268992+08:00 - INFO - http/2: [1;39mtrue[0m
+2024-06-09T20:06:18.682300750+08:00 - INFO - keep-alive: [1;39m5[0m[1;39ms[0m
+2024-06-09T20:06:18.682318149+08:00 - INFO - tls: [1;39mdisabled[0m
+2024-06-09T20:06:18.682345135+08:00 - INFO - shutdown: [1;39mctrlc = true, force = true, signals = [SIGTERM], grace = 2s, mercy = 3s[0m
+2024-06-09T20:06:18.682376911+08:00 - INFO - log level: [1;39mnormal[0m
+2024-06-09T20:06:18.682400766+08:00 - INFO - cli colors: [1;39mtrue[0m
+2024-06-09T20:06:18.682552650+08:00 - INFO - 📬 [35mRoutes[0m:
+2024-06-09T20:06:18.682659257+08:00 - INFO - [36m([0m[39mindex[0m[36m)[0m [32mGET[0m [34m/[0m
+2024-06-09T20:06:18.682705141+08:00 - INFO - [36m([0m[39mget_warehouses[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/warehouses[0m
+2024-06-09T20:06:18.682751826+08:00 - INFO - [36m([0m[39mcreate_warehouse[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/warehouses[0m [33mapplication/json[0m
+2024-06-09T20:06:18.682820788+08:00 - INFO - 📡 [35mFairings[0m:
+2024-06-09T20:06:18.682860737+08:00 - INFO - [1;39m'sqlite_db' Database Pool[0m ([1;34mignite[0m)
+2024-06-09T20:06:18.682881292+08:00 - INFO - [1;39mAdmin Initialization[0m ([1;34mignite[0m)
+2024-06-09T20:06:18.682907804+08:00 - INFO - [1;39mShield[0m ([1;34mliftoff, response, singleton[0m)
+2024-06-09T20:06:18.683100877+08:00 - INFO - 🛡️ [35mShield[0m:
+2024-06-09T20:06:18.683135717+08:00 - INFO - X-Content-Type-Options: [39mnosniff[0m
+2024-06-09T20:06:18.683161623+08:00 - INFO - X-Frame-Options: [39mSAMEORIGIN[0m
+2024-06-09T20:06:18.683180350+08:00 - INFO - Permissions-Policy: [39minterest-cohort=()[0m
+2024-06-09T20:06:18.683210643+08:00 - WARN - 🚀 [1;39mRocket has launched from [4mhttp://127.0.0.1:40393[0m
+2024-06-09T20:06:18.683312522+08:00 - WARN - Rocket is executing inside of a custom runtime.
+2024-06-09T20:06:18.683348082+08:00 - INFO - Rocket's runtime is enabled via `#[rocket::main]` or `#[launch]`.
+2024-06-09T20:06:18.683366168+08:00 - INFO - Forced shutdown is disabled. Runtime settings may be suboptimal.
+2024-06-09T20:06:52.431275940+08:00 - INFO - discovered: 12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R /ip4/10.0.0.101/tcp/12345
+2024-06-09T20:06:52.431365905+08:00 - INFO - discovered: 12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R /ip4/127.0.0.1/tcp/12345
+2024-06-09T20:06:52.431438566+08:00 - INFO - Discovered peer via mDNS: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R")
+2024-06-09T20:06:52.434257603+08:00 - INFO - Connected to peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R")
+2024-06-09T20:06:52.434737868+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:06:52.435167335+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 241.162µs }) }
+2024-06-09T20:07:07.435574271+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:07:07.435692973+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 311.956µs }) }
+2024-06-09T20:07:22.436072893+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:07:22.436218815+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 291.556µs }) }
+2024-06-09T20:07:37.437114939+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:07:37.437404802+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 625.025µs }) }
+2024-06-09T20:07:52.437580892+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:07:52.437721028+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 175.551µs }) }
+2024-06-09T20:07:57.677045607+08:00 - WARN - Received shutdown signal, shutting down...
+2024-06-09T20:07:57.677143881+08:00 - WARN - Received SIGINT. Requesting shutdown.
+2024-06-09T20:07:57.677198882+08:00 - INFO - Waiting for tasks to finish...
+2024-06-09T20:07:57.677241950+08:00 - INFO - Shutdown requested. Waiting for pending I/O...
+2024-06-09T20:07:57.677332367+08:00 - INFO - Graceful shutdown completed successfully.

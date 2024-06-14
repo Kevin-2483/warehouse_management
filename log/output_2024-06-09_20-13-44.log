@@ -1,0 +1,191 @@
+2024-06-09T20:13:44.701832773+08:00 - INFO - Database migrations executed successfully
+2024-06-09T20:13:44.702051618+08:00 - INFO - Found warehouse: "o7qF4zfqNZC+pJyKkdyjT6jOJn6Zr7jD3FQp9JXfvw5b9/vB5DyZcYTnQ0XFCL0qWv6UZchbiqFxykyG4XMpwg=="
+2024-06-09T20:13:44.702280141+08:00 - INFO - Local peer id: PeerId("12D3KooWG1Nb1HFP5h4szmHwzCJHXeQiSjaBrUpSFTdmkWYGfXVs")
+2024-06-09T20:13:44.713493948+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
+2024-06-09T20:13:44.713603084+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
+2024-06-09T20:13:44.713625473+08:00 - INFO - Find LISTENING_ADDR "/ip4/0.0.0.0/tcp/12333"
+2024-06-09T20:13:44.713683573+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node
+2024-06-09T20:13:44.714167489+08:00 - INFO - creating instance on iface 10.0.0.101
+2024-06-09T20:13:44.725798498+08:00 - INFO - 🔧 Configured for [4mdebug[0m.
+2024-06-09T20:13:44.725870604+08:00 - INFO - address: [1;39m127.0.0.1[0m
+2024-06-09T20:13:44.725901316+08:00 - INFO - port: [1;39m0[0m
+2024-06-09T20:13:44.725935352+08:00 - INFO - workers: [1;39m8[0m
+2024-06-09T20:13:44.725959839+08:00 - INFO - max blocking threads: [1;39m512[0m
+2024-06-09T20:13:44.726009863+08:00 - INFO - ident: [1;39mRocket[0m
+2024-06-09T20:13:44.726042198+08:00 - INFO - IP header: [1;39mX-Real-IP[0m
+2024-06-09T20:13:44.726065908+08:00 - INFO - limits: [1;39mbytes = 8KiB, data-form = 2MiB, file = 1MiB, form = 32KiB, json = 1MiB, msgpack = 1MiB, string = 8KiB[0m
+2024-06-09T20:13:44.726096758+08:00 - INFO - temp dir: [1;39m/tmp[0m
+2024-06-09T20:13:44.726127380+08:00 - INFO - http/2: [1;39mtrue[0m
+2024-06-09T20:13:44.726148550+08:00 - INFO - keep-alive: [1;39m5[0m[1;39ms[0m
+2024-06-09T20:13:44.726172488+08:00 - INFO - tls: [1;39mdisabled[0m
+2024-06-09T20:13:44.726203272+08:00 - INFO - shutdown: [1;39mctrlc = true, force = true, signals = [SIGTERM], grace = 2s, mercy = 3s[0m
+2024-06-09T20:13:44.726233667+08:00 - INFO - log level: [1;39mnormal[0m
+2024-06-09T20:13:44.726251339+08:00 - INFO - cli colors: [1;39mtrue[0m
+2024-06-09T20:13:44.726412991+08:00 - INFO - 📬 [35mRoutes[0m:
+2024-06-09T20:13:44.726502608+08:00 - INFO - [36m([0m[39mindex[0m[36m)[0m [32mGET[0m [34m/[0m
+2024-06-09T20:13:44.726547677+08:00 - INFO - [36m([0m[39mget_warehouses[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/warehouses[0m
+2024-06-09T20:13:44.726593045+08:00 - INFO - [36m([0m[39mcreate_warehouse[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/warehouses[0m [33mapplication/json[0m
+2024-06-09T20:13:44.726661218+08:00 - INFO - 📡 [35mFairings[0m:
+2024-06-09T20:13:44.726701990+08:00 - INFO - [1;39mShield[0m ([1;34mliftoff, response, singleton[0m)
+2024-06-09T20:13:44.726734490+08:00 - INFO - [1;39m'sqlite_db' Database Pool[0m ([1;34mignite[0m)
+2024-06-09T20:13:44.726762078+08:00 - INFO - [1;39mAdmin Initialization[0m ([1;34mignite[0m)
+2024-06-09T20:13:44.727016800+08:00 - INFO - 🛡️ [35mShield[0m:
+2024-06-09T20:13:44.727059573+08:00 - INFO - Permissions-Policy: [39minterest-cohort=()[0m
+2024-06-09T20:13:44.727085057+08:00 - INFO - X-Content-Type-Options: [39mnosniff[0m
+2024-06-09T20:13:44.727113033+08:00 - INFO - X-Frame-Options: [39mSAMEORIGIN[0m
+2024-06-09T20:13:44.727150866+08:00 - WARN - 🚀 [1;39mRocket has launched from [4mhttp://127.0.0.1:45243[0m
+2024-06-09T20:13:44.727281488+08:00 - WARN - Rocket is executing inside of a custom runtime.
+2024-06-09T20:13:44.727317828+08:00 - INFO - Rocket's runtime is enabled via `#[rocket::main]` or `#[launch]`.
+2024-06-09T20:13:44.727337168+08:00 - INFO - Forced shutdown is disabled. Runtime settings may be suboptimal.
+2024-06-09T20:13:58.739085593+08:00 - INFO - Connected to peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R")
+2024-06-09T20:13:58.739729806+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:13:58.740181457+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 230.79µs }) }
+2024-06-09T20:14:13.439199372+08:00 - INFO - discovered: 12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R /ip4/10.0.0.101/tcp/12345
+2024-06-09T20:14:13.439294003+08:00 - INFO - discovered: 12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R /ip4/127.0.0.1/tcp/12345
+2024-06-09T20:14:13.439358918+08:00 - INFO - Discovered peer via mDNS: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R")
+2024-06-09T20:14:13.439420955+08:00 - INFO - Failed to dial discovered peer: DialPeerConditionFalse(Disconnected)
+2024-06-09T20:14:13.740236041+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:14:13.740531637+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 202.323µs }) }
+2024-06-09T20:14:28.741304068+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:14:28.741444269+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 601.653µs }) }
+2024-06-09T20:14:40.719810092+08:00 - INFO - floodsub publish: "111111111111111"
+2024-06-09T20:14:41.685879244+08:00 - INFO - floodsub publish: "111111"
+2024-06-09T20:14:42.696133660+08:00 - INFO - floodsub publish: "11111111111"
+2024-06-09T20:14:43.508428305+08:00 - INFO - floodsub publish: "11111"
+2024-06-09T20:14:43.741987663+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:14:43.742143088+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 339.981µs }) }
+2024-06-09T20:14:45.000333573+08:00 - INFO - floodsub publish: "11111"
+2024-06-09T20:14:58.742645307+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:14:58.742768851+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 366.18µs }) }
+2024-06-09T20:15:13.743028246+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:15:13.743196560+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 274.059µs }) }
+2024-06-09T20:15:28.743627342+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:15:28.743731038+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 318.546µs }) }
+2024-06-09T20:15:43.743887993+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:15:43.744150757+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 275.922µs }) }
+2024-06-09T20:15:58.744599834+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:15:58.744733948+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 291.825µs }) }
+2024-06-09T20:16:13.745108429+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:16:13.745260833+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 295.424µs }) }
+2024-06-09T20:16:28.745705332+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:16:28.745845049+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 377.359µs }) }
+2024-06-09T20:16:43.746046454+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:16:43.746317958+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 250.824µs }) }
+2024-06-09T20:16:58.746819130+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:16:58.746928917+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 292.299µs }) }
+2024-06-09T20:17:13.747204731+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:17:13.747336852+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 366.978µs }) }
+2024-06-09T20:17:28.747826504+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:17:28.747934236+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 343.767µs }) }
+2024-06-09T20:17:43.748260216+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:17:43.748382138+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 278.411µs }) }
+2024-06-09T20:17:58.748993591+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:17:58.749132568+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 413.548µs }) }
+2024-06-09T20:18:13.749312865+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:18:13.749468871+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 224.644µs }) }
+2024-06-09T20:18:28.750088661+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:18:28.750215700+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 369.01µs }) }
+2024-06-09T20:18:43.750460311+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:18:43.750603155+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 259.726µs }) }
+2024-06-09T20:18:58.751429818+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:18:58.751628023+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 531.802µs }) }
+2024-06-09T20:19:13.751670245+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:19:13.751886540+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 254.77µs }) }
+2024-06-09T20:19:28.752447212+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:19:28.752567037+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 324.686µs }) }
+2024-06-09T20:19:43.752834547+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:19:43.752988360+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 262.451µs }) }
+2024-06-09T20:19:58.753576892+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:19:58.753717437+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 365.757µs }) }
+2024-06-09T20:20:13.753960169+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:20:13.754076015+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 309.197µs }) }
+2024-06-09T20:20:28.754663231+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:20:28.754806894+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 291.188µs }) }
+2024-06-09T20:20:43.755175361+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:20:43.755323419+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 367.673µs }) }
+2024-06-09T20:20:58.755752318+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:20:58.755893123+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 308.628µs }) }
+2024-06-09T20:21:13.756063808+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:21:13.756172506+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 251.807µs }) }
+2024-06-09T20:21:28.756602698+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:21:28.756772905+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 434.493µs }) }
+2024-06-09T20:21:43.757088415+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:21:43.757210145+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 279.601µs }) }
+2024-06-09T20:21:58.757940136+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:21:58.758125175+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 424.362µs }) }
+2024-06-09T20:22:13.758308250+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:22:13.758464210+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 351.418µs }) }
+2024-06-09T20:22:28.759145248+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:22:28.759320936+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 400.539µs }) }
+2024-06-09T20:22:43.759469591+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:22:43.759595672+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 274.741µs }) }
+2024-06-09T20:22:58.760300689+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:22:58.760465683+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 572.945µs }) }
+2024-06-09T20:23:13.760560441+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:23:13.760853494+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 269.292µs }) }
+2024-06-09T20:23:28.761481490+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:23:28.761638398+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 376.324µs }) }
+2024-06-09T20:23:43.761786396+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:23:43.761932849+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 247.503µs }) }
+2024-06-09T20:23:58.762427130+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:23:58.762564898+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 374.835µs }) }
+2024-06-09T20:24:13.762898036+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:24:13.763034472+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 273.731µs }) }
+2024-06-09T20:24:28.763566017+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:24:28.763689688+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 399.792µs }) }
+2024-06-09T20:24:43.764060114+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:24:43.764224056+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 209.447µs }) }
+2024-06-09T20:24:58.765381161+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:24:58.765532331+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 650.072µs }) }
+2024-06-09T20:25:13.765721475+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:25:13.765988516+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 257.452µs }) }
+2024-06-09T20:25:28.766519791+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:25:28.766676733+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 343.327µs }) }
+2024-06-09T20:25:43.767013700+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:25:43.767254640+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 435.726µs }) }
+2024-06-09T20:25:58.768238610+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:25:58.768440047+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 637.018µs }) }
+2024-06-09T20:26:13.768540914+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:26:13.768845675+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 223.723µs }) }
+2024-06-09T20:26:28.769862805+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:26:28.770040916+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 582.406µs }) }
+2024-06-09T20:26:43.770127554+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:26:43.770402773+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 210.415µs }) }
+2024-06-09T20:26:58.770550686+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:26:58.770763478+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 256.367µs }) }
+2024-06-09T20:27:13.771095007+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:27:13.771214792+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 255.697µs }) }
+2024-06-09T20:27:28.771422486+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:27:28.771728246+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 247.427µs }) }
+2024-06-09T20:27:43.771876292+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:27:43.772311109+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 270.078µs }) }
+2024-06-09T20:27:58.772325915+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:27:58.772555274+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 241.11µs }) }
+2024-06-09T20:28:13.772759159+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:28:13.773024954+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 273.845µs }) }
+2024-06-09T20:28:28.773258653+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:28:28.773457109+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 254.505µs }) }
+2024-06-09T20:28:43.773689013+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:28:43.774000690+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 254.476µs }) }
+2024-06-09T20:28:58.775060673+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:28:58.775230403+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 524.057µs }) }
+2024-06-09T20:29:13.775468765+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:29:13.775574104+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 274.89µs }) }
+2024-06-09T20:29:28.776824740+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:29:28.777028547+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 615.751µs }) }
+2024-06-09T20:29:43.777290588+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:29:43.777522240+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 305.399µs }) }
+2024-06-09T20:29:58.778252485+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:29:58.778412552+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 493.755µs }) }
+2024-06-09T20:30:13.778452271+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:30:13.778711419+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 236.96µs }) }
+2024-06-09T20:30:28.779320648+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:30:28.779455148+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 350.114µs }) }
+2024-06-09T20:30:43.779644735+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Pong) }
+2024-06-09T20:30:43.779742316+08:00 - INFO - Ping: Event { peer: PeerId("12D3KooWJ3PBp8zeqL4AgVFGoNw8xMsvKJR1mzJxsQJ88CXjdo8R"), result: Ok(Ping { rtt: 296.825µs }) }
+2024-06-09T20:30:49.289605345+08:00 - INFO - floodsub publish: "1111"
+2024-06-09T20:30:51.160338434+08:00 - WARN - Received shutdown signal, shutting down...
+2024-06-09T20:30:51.160463256+08:00 - WARN - Received SIGINT. Requesting shutdown.
+2024-06-09T20:30:51.160489241+08:00 - INFO - Waiting for tasks to finish...
+2024-06-09T20:30:51.160595124+08:00 - INFO - Shutdown requested. Waiting for pending I/O...
+2024-06-09T20:30:51.160697612+08:00 - INFO - Graceful shutdown completed successfully.

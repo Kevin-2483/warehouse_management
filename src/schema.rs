@@ -4,7 +4,7 @@
 
 diesel::table! {
     administrators (id) {
-        id -> Nullable<Integer>,
+        id -> Integer,
         username -> Text,
         password -> Text,
         created_at -> Nullable<Timestamp>,
@@ -22,7 +22,7 @@ diesel::table! {
 
 diesel::table! {
     inventory (id) {
-        id -> Nullable<Integer>,
+        id -> Integer,
         product_id -> Integer,
         warehouse_id -> Text,
         quantity -> Integer,
@@ -37,6 +37,7 @@ diesel::table! {
         name -> Text,
         description -> Nullable<Text>,
         category_id -> Nullable<Integer>,
+        deleted -> Nullable<Integer>,
         created_at -> Nullable<Timestamp>,
         updated_at -> Nullable<Timestamp>,
     }
@@ -44,7 +45,7 @@ diesel::table! {
 
 diesel::table! {
     warehouse_transfers (id) {
-        id -> Nullable<Integer>,
+        id -> Integer,
         product_id -> Integer,
         from_warehouse_id -> Text,
         to_warehouse_id -> Text,

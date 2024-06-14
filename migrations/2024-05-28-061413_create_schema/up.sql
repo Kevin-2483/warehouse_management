@@ -6,6 +6,7 @@ CREATE TABLE products (
     name TEXT NOT NULL,
     description TEXT,
     category_id INTEGER,
+    deleted INTEGER DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id)
