@@ -3,16 +3,20 @@ extern crate rocket;
 
 extern crate base64;
 
-use rocket::fairing::AdHoc;
+// use rocket::fairing::AdHoc;
 use rocket::fairing::{Fairing, Info, Kind};
 use rocket::figment::{
     providers::{Env, Serialized},
     Figment,
 };
+use rocket::http::Status;
+use rocket::request::{FromRequest, Outcome};
+// use rocket::request;
+// use rocket::response::status;
 use rocket::serde::json::Json;
+use rocket::Request;
 use rocket::{Build, Config, Rocket};
 use rocket_sync_db_pools::{database, diesel};
-use rocket::response::status;
 
 use crate::models::*;
 use crate::schema::*;
@@ -23,42 +27,52 @@ use rand::distributions::Alphanumeric;
 use rand::Rng;
 use std::collections::HashMap;
 use std::collections::HashSet;
-use std::env;
 use std::error::Error;
+// use std::io::Cursor;
 use std::result::Result as StdResult; // 为了避免名称冲突，使用别名
+// use std::time::Duration;
+use std::time::{SystemTime, UNIX_EPOCH};
+use std::env;
+// use std::clone;
 
 use chrono::Local;
 use chrono::Utc;
-use chrono::NaiveDateTime;
+// use chrono::NaiveDateTime;
 use serde::Deserialize;
 use serde::Serialize;
-use uuid::Uuid;
+// use uuid::Uuid;
 
-use libp2p::floodsub::{self, Floodsub, FloodsubEvent, Topic};
+use libp2p::floodsub::{Floodsub, FloodsubEvent, Topic};
+// use libp2p::floodsub;
 use libp2p::futures::StreamExt;
 use libp2p::identity::{self, ed25519, Keypair, PublicKey};
 use libp2p::kad::{record::store::MemoryStore, Kademlia, KademliaConfig, KademliaEvent};
 use libp2p::mdns::{Mdns, MdnsConfig, MdnsEvent};
 use libp2p::ping::{Ping, PingConfig, PingEvent};
-use libp2p::request_response::{
-    ProtocolName, RequestResponse, RequestResponseCodec, RequestResponseEvent,
-    RequestResponseMessage,
-};
-use libp2p::swarm::{
-    NetworkBehaviour, NetworkBehaviourEventProcess, Swarm, SwarmBuilder, SwarmEvent,
-};
+// use libp2p::request_response::{
+//     ProtocolName, RequestResponse, RequestResponseCodec, RequestResponseEvent,
+//     RequestResponseMessage,
+// };
+use libp2p::swarm::{ Swarm, SwarmBuilder, SwarmEvent };
+
+// use libp2p::swarm::{
+//     NetworkBehaviour, NetworkBehaviourEventProcess
+// };
 use libp2p::{development_transport, Multiaddr, NetworkBehaviour, PeerId};
 
 use tokio;
-use tokio::io::{self, AsyncBufReadExt, AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
+// use tokio::io::{ AsyncBufReadExt, AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
+use tokio::io;
 use tokio::signal;
 use tokio::task;
-use tokio_util::compat::{FuturesAsyncReadCompatExt, TokioAsyncReadCompatExt};
+use tokio_util::compat::TokioAsyncReadCompatExt;
+// use tokio_util::compat::FuturesAsyncReadCompatExt;
 // use libp2p::dns::DnsConfig;
 // use libp2p::tcp::GenTcpConfig;
 
 use log::LevelFilter;
-use log::{debug, error, info, warn};
+use log::{error, info, warn};
+// use log::debug;
 use log4rs::append::console::ConsoleAppender;
 use log4rs::append::file::FileAppender;
 use log4rs::config::Config as LogConfig;
@@ -69,8 +83,38 @@ use log4rs::init_config;
 use base64::{engine::general_purpose, Engine as _};
 use futures::prelude::*;
 
+use jsonwebtoken::{decode, encode, DecodingKey, EncodingKey, Header, Validation};
+
 mod models;
 mod schema;
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Claims {
+    sub: String,
+    exp: usize,
+}
+
+#[derive(FromForm)]
+struct LoginCredentials {
+    username: String,
+    password: String,
+}
+
+impl Claims {
+    fn new(username: &str) -> Self {
+        let now = SystemTime::now();
+        let exp = now
+            .duration_since(UNIX_EPOCH)
+            .expect("Time went backwards")
+            .as_secs()
+            + 1800; // Token expires in 30 minutes
+
+        Self {
+            sub: username.to_owned(),
+            exp: exp as usize,
+        }
+    }
+}
 
 #[derive(NetworkBehaviour)]
 #[behaviour(out_event = "KMBehaviourEvent")]
@@ -80,7 +124,6 @@ struct KMBehaviour {
     ping: Ping,
     floodsub: Floodsub,
 }
-
 
 enum KMBehaviourEvent {
     Kademlia(KademliaEvent),
@@ -110,6 +153,51 @@ impl From<PingEvent> for KMBehaviourEvent {
 impl From<FloodsubEvent> for KMBehaviourEvent {
     fn from(event: FloodsubEvent) -> Self {
         KMBehaviourEvent::Floodsub(event)
+    }
+}
+
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for JwtToken {
+    type Error = ();
+
+    async fn from_request(request: &'r Request<'_>) -> rocket::request::Outcome<Self, Self::Error> {
+        if let Some(auth) = request.headers().get_one("Authorization") {
+            let parts: Vec<&str> = auth.split_whitespace().collect();
+            if parts.len() == 2 && parts[0] == "Bearer" {
+                match decode_token(parts[1]) {
+                    Some(username) => Outcome::Success(JwtToken(username)),
+                    None => Outcome::Error((rocket::http::Status::Unauthorized, ())),
+                }
+            } else {
+                Outcome::Error((rocket::http::Status::Unauthorized, ()))
+            }
+        } else {
+            Outcome::Error((rocket::http::Status::Unauthorized, ()))
+        }
+    }
+}
+
+// 生成 JWT
+fn generate_token(username: &str) -> String {
+    let claims = Claims::new(username);
+    encode(
+        &Header::default(),
+        &claims,
+        &EncodingKey::from_secret("your_secret_key".as_ref()), // 替换为你的密钥
+    )
+    .unwrap()
+}
+
+// 解码 JWT
+fn decode_token(token: &str) -> Option<String> {
+    let token_data = decode::<Claims>(
+        token,
+        &DecodingKey::from_secret("your_secret_key".as_ref()), // 替换为你的密钥
+        &Validation::default(),
+    );
+    match token_data {
+        Ok(token) => Some(token.claims.sub),
+        Err(_) => None,
     }
 }
 
@@ -191,7 +279,6 @@ pub struct NewWarehouse {
     pub location: String,
 }
 
-
 #[derive(Insertable, Serialize, Deserialize)]
 #[diesel(table_name = categories)]
 pub struct NewCategory {
@@ -207,92 +294,116 @@ pub struct NewProduct {
     pub category_id: Option<i32>,
 }
 
-
-
-#[derive(Deserialize)]
-struct TimeRange {
-    start: NaiveDateTime,
-    end: NaiveDateTime,
-}
-
 #[get("/warehouses")]
-async fn get_warehouses(conn: DbConn) -> Json<Vec<Warehouse>> {
-    conn.run(|c| {
+async fn get_warehouses(conn: DbConn, token: JwtToken) -> Result<Json<Vec<Warehouse>>, String> {
+    use schema::administrators::dsl::*;
+    conn.run(move |c| {
+        let admin = administrators
+            .filter(username.eq(token.0.clone()))
+            .first::<Administrator>(c)
+            .optional()
+            .map_err(|_| "Error checking for Admin".to_string())?;
+        if admin.is_none() {
+            return Err("Unauthorized".to_string());
+        }
         use schema::warehouses::dsl::*;
-        warehouses
+        Ok(warehouses
             .load::<Warehouse>(c)
             .map(Json)
-            .expect("Error loading warehouses")
+            .expect("Error loading warehouses"))
     })
     .await
 }
 
 #[post("/products", format = "application/json", data = "<new_product>")]
-async fn create_product (
-    conn: DbConn, 
-    new_product: Json<NewProduct>
+async fn create_product(
+    conn: DbConn,
+    new_product: Json<NewProduct>,
+    token: JwtToken,
 ) -> Result<Json<NewProduct>, String> {
     let db = conn;
+    use schema::administrators::dsl::*;
     let new_product = db
-    .run(move |c| {
-        use crate::schema::products::dsl::*;
-        let new_product = NewProduct {
-            name: new_product.name.clone(),
-            description: new_product.description.clone(),
-            category_id: new_product.category_id.clone(),
-        };
+        .run(move |c| {
+            let admin = administrators
+                .filter(username.eq(token.0.clone()))
+                .first::<Administrator>(c)
+                .optional()
+                .map_err(|_| "Error checking for Admin".to_string())?;
 
-        let existing_product = products
-            .filter(name.eq(&new_product.name))
-            .first::<Product>(c)
-            .optional()
-            .map_err(|_| "Error checking for existing product")?;
+            if admin.is_none() {
+                return Err("Unauthorized".to_string());
+            }
+
+            use crate::schema::products::dsl::*;
+            let new_product = NewProduct {
+                name: new_product.name.clone(),
+                description: new_product.description.clone(),
+                category_id: new_product.category_id.clone(),
+            };
+
+            let existing_product = products
+                .filter(name.eq(&new_product.name))
+                .first::<Product>(c)
+                .optional()
+                .map_err(|_| "Error checking for existing product")?;
 
             if let Some(_) = existing_product {
                 return Err("Product with this name already exists".to_string());
             }
 
-        diesel::insert_into(products)
-        .values(&new_product)
-        .execute(c)
-        .map_err(|_| "Error inserting new Product")?;
-        Ok(Json(new_product))
-    })
-    .await?;
+            diesel::insert_into(products)
+                .values(&new_product)
+                .execute(c)
+                .map_err(|_| "Error inserting new Product")?;
+            Ok(Json(new_product))
+        })
+        .await?;
     Ok(new_product)
 }
 
 #[post("/categories", format = "application/json", data = "<new_category>")]
 async fn create_category(
-    conn: DbConn, 
-    new_category: Json<NewCategory>
+    conn: DbConn,
+    new_category: Json<NewCategory>,
+    token: JwtToken,
 ) -> Result<Json<NewCategory>, String> {
     let db = conn;
+    use schema::administrators::dsl::*;
     let new_category = db
-    .run(move |c| {
-        use crate::schema::categories::dsl::*;
-        let new_category = NewCategory {
-            name: new_category.name.clone(),
-            description: new_category.description.clone(),
-        };
+        .run(move |c| {
+            let admin = administrators
+                .filter(username.eq(token.0.clone()))
+                .first::<Administrator>(c)
+                .optional()
+                .map_err(|_| "Error checking for Admin".to_string())?;
 
-        let existing_category = categories
-            .filter(name.eq(&new_category.name))
-            .first::<Category>(c)
-            .optional()
-            .map_err(|_| "Error checking for existing warehouse")?;
+            if admin.is_none() {
+                return Err("Unauthorized".to_string());
+            }
+            use crate::schema::categories::dsl::*;
+            let new_category = NewCategory {
+                name: new_category.name.clone(),
+                description: new_category.description.clone(),
+            };
+
+            let existing_category = categories
+                .filter(name.eq(&new_category.name))
+                .first::<Category>(c)
+                .optional()
+                .map_err(|_| "Error checking for existing warehouse")?;
 
             if let Some(_) = existing_category {
                 return Err("Category with this name already exists".to_string());
             }
 
-        diesel::insert_into(categories)
-        .values(&new_category)
-        .execute(c)
-        .map_err(|_| "Error inserting new Category")?;
-        Ok(Json(new_category))
-    })
-    .await?;
+            diesel::insert_into(categories)
+                .values(&new_category)
+                .execute(c)
+                .map_err(|_| "Error inserting new Category")?;
+            Ok(Json(new_category))
+        })
+        .await?;
     Ok(new_category)
 }
 
@@ -300,11 +411,22 @@ async fn create_category(
 async fn create_warehouse(
     new_warehouse: Json<NewWarehouse>,
     conn: DbConn,
+    token: JwtToken,
 ) -> Result<Json<Warehouse>, String> {
     let db = conn;
-
+    use schema::administrators::dsl::*;
     let new_warehouse = db
         .run(move |c| {
+            let admin = administrators
+                .filter(username.eq(token.0.clone()))
+                .first::<Administrator>(c)
+                .optional()
+                .map_err(|_| "Error checking for Admin".to_string())?;
+
+            if admin.is_none() {
+                return Err("Unauthorized".to_string());
+            }
+
             use self::schema::warehouses::dsl::*;
 
             let existing_warehouse = warehouses
@@ -337,42 +459,94 @@ async fn create_warehouse(
     Ok(new_warehouse)
 }
 
-// #[get("/products?<start>&<end>&<category_id>")]
-// async fn get_products(
-//     conn: DbConn, 
-//     start: String, 
-//     end: String, 
-//     category_id: Option<i32>
-// ) -> Result<Json<Vec<Product>>, status::BadRequest<String>> {
-//     use crate::schema::products::dsl::*;
-    
-//     let start = match NaiveDateTime::parse_from_str(&start, "%Y-%m-%d %H:%M:%S") {
-//         Ok(s) => s,
-//         Err(_) => return Err(status::BadRequest(Some("Invalid start date format".into()))),
-//     };
+#[get("/products?<start>&<end>&<categories_name>")]
+async fn get_products(
+    conn: DbConn,
+    start: String,
+    end: String,
+    categories_name: Option<String>,
+    token: JwtToken,
+) -> Result<Json<Vec<Product>>, Status> {
+    use chrono::NaiveDateTime;
+    use diesel::prelude::*;
+    use schema::administrators::dsl::*;
+    use schema::categories::dsl::{categories, id as cat_id, name as cat_name};
+    use schema::products::dsl::{category_id, created_at, products};
 
-//     let end = match NaiveDateTime::parse_from_str(&end, "%Y-%m-%d %H:%M:%S") {
-//         Ok(e) => e,
-//         Err(_) => return Err(status::BadRequest(Some("Invalid end date format".into()))),
-//     };
+    // 解析start和end为NaiveDateTime
+    let start_dt = NaiveDateTime::parse_from_str(&start, "%Y-%m-%d %H:%M:%S").unwrap();
+    let end_dt = NaiveDateTime::parse_from_str(&end, "%Y-%m-%d %H:%M:%S").unwrap();
 
-//     let mut query = products
-//         .filter(created_at.between(start, end).or(updated_at.between(start, end)))
-//         .into_boxed();
+    let results = conn
+        .run(move |c| {
+            let admin = administrators
+                .filter(username.eq(token.0.clone()))
+                .first::<Administrator>(c)
+                .optional()
+                .map_err(|_| Status::InternalServerError)?;
 
-//     if let Some(cat_id) = category_id {
-//         query = query.filter(category_id.eq(cat_id));
-//     }
+            if admin.is_none() {
+                return Err(Status::Unauthorized);
+            }
 
-//     let results = query
-//         .load::<Product>(&mut conn)
-//         .map_err(|e| status::BadRequest(Some(format!("Error loading products: {}", e))))?;
+            let mut query = products
+                .filter(created_at.between(start_dt, end_dt))
+                .into_boxed();
 
-//     Ok(Json(results))
-// }
+            // 如果categories_name有值，添加分类名过滤条件
+            if let Some(cat_name_filter) = categories_name {
+                query = query.filter(
+                    category_id.eq_any(
+                        categories
+                            .filter(cat_name.eq(cat_name_filter))
+                            .select(cat_id),
+                    ),
+                );
+            }
 
+            Ok(query.load::<Product>(c).expect("Error loading warehouses")) // 如果加载或转换过程中出现错误，抛出一个错误
+        })
+        .await;
+
+    results.map(Json)
+}
+
+// 登录接口
+#[post("/login", data = "<credentials>")]
+async fn login(
+    credentials: rocket::form::Form<LoginCredentials>,
+    conn: DbConn,
+) -> Result<Json<String>, Status> {
+    use schema::administrators::dsl::*;
+
+    let input_username = credentials.username.clone(); // 提取用户名
+    let input_password = credentials.password.clone(); // 提取密码，并用不同的变量名
+
+    let result = conn
+        .run(move |c| {
+            administrators
+                .filter(username.eq(&input_username))
+                .first::<Administrator>(c)
+                .optional()
+        })
+        .await;
+
+    match result {
+        Ok(Some(administrator)) if administrator.password == input_password => {
+            let token = generate_token(&administrator.username);
+            Ok(Json(token))
+        }
+        _ => Err(Status::Unauthorized),
+    }
+}
+// 受保护的路由
+#[get("/protected")]
+fn protected_route(token: JwtToken) -> String {
+    format!("Hello, {}! This is a protected route.", token.0)
+}
 
 struct AdminInit;
+pub struct JwtToken(pub String);
 
 #[rocket::async_trait]
 impl Fairing for AdminInit {
@@ -404,7 +578,11 @@ impl Fairing for AdminInit {
                 info!("默认管理员已创建，用户名: admin, 密码: {}", random_password);
 
                 diesel::insert_into(administrators)
-                    .values((username.eq("admin"), password.eq(random_password)))
+                    .values((
+                        username.eq("admin"),
+                        password.eq(random_password),
+                        superuser.eq(true),
+                    ))
                     .execute(c)
                     .expect("Error inserting admin");
             }
@@ -617,7 +795,6 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
     Swarm::behaviour_mut(&mut swarm)
         .floodsub
         .subscribe(topic.clone());
-    
 
     Swarm::listen_on(&mut swarm, listen_addr)?;
 
@@ -748,7 +925,18 @@ async fn rocket() -> Rocket<Build> {
         .attach(AdminInit)
         // 挂载路由
         .mount("/", routes![index])
-        .mount("/api", routes![get_warehouses, create_warehouse, create_category, create_product]);
+        .mount(
+            "/api",
+            routes![
+                get_warehouses,
+                create_warehouse,
+                create_category,
+                create_product,
+                get_products,
+                login,
+                protected_route
+            ],
+        );
 
     rocket
 }

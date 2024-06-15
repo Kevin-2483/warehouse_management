@@ -6,7 +6,6 @@ CREATE TABLE products (
     name TEXT NOT NULL,
     description TEXT,
     category_id INTEGER,
-    deleted INTEGER DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id)
@@ -25,6 +24,7 @@ CREATE TABLE inventory (
     product_id INTEGER NOT NULL,
     warehouse_id VARCHAR(255) NOT NULL,
     quantity INTEGER NOT NULL,
+    deleted INTEGER DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (product_id) REFERENCES products(id),
@@ -61,6 +61,7 @@ CREATE TABLE administrators (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
     password TEXT NOT NULL,
+    superuser BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

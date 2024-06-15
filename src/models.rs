@@ -15,7 +15,6 @@ pub struct Product {
     pub name: String,
     pub description: Option<String>,
     pub category_id: Option<i32>,
-    pub deleted: Option<i32>,
     pub created_at: Option<NaiveDateTime>,
     pub updated_at: Option<NaiveDateTime>,
 }
@@ -37,6 +36,7 @@ pub struct Inventory {
     pub product_id: i32,
     pub warehouse_id: String,
     pub quantity: i32,
+    pub deleted: Option<i32>,
     pub created_at: Option<NaiveDateTime>,
     pub updated_at: Option<NaiveDateTime>,
 }
@@ -74,6 +74,7 @@ pub struct Administrator {
     pub id: i32,
     pub username: String,
     pub password: String,
+    pub superuser: bool,
     pub created_at: Option<NaiveDateTime>,
     pub updated_at: Option<NaiveDateTime>,
 }

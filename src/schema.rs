@@ -7,6 +7,7 @@ diesel::table! {
         id -> Integer,
         username -> Text,
         password -> Text,
+        superuser -> Bool,
         created_at -> Nullable<Timestamp>,
         updated_at -> Nullable<Timestamp>,
     }
@@ -26,6 +27,7 @@ diesel::table! {
         product_id -> Integer,
         warehouse_id -> Text,
         quantity -> Integer,
+        deleted -> Nullable<Integer>,
         created_at -> Nullable<Timestamp>,
         updated_at -> Nullable<Timestamp>,
     }
@@ -37,7 +39,6 @@ diesel::table! {
         name -> Text,
         description -> Nullable<Text>,
         category_id -> Nullable<Integer>,
-        deleted -> Nullable<Integer>,
         created_at -> Nullable<Timestamp>,
         updated_at -> Nullable<Timestamp>,
     }
