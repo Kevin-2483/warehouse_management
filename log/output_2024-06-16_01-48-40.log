@@ -1,0 +1,129 @@
+2024-06-16T01:48:40.030363453+08:00 - INFO - Database migrations executed successfully
+2024-06-16T01:48:40.030575465+08:00 - INFO - Found warehouse: "+otQX+nM85IY0YQU7S0J9++YbwjMLbZRplxDw/+nwkuVIfunaJikjQbQl5E9Uo6m9cIGCGAGSafwChyEnPpAcQ=="
+2024-06-16T01:48:40.030788022+08:00 - INFO - Local peer id: PeerId("12D3KooWKrWyF8dtadA6RCdR4KB9sqndcosNqtCrdFJQKWtdq464")
+2024-06-16T01:48:40.041700457+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
+2024-06-16T01:48:40.041842661+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
+2024-06-16T01:48:40.041885379+08:00 - WARN - Warning: LISTENING_ADDR environment variable is not set, using default value:/ip4/0.0.0.0/tcp/12345
+2024-06-16T01:48:40.041960597+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node
+2024-06-16T01:48:40.042419185+08:00 - INFO - creating instance on iface 10.0.0.101
+2024-06-16T01:48:40.051063710+08:00 - INFO - 🔧 Configured for [4mdebug[0m.
+2024-06-16T01:48:40.051135310+08:00 - INFO - address: [1;39m127.0.0.1[0m
+2024-06-16T01:48:40.051170091+08:00 - INFO - port: [1;39m0[0m
+2024-06-16T01:48:40.051201058+08:00 - INFO - workers: [1;39m8[0m
+2024-06-16T01:48:40.051236750+08:00 - INFO - max blocking threads: [1;39m512[0m
+2024-06-16T01:48:40.051272797+08:00 - INFO - ident: [1;39mRocket[0m
+2024-06-16T01:48:40.051324866+08:00 - INFO - IP header: [1;39mX-Real-IP[0m
+2024-06-16T01:48:40.051390624+08:00 - INFO - limits: [1;39mbytes = 8KiB, data-form = 2MiB, file = 1MiB, form = 32KiB, json = 1MiB, msgpack = 1MiB, string = 8KiB[0m
+2024-06-16T01:48:40.051446123+08:00 - INFO - temp dir: [1;39m/tmp[0m
+2024-06-16T01:48:40.051489124+08:00 - INFO - http/2: [1;39mtrue[0m
+2024-06-16T01:48:40.051532305+08:00 - INFO - keep-alive: [1;39m5[0m[1;39ms[0m
+2024-06-16T01:48:40.051584426+08:00 - INFO - tls: [1;39mdisabled[0m
+2024-06-16T01:48:40.051627226+08:00 - INFO - shutdown: [1;39mctrlc = true, force = true, signals = [SIGTERM], grace = 2s, mercy = 3s[0m
+2024-06-16T01:48:40.051673789+08:00 - INFO - log level: [1;39mnormal[0m
+2024-06-16T01:48:40.051736104+08:00 - INFO - cli colors: [1;39mtrue[0m
+2024-06-16T01:48:40.051918953+08:00 - INFO - 📬 [35mRoutes[0m:
+2024-06-16T01:48:40.052094967+08:00 - INFO - [36m([0m[39mindex[0m[36m)[0m [32mGET[0m [34m/[0m
+2024-06-16T01:48:40.052161632+08:00 - INFO - [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T01:48:40.052213644+08:00 - INFO - [36m([0m[39moptions_login[0m[36m)[0m [32mOPTIONS[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T01:48:40.052267085+08:00 - INFO - [36m([0m[39msignup[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T01:48:40.052333236+08:00 - INFO - [36m([0m[39moptions_signup[0m[36m)[0m [32mOPTIONS[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T01:48:40.052397870+08:00 - INFO - [36m([0m[39mcreate_product[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/products[0m [33mapplication/json[0m
+2024-06-16T01:48:40.052462314+08:00 - INFO - [36m([0m[39mget_products[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/products?<start>&<end>&<categories_name>[0m
+2024-06-16T01:48:40.052521897+08:00 - INFO - [36m([0m[39mprotected_route[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/protected[0m
+2024-06-16T01:48:40.052575115+08:00 - INFO - [36m([0m[39mget_warehouses[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/warehouses[0m
+2024-06-16T01:48:40.052645300+08:00 - INFO - [36m([0m[39mcreate_warehouse[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/warehouses[0m [33mapplication/json[0m
+2024-06-16T01:48:40.052731166+08:00 - INFO - [36m([0m[39mcreate_category[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/categories[0m [33mapplication/json[0m
+2024-06-16T01:48:40.052810359+08:00 - INFO - 📡 [35mFairings[0m:
+2024-06-16T01:48:40.052848901+08:00 - INFO - [1;39mAdmin Initialization[0m ([1;34mignite[0m)
+2024-06-16T01:48:40.052879713+08:00 - INFO - [1;39mShield[0m ([1;34mliftoff, response, singleton[0m)
+2024-06-16T01:48:40.052908452+08:00 - INFO - [1;39m'sqlite_db' Database Pool[0m ([1;34mignite[0m)
+2024-06-16T01:48:40.053164094+08:00 - INFO - 🛡️ [35mShield[0m:
+2024-06-16T01:48:40.053197989+08:00 - INFO - Permissions-Policy: [39minterest-cohort=()[0m
+2024-06-16T01:48:40.053228641+08:00 - INFO - X-Content-Type-Options: [39mnosniff[0m
+2024-06-16T01:48:40.053245453+08:00 - INFO - X-Frame-Options: [39mSAMEORIGIN[0m
+2024-06-16T01:48:40.053285429+08:00 - WARN - 🚀 [1;39mRocket has launched from [4mhttp://127.0.0.1:35323[0m
+2024-06-16T01:48:40.053424838+08:00 - WARN - Rocket is executing inside of a custom runtime.
+2024-06-16T01:48:40.053466042+08:00 - INFO - Rocket's runtime is enabled via `#[rocket::main]` or `#[launch]`.
+2024-06-16T01:48:40.053483817+08:00 - INFO - Forced shutdown is disabled. Runtime settings may be suboptimal.
+2024-06-16T02:12:48.194125050+08:00 - INFO - [32mPOST[0m [34m/login[0m [33mapplication/json[0m:
+2024-06-16T02:12:48.194240052+08:00 - ERROR - No matching routes for [32mPOST[0m [34m/login[0m [33mapplication/json[0m.
+2024-06-16T02:12:48.194290188+08:00 - WARN - No [1;34m404[0m catcher registered. Using Rocket default.
+2024-06-16T02:12:48.194491029+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:13:34.666624638+08:00 - INFO - [32mPOST[0m [34m/login[0m [33mapplication/json[0m:
+2024-06-16T02:13:34.666734516+08:00 - ERROR - No matching routes for [32mPOST[0m [34m/login[0m [33mapplication/json[0m.
+2024-06-16T02:13:34.666767215+08:00 - WARN - No [1;34m404[0m catcher registered. Using Rocket default.
+2024-06-16T02:13:34.666933829+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:15:36.452101130+08:00 - INFO - [32mPOST[0m [34m/api/login[0m [33mapplication/json[0m:
+2024-06-16T02:15:36.452261108+08:00 - INFO - Matched: [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T02:15:36.453205188+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:15:36.453428789+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:15:57.926753036+08:00 - INFO - [32mPOST[0m [34m/api/login[0m [33mapplication/json[0m:
+2024-06-16T02:15:57.926858159+08:00 - INFO - Matched: [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T02:15:57.927428489+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:15:57.927561086+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:16:05.999311444+08:00 - INFO - [32mPOST[0m [34m/api/signup[0m [33mapplication/json[0m:
+2024-06-16T02:16:05.999407333+08:00 - INFO - Matched: [36m([0m[39msignup[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T02:16:05.999596635+08:00 - INFO - Token: Some(Cookie { cookie_string: Some("token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTcxODQ3NzE1N30.FonQaXCzhEyi3miDhtKuPO8xTQomE1tr-JM8rvSy2gI"), name: Indexed(0, 5), value: Indexed(6, 130), expires: None, max_age: None, domain: None, path: None, secure: None, http_only: None, same_site: None, partitioned: None })
+2024-06-16T02:16:05.999644732+08:00 - INFO - Token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTcxODQ3NzE1N30.FonQaXCzhEyi3miDhtKuPO8xTQomE1tr-JM8rvSy2gI"
+2024-06-16T02:16:05.999850618+08:00 - INFO - tokenJwtToken("admin")
+2024-06-16T02:16:06.003045119+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:16:06.003204605+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:16:19.533728842+08:00 - INFO - [32mPOST[0m [34m/api/login[0m [33mapplication/json[0m:
+2024-06-16T02:16:19.533833198+08:00 - INFO - Matched: [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T02:16:19.534415059+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:16:19.534604239+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:18:17.544566474+08:00 - INFO - [32mPOST[0m [34m/api/login[0m [33mapplication/json[0m:
+2024-06-16T02:18:17.544697683+08:00 - INFO - Matched: [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T02:18:17.545306364+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:18:17.545492596+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:18:28.704312218+08:00 - INFO - [32mPOST[0m [34m/api/login[0m [33mapplication/json[0m:
+2024-06-16T02:18:28.704420843+08:00 - INFO - Matched: [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T02:18:28.705072225+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:18:28.705210776+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:18:40.468376669+08:00 - INFO - [32mPOST[0m [34m/api/signup[0m [33mapplication/json[0m:
+2024-06-16T02:18:40.468494805+08:00 - INFO - Matched: [36m([0m[39msignup[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T02:18:40.468763403+08:00 - INFO - Token: Some(Cookie { cookie_string: Some("token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTEiLCJleHAiOjE3MTg0NzczMDh9.2JDM_oV_7uRk6Pzyht90CT60doDtm0HilUTEMtlBdv4"), name: Indexed(0, 5), value: Indexed(6, 127), expires: None, max_age: None, domain: None, path: None, secure: None, http_only: None, same_site: None, partitioned: None })
+2024-06-16T02:18:40.468799543+08:00 - INFO - Token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTEiLCJleHAiOjE3MTg0NzczMDh9.2JDM_oV_7uRk6Pzyht90CT60doDtm0HilUTEMtlBdv4"
+2024-06-16T02:18:40.468938571+08:00 - INFO - tokenJwtToken("111")
+2024-06-16T02:18:40.470642940+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:18:40.470771998+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:19:05.637934515+08:00 - INFO - [32mPOST[0m [34m/api/signup[0m [33mapplication/json[0m:
+2024-06-16T02:19:05.638060885+08:00 - INFO - Matched: [36m([0m[39msignup[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T02:19:05.638334058+08:00 - INFO - Token: Some(Cookie { cookie_string: Some("token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTEiLCJleHAiOjE3MTg0NzczMDh9.2JDM_oV_7uRk6Pzyht90CT60doDtm0HilUTEMtlBdv4"), name: Indexed(0, 5), value: Indexed(6, 127), expires: None, max_age: None, domain: None, path: None, secure: None, http_only: None, same_site: None, partitioned: None })
+2024-06-16T02:19:05.638393011+08:00 - INFO - Token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTEiLCJleHAiOjE3MTg0NzczMDh9.2JDM_oV_7uRk6Pzyht90CT60doDtm0HilUTEMtlBdv4"
+2024-06-16T02:19:05.638569570+08:00 - INFO - tokenJwtToken("111")
+2024-06-16T02:19:05.640406401+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:19:05.640529869+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:19:13.672031311+08:00 - INFO - [32mPOST[0m [34m/api/login[0m [33mapplication/json[0m:
+2024-06-16T02:19:13.672120242+08:00 - INFO - Matched: [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T02:19:13.672645857+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:19:13.672817908+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:19:20.151427214+08:00 - INFO - [32mPOST[0m [34m/api/signup[0m [33mapplication/json[0m:
+2024-06-16T02:19:20.151539441+08:00 - INFO - Matched: [36m([0m[39msignup[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T02:19:20.151834727+08:00 - INFO - Token: Some(Cookie { cookie_string: Some("token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTMiLCJleHAiOjE3MTg0NzczNTN9.2q6ECp7DDgQu5WnuuN1jddglMe0p2TMv5_AisVG4duY"), name: Indexed(0, 5), value: Indexed(6, 127), expires: None, max_age: None, domain: None, path: None, secure: None, http_only: None, same_site: None, partitioned: None })
+2024-06-16T02:19:20.151881832+08:00 - INFO - Token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTMiLCJleHAiOjE3MTg0NzczNTN9.2q6ECp7DDgQu5WnuuN1jddglMe0p2TMv5_AisVG4duY"
+2024-06-16T02:19:20.152077551+08:00 - INFO - tokenJwtToken("113")
+2024-06-16T02:19:20.152304274+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:19:20.152430417+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:19:46.096153136+08:00 - INFO - [32mPOST[0m [34m/api/login[0m [33mapplication/json[0m:
+2024-06-16T02:19:46.096255052+08:00 - INFO - Matched: [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T02:19:46.096837183+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:19:46.096967838+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:20:00.995901994+08:00 - INFO - [32mPOST[0m [34m/api/signup[0m [33mapplication/json[0m:
+2024-06-16T02:20:00.996000311+08:00 - INFO - Matched: [36m([0m[39msignup[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T02:20:00.996281170+08:00 - INFO - Token: Some(Cookie { cookie_string: Some("token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTMiLCJleHAiOjE3MTg0NzczODZ9.nJSCCTEZjNN2qf-Ky3lMt2l4wITlJplOqfA8EXyyVYI"), name: Indexed(0, 5), value: Indexed(6, 127), expires: None, max_age: None, domain: None, path: None, secure: None, http_only: None, same_site: None, partitioned: None })
+2024-06-16T02:20:00.996327939+08:00 - INFO - Token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTMiLCJleHAiOjE3MTg0NzczODZ9.nJSCCTEZjNN2qf-Ky3lMt2l4wITlJplOqfA8EXyyVYI"
+2024-06-16T02:20:00.996504137+08:00 - INFO - tokenJwtToken("113")
+2024-06-16T02:20:00.996732478+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T02:20:00.996857003+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:20:07.289030522+08:00 - INFO - [32mPOST[0m [34m/api/login[0m [33mapplication/json[0m:
+2024-06-16T02:20:07.289151179+08:00 - INFO - Matched: [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T02:20:07.289602208+08:00 - INFO - [1;39mOutcome: [0m[31mError[0m([39m401 Unauthorized[0m)
+2024-06-16T02:20:07.289647911+08:00 - WARN - No [1;34m401[0m catcher registered. Using Rocket default.
+2024-06-16T02:20:07.289838675+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T02:21:45.700871755+08:00 - INFO - floodsub Topic("dev") publish: "\u{1b}[A"
+2024-06-16T02:21:47.382234119+08:00 - WARN - Received SIGINT. Requesting shutdown.
+2024-06-16T02:21:47.382290263+08:00 - WARN - Received shutdown signal, shutting down...
+2024-06-16T02:21:47.382307631+08:00 - INFO - Shutdown requested. Waiting for pending I/O...
+2024-06-16T02:21:47.382324473+08:00 - INFO - Waiting for tasks to finish...
+2024-06-16T02:21:47.382391807+08:00 - INFO - Graceful shutdown completed successfully.

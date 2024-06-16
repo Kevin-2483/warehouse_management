@@ -34,7 +34,7 @@ CREATE TABLE inventory (
 -- 仓库表
 CREATE TABLE warehouses (
     id Text PRIMARY KEY,
-    localkey Text NOT NULL,
+    localkey Text DEFAULT NULL,
     name TEXT NOT NULL,
     location TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

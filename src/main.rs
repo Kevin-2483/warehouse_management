@@ -13,14 +13,21 @@ use rocket::http::Status;
 use rocket::request::{FromRequest, Outcome};
 // use rocket::request;
 // use rocket::response::status;
+use rocket::http::Method;
+use rocket::http::{Cookie, CookieJar};
+// use rocket::response::status::Custom;
 use rocket::serde::json::Json;
 use rocket::Request;
 use rocket::{Build, Config, Rocket};
+use rocket_cors::{AllowedHeaders, AllowedOrigins, CorsOptions};
 use rocket_sync_db_pools::{database, diesel};
 
 use crate::models::*;
 use crate::schema::*;
+use diesel::dsl::sql;
 use diesel::prelude::*;
+use diesel::sql_types::Integer;
+use diesel::sql_types::Nullable;
 use diesel::sqlite::SqliteConnection;
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use rand::distributions::Alphanumeric;
@@ -30,14 +37,14 @@ use std::collections::HashSet;
 use std::error::Error;
 // use std::io::Cursor;
 use std::result::Result as StdResult; // 为了避免名称冲突，使用别名
-// use std::time::Duration;
-use std::time::{SystemTime, UNIX_EPOCH};
+                                      // use std::time::Duration;
 use std::env;
+use std::time::{SystemTime, UNIX_EPOCH};
 // use std::clone;
 
 use chrono::Local;
+use chrono::NaiveDateTime;
 use chrono::Utc;
-// use chrono::NaiveDateTime;
 use serde::Deserialize;
 use serde::Serialize;
 // use uuid::Uuid;
@@ -45,15 +52,17 @@ use serde::Serialize;
 use libp2p::floodsub::{Floodsub, FloodsubEvent, Topic};
 // use libp2p::floodsub;
 use libp2p::futures::StreamExt;
-use libp2p::identity::{self, ed25519, Keypair, PublicKey};
+use libp2p::identity::{self, ed25519, PublicKey};
+// use libp2p::identity::Keypair;
 use libp2p::kad::{record::store::MemoryStore, Kademlia, KademliaConfig, KademliaEvent};
+
 use libp2p::mdns::{Mdns, MdnsConfig, MdnsEvent};
 use libp2p::ping::{Ping, PingConfig, PingEvent};
 // use libp2p::request_response::{
 //     ProtocolName, RequestResponse, RequestResponseCodec, RequestResponseEvent,
 //     RequestResponseMessage,
 // };
-use libp2p::swarm::{ Swarm, SwarmBuilder, SwarmEvent };
+use libp2p::swarm::{Swarm, SwarmBuilder, SwarmEvent};
 
 // use libp2p::swarm::{
 //     NetworkBehaviour, NetworkBehaviourEventProcess
@@ -88,13 +97,23 @@ use jsonwebtoken::{decode, encode, DecodingKey, EncodingKey, Header, Validation}
 mod models;
 mod schema;
 
+#[derive(Debug)]
+struct AdminInit;
+#[derive(Debug)]
+pub struct JwtToken(pub String);
+
 #[derive(Debug, Serialize, Deserialize)]
 struct Claims {
     sub: String,
     exp: usize,
 }
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CustomResponder {
+    status: Status,
+    message: String,
+}
 
-#[derive(FromForm)]
+#[derive(FromForm, Deserialize)]
 struct LoginCredentials {
     username: String,
     password: String,
@@ -156,23 +175,20 @@ impl From<FloodsubEvent> for KMBehaviourEvent {
     }
 }
 
-#[rocket::async_trait]
+#[async_trait]
 impl<'r> FromRequest<'r> for JwtToken {
     type Error = ();
 
     async fn from_request(request: &'r Request<'_>) -> rocket::request::Outcome<Self, Self::Error> {
-        if let Some(auth) = request.headers().get_one("Authorization") {
-            let parts: Vec<&str> = auth.split_whitespace().collect();
-            if parts.len() == 2 && parts[0] == "Bearer" {
-                match decode_token(parts[1]) {
-                    Some(username) => Outcome::Success(JwtToken(username)),
-                    None => Outcome::Error((rocket::http::Status::Unauthorized, ())),
-                }
-            } else {
-                Outcome::Error((rocket::http::Status::Unauthorized, ()))
+        let cookies: &CookieJar<'_> = request.cookies();
+        if let Some(cookie) = cookies.get("token") {
+            let token = cookie.value();
+            match decode_token(token) {
+                Some(username) => Outcome::Success(JwtToken(username)),
+                None => Outcome::Error((Status::Unauthorized, ())),
             }
         } else {
-            Outcome::Error((rocket::http::Status::Unauthorized, ()))
+            Outcome::Error((Status::Unauthorized, ()))
         }
     }
 }
@@ -188,15 +204,26 @@ fn generate_token(username: &str) -> String {
     .unwrap()
 }
 
-// 解码 JWT
 fn decode_token(token: &str) -> Option<String> {
     let token_data = decode::<Claims>(
         token,
-        &DecodingKey::from_secret("your_secret_key".as_ref()), // 替换为你的密钥
+        &DecodingKey::from_secret("your_secret_key".as_ref()),
         &Validation::default(),
     );
+
     match token_data {
-        Ok(token) => Some(token.claims.sub),
+        Ok(token) => {
+            if token.claims.exp
+                >= SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap()
+                    .as_secs() as usize
+            {
+                Some(token.claims.sub)
+            } else {
+                None
+            }
+        }
         Err(_) => None,
     }
 }
@@ -292,25 +319,52 @@ pub struct NewProduct {
     pub name: String,
     pub description: Option<String>,
     pub category_id: Option<i32>,
+    pub created_at: Option<NaiveDateTime>,
+    pub updated_at: Option<NaiveDateTime>,
+}
+
+#[derive(Insertable, Serialize, Deserialize)]
+#[diesel(table_name = administrators)]
+pub struct NewAdministrator {
+    pub username: String,
+    pub password: String,
+    pub superuser: bool,
+    pub created_at: Option<NaiveDateTime>,
+    pub updated_at: Option<NaiveDateTime>,
+}
+#[derive(Queryable, Serialize, Deserialize)]
+#[diesel(table_name = warehouses)]
+pub struct GetWarehouses {
+    pub id: String,
+    pub name: String,
+    pub location: String,
+    pub created_at: Option<NaiveDateTime>,
+    pub updated_at: Option<NaiveDateTime>,
 }
 
 #[get("/warehouses")]
-async fn get_warehouses(conn: DbConn, token: JwtToken) -> Result<Json<Vec<Warehouse>>, String> {
-    use schema::administrators::dsl::*;
+async fn get_warehouses(
+    conn: DbConn,
+    // token: JwtToken
+) -> Result<Json<Vec<GetWarehouses>>, Json<CustomResponder>> {
+    // use schema::administrators::dsl::*;
     conn.run(move |c| {
-        let admin = administrators
-            .filter(username.eq(token.0.clone()))
-            .first::<Administrator>(c)
-            .optional()
-            .map_err(|_| "Error checking for Admin".to_string())?;
-        if admin.is_none() {
-            return Err("Unauthorized".to_string());
-        }
+        // let admin = administrators
+        //     .filter(username.eq(token.0.clone()))
+        //     .first::<Administrator>(c)
+        //     .optional()
+        //     .map_err(|_| Json(CustomResponder{ status:rocket::http::Status::InternalServerError, message: "Error checking for administrator".to_string()}))?;
+        // if admin.is_none() {
+        //     return Err(Json(CustomResponder{ status:rocket::http::Status::Unauthorized, message: "Permission Denied".to_string()}));
+        // }
         use schema::warehouses::dsl::*;
-        Ok(warehouses
-            .load::<Warehouse>(c)
+
+        let result = warehouses
+            .select((id, name, location, created_at, updated_at)) // 选择除去localkey之外的列
+            .load::<GetWarehouses>(c)
             .map(Json)
-            .expect("Error loading warehouses"))
+            .expect("Error loading warehouses");
+        Ok(result)
     })
     .await
 }
@@ -320,7 +374,7 @@ async fn create_product(
     conn: DbConn,
     new_product: Json<NewProduct>,
     token: JwtToken,
-) -> Result<Json<NewProduct>, String> {
+) -> Result<Json<NewProduct>, Json<CustomResponder>> {
     let db = conn;
     use schema::administrators::dsl::*;
     let new_product = db
@@ -329,10 +383,18 @@ async fn create_product(
                 .filter(username.eq(token.0.clone()))
                 .first::<Administrator>(c)
                 .optional()
-                .map_err(|_| "Error checking for Admin".to_string())?;
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error checking for administrator".to_string(),
+                    })
+                })?;
 
             if admin.is_none() {
-                return Err("Unauthorized".to_string());
+                return Err(Json(CustomResponder {
+                    status: rocket::http::Status::Unauthorized,
+                    message: "Permission Denied".to_string(),
+                }));
             }
 
             use crate::schema::products::dsl::*;
@@ -340,22 +402,37 @@ async fn create_product(
                 name: new_product.name.clone(),
                 description: new_product.description.clone(),
                 category_id: new_product.category_id.clone(),
+                created_at: Some(Utc::now().naive_utc()),
+                updated_at: Some(Utc::now().naive_utc()),
             };
 
             let existing_product = products
                 .filter(name.eq(&new_product.name))
                 .first::<Product>(c)
                 .optional()
-                .map_err(|_| "Error checking for existing product")?;
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error checking for product".to_string(),
+                    })
+                })?;
 
             if let Some(_) = existing_product {
-                return Err("Product with this name already exists".to_string());
+                return Err(Json(CustomResponder {
+                    status: rocket::http::Status::BadRequest,
+                    message: "Product with this name already exists".to_string(),
+                }));
             }
 
             diesel::insert_into(products)
                 .values(&new_product)
                 .execute(c)
-                .map_err(|_| "Error inserting new Product")?;
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error inserting new product".to_string(),
+                    })
+                })?;
             Ok(Json(new_product))
         })
         .await?;
@@ -367,7 +444,7 @@ async fn create_category(
     conn: DbConn,
     new_category: Json<NewCategory>,
     token: JwtToken,
-) -> Result<Json<NewCategory>, String> {
+) -> Result<Json<NewCategory>, Json<CustomResponder>> {
     let db = conn;
     use schema::administrators::dsl::*;
     let new_category = db
@@ -376,10 +453,18 @@ async fn create_category(
                 .filter(username.eq(token.0.clone()))
                 .first::<Administrator>(c)
                 .optional()
-                .map_err(|_| "Error checking for Admin".to_string())?;
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error checking for administrator".to_string(),
+                    })
+                })?;
 
             if admin.is_none() {
-                return Err("Unauthorized".to_string());
+                return Err(Json(CustomResponder {
+                    status: rocket::http::Status::Unauthorized,
+                    message: "Permission Denied".to_string(),
+                }));
             }
             use crate::schema::categories::dsl::*;
             let new_category = NewCategory {
@@ -391,16 +476,29 @@ async fn create_category(
                 .filter(name.eq(&new_category.name))
                 .first::<Category>(c)
                 .optional()
-                .map_err(|_| "Error checking for existing warehouse")?;
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error checking for category".to_string(),
+                    })
+                })?;
 
             if let Some(_) = existing_category {
-                return Err("Category with this name already exists".to_string());
+                return Err(Json(CustomResponder {
+                    status: rocket::http::Status::BadRequest,
+                    message: "Category with this name already exists".to_string(),
+                }));
             }
 
             diesel::insert_into(categories)
                 .values(&new_category)
                 .execute(c)
-                .map_err(|_| "Error inserting new Category")?;
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error inserting new category".to_string(),
+                    })
+                })?;
             Ok(Json(new_category))
         })
         .await?;
@@ -412,7 +510,7 @@ async fn create_warehouse(
     new_warehouse: Json<NewWarehouse>,
     conn: DbConn,
     token: JwtToken,
-) -> Result<Json<Warehouse>, String> {
+) -> Result<Json<Warehouse>, Json<CustomResponder>> {
     let db = conn;
     use schema::administrators::dsl::*;
     let new_warehouse = db
@@ -421,10 +519,18 @@ async fn create_warehouse(
                 .filter(username.eq(token.0.clone()))
                 .first::<Administrator>(c)
                 .optional()
-                .map_err(|_| "Error checking for Admin".to_string())?;
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error checking for administrator".to_string(),
+                    })
+                })?;
 
             if admin.is_none() {
-                return Err("Unauthorized".to_string());
+                return Err(Json(CustomResponder {
+                    status: rocket::http::Status::Unauthorized,
+                    message: "Permission Denied".to_string(),
+                }));
             }
 
             use self::schema::warehouses::dsl::*;
@@ -433,15 +539,23 @@ async fn create_warehouse(
                 .filter(location.eq(&new_warehouse.location))
                 .first::<Warehouse>(c)
                 .optional()
-                .map_err(|_| "Error checking for existing warehouse")?;
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error checking for warehouses".to_string(),
+                    })
+                })?;
 
             if let Some(_) = existing_warehouse {
-                return Err("Warehouse with this location already exists".to_string());
+                return Err(Json(CustomResponder {
+                    status: rocket::http::Status::BadRequest,
+                    message: "Warehouse with this location already exists".to_string(),
+                }));
             }
 
             let new_warehouse = Warehouse {
                 id: new_warehouse.id.clone(),
-                localkey: "".to_string(),
+                localkey: Some("".to_string()),
                 name: new_warehouse.name.clone(),
                 location: new_warehouse.location.clone(),
                 created_at: Some(Utc::now().naive_utc()),
@@ -451,7 +565,12 @@ async fn create_warehouse(
             diesel::insert_into(warehouses)
                 .values(&new_warehouse)
                 .execute(c)
-                .map_err(|_| "Error inserting new warehouse")?;
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error inserting new warehouse".to_string(),
+                    })
+                })?;
 
             Ok(Json(new_warehouse))
         })
@@ -466,7 +585,7 @@ async fn get_products(
     end: String,
     categories_name: Option<String>,
     token: JwtToken,
-) -> Result<Json<Vec<Product>>, Status> {
+) -> Result<Json<Vec<Product>>, Json<CustomResponder>> {
     use chrono::NaiveDateTime;
     use diesel::prelude::*;
     use schema::administrators::dsl::*;
@@ -483,10 +602,18 @@ async fn get_products(
                 .filter(username.eq(token.0.clone()))
                 .first::<Administrator>(c)
                 .optional()
-                .map_err(|_| Status::InternalServerError)?;
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error checking for administrator".to_string(),
+                    })
+                })?;
 
             if admin.is_none() {
-                return Err(Status::Unauthorized);
+                return Err(Json(CustomResponder {
+                    status: rocket::http::Status::Unauthorized,
+                    message: "Permission Denied".to_string(),
+                }));
             }
 
             let mut query = products
@@ -511,12 +638,74 @@ async fn get_products(
     results.map(Json)
 }
 
+#[get("/inventory?<start>&<end>&<product_name>")]
+async fn get_inventory(
+    conn: DbConn,
+    start: String,
+    end: String,
+    product_name: Option<String>,
+    token: JwtToken,
+) -> Result<Json<Vec<Inventory>>, Json<CustomResponder>> {
+    use chrono::NaiveDateTime;
+    use diesel::prelude::*;
+    use schema::administrators::dsl::*;
+
+    use schema::inventory::dsl::{created_at,inventory, product_id};
+    use schema::products::dsl::{name as pro_name, products};
+
+    // 解析start和end为NaiveDateTime
+    let start_dt = NaiveDateTime::parse_from_str(&start, "%Y-%m-%d %H:%M:%S").unwrap();
+    let end_dt = NaiveDateTime::parse_from_str(&end, "%Y-%m-%d %H:%M:%S").unwrap();
+
+    let results = conn
+        .run(move |c| {
+            let admin = administrators
+                .filter(username.eq(token.0.clone()))
+                .first::<Administrator>(c)
+                .optional()
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error checking for administrator".to_string(),
+                    })
+                })?;
+
+            if admin.is_none() {
+                return Err(Json(CustomResponder {
+                    status: rocket::http::Status::Unauthorized,
+                    message: "Permission Denied".to_string(),
+                }));
+            }
+
+            let mut query = inventory
+                .filter(created_at.between(start_dt, end_dt))
+                .into_boxed();
+
+            if let Some(product_name_filter) = &product_name {
+                // 直接将 pro_id 的类型声明为 Integer 而不是 Nullable<Integer>
+                let subquery = products
+                    .filter(pro_name.eq(product_name_filter))
+                    .select(sql::<Integer>("COALESCE(pro_id, 0)"));
+                query = query.filter(product_id.eq_any(subquery));
+            }
+            
+
+            Ok(query
+                .load::<Inventory>(c)
+                .expect("Error loading warehouses")) // 如果加载或转换过程中出现错误，抛出一个错误
+        })
+        .await;
+
+    results.map(Json)
+}
+
 // 登录接口
 #[post("/login", data = "<credentials>")]
 async fn login(
-    credentials: rocket::form::Form<LoginCredentials>,
+    credentials: Json<LoginCredentials>,
     conn: DbConn,
-) -> Result<Json<String>, Status> {
+    cookies: &CookieJar<'_>,
+) -> Result<Json<CustomResponder>, Json<CustomResponder>> {
     use schema::administrators::dsl::*;
 
     let input_username = credentials.username.clone(); // 提取用户名
@@ -534,19 +723,103 @@ async fn login(
     match result {
         Ok(Some(administrator)) if administrator.password == input_password => {
             let token = generate_token(&administrator.username);
-            Ok(Json(token))
+            // 将 token 存入 Cookie 中
+            let cookie: Cookie = Cookie::build(("token", token.clone()))
+                .path("/")
+                .secure(false)
+                .http_only(true)
+                .build();
+            cookies.add(cookie);
+            Ok(Json(CustomResponder {
+                status: rocket::http::Status::Ok,
+                message: "Success".to_string(),
+            }))
         }
-        _ => Err(Status::Unauthorized),
+        _ => Err(Json(CustomResponder {
+            status: rocket::http::Status::InternalServerError,
+            message: "Error checking for administrator".to_string(),
+        })),
     }
+}
+
+#[post("/signup", data = "<new_administrator>")]
+async fn signup(
+    new_administrator: Json<NewAdministrator>,
+    conn: DbConn,
+    token: JwtToken,
+) -> Result<Json<CustomResponder>, Json<CustomResponder>> {
+    use schema::administrators::dsl::*;
+    let input_username = new_administrator.username.clone(); // 提取用户名
+    let input_password = new_administrator.password.clone(); // 提取密码，并用不同的变量名
+    let input_superuser = new_administrator.superuser.clone();
+    let result = conn
+        .run(move |c| {
+            let admin = administrators
+                .filter(username.eq(token.0))
+                .filter(superuser.eq(true))
+                .first::<Administrator>(c)
+                .optional()
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::InternalServerError,
+                        message: "Error checking for administrator".to_string(),
+                    })
+                })?;
+            if admin.is_none() {
+                return Err(Json(CustomResponder {
+                    status: rocket::http::Status::Unauthorized,
+                    message: "Permission Denied".to_string(),
+                }));
+            }
+            let existing_admin = administrators
+                .filter(username.eq(input_username.clone()))
+                .first::<Administrator>(c)
+                .optional()
+                .map_err(|_| {
+                    Json(CustomResponder {
+                        status: rocket::http::Status::Unauthorized,
+                        message: "Error checking for administrator".to_string(),
+                    })
+                })?;
+            if let Some(_) = existing_admin {
+                return Err(Json(CustomResponder {
+                    status: rocket::http::Status::BadRequest,
+                    message: "Administrator with this username already exists".to_string(),
+                }));
+            }
+            let new_administrator = NewAdministrator {
+                username: input_username,
+                password: input_password,
+                superuser: input_superuser,
+                created_at: Some(Utc::now().naive_utc()),
+                updated_at: Some(Utc::now().naive_utc()),
+            };
+            diesel::insert_into(administrators)
+                .values(&new_administrator)
+                .execute(c)
+                .expect("Error inserting admin");
+            Ok(Json(CustomResponder {
+                status: rocket::http::Status::Ok,
+                message: "Administrator created".to_string(),
+            }))
+        })
+        .await;
+    result
+}
+
+#[rocket::options("/login")]
+fn options_login() -> Status {
+    Status::Ok // 返回一个允许的状态码，如 200 OK
+}
+#[rocket::options("/signup")]
+fn options_signup() -> Status {
+    Status::Ok // 返回一个允许的状态码，如 200 OK
 }
 // 受保护的路由
 #[get("/protected")]
 fn protected_route(token: JwtToken) -> String {
     format!("Hello, {}! This is a protected route.", token.0)
 }
-
-struct AdminInit;
-pub struct JwtToken(pub String);
 
 #[rocket::async_trait]
 impl Fairing for AdminInit {
@@ -569,14 +842,18 @@ impl Fairing for AdminInit {
                 .expect("Error counting admins");
 
             if admin_count == 0 {
-                let random_password: String = rand::thread_rng()
-                    .sample_iter(&Alphanumeric)
-                    .take(12)
-                    .map(char::from)
-                    .collect();
+                let mut random_password = String::from("111");
+
+                #[cfg(not(debug_assertions))]
+                {
+                    random_password = rand::thread_rng()
+                        .sample_iter(&Alphanumeric)
+                        .take(12)
+                        .map(char::from)
+                        .collect();
+                }
 
                 info!("默认管理员已创建，用户名: admin, 密码: {}", random_password);
-
                 diesel::insert_into(administrators)
                     .values((
                         username.eq("admin"),
@@ -616,9 +893,13 @@ fn get_warehouse_id(
     use self::warehouses::dsl::*;
     let warehouse: Warehouse = warehouses.filter(localkey.is_not_null()).first(conn)?;
     info!("Found warehouse: {:?}", warehouse.localkey);
-    let mut local_key_bytes = general_purpose::STANDARD
-        .decode(warehouse.localkey)
-        .expect("Base64 decode error");
+    let mut local_key_bytes = if let Some(local_key) = &warehouse.localkey {
+        general_purpose::STANDARD
+            .decode(local_key)
+            .expect("Base64 decode error")
+    } else {
+        Vec::new() // 或者其他默认值的处理
+    };
     let keypair =
         ed25519::Keypair::decode(local_key_bytes.as_mut_slice()).expect("Keypair decode error");
     Ok(keypair)
@@ -634,7 +915,7 @@ fn generate_and_insert_new_local_key(conn: &mut SqliteConnection) -> ed25519::Ke
     let local_peer_id = PeerId::from(PublicKey::Ed25519(local_key.public()));
     let new_warehouse = Warehouse {
         id: local_peer_id.to_string(),
-        localkey: local_key_base64,
+        localkey: Some(local_key_base64),
         name: "ThisWarehouse".to_string(),
         location: "/ip4/127.0.0.1/tcp/8080".to_string(),
         created_at: Some(Utc::now().naive_utc()),
@@ -919,7 +1200,7 @@ async fn rocket() -> Rocket<Build> {
         .merge(Env::prefixed("APP_"));
 
     // 使用自定义的配置启动 Rocket 应用程序
-    let rocket = rocket::custom(figment)
+    let mut rocket = rocket::custom(figment)
         // 附加数据库连接
         .attach(DbConn::fairing())
         .attach(AdminInit)
@@ -934,9 +1215,34 @@ async fn rocket() -> Rocket<Build> {
                 create_product,
                 get_products,
                 login,
-                protected_route
+                options_login,
+                protected_route,
+                signup,
+                options_signup
             ],
         );
+
+    // 只在 debug 模式下启用 CORS 配置
+    #[cfg(debug_assertions)]
+    {
+        let cors = CorsOptions::default()
+            .allowed_origins(AllowedOrigins::all())
+            .allowed_methods(
+                vec![
+                    Method::Get,
+                    Method::Post,
+                    // 还可以添加其它允许的方法，如 Method::Put, Method::Delete 等
+                ]
+                .into_iter()
+                .map(From::from)
+                .collect::<HashSet<_>>(),
+            )
+            .allowed_headers(AllowedHeaders::all())
+            .allow_credentials(true)
+            .to_cors()
+            .unwrap();
+        rocket = rocket.attach(cors);
+    }
 
     rocket
 }

@@ -4,7 +4,7 @@
 
 diesel::table! {
     administrators (id) {
-        id -> Integer,
+        id -> Nullable<Integer>,
         username -> Text,
         password -> Text,
         superuser -> Bool,
@@ -23,7 +23,7 @@ diesel::table! {
 
 diesel::table! {
     inventory (id) {
-        id -> Integer,
+        id -> Nullable<Integer>,
         product_id -> Integer,
         warehouse_id -> Text,
         quantity -> Integer,
@@ -60,7 +60,7 @@ diesel::table! {
 diesel::table! {
     warehouses (id) {
         id -> Text,
-        localkey -> Text,
+        localkey -> Nullable<Text>,
         name -> Text,
         location -> Text,
         created_at -> Nullable<Timestamp>,

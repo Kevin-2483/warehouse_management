@@ -27,12 +27,13 @@ pub struct Category {
     pub description: Option<String>,
 }
 
-#[derive(Queryable, Identifiable, Serialize, Deserialize, Associations)]
+#[derive(Selectable, Queryable, Identifiable, Serialize, Deserialize, Associations)]
 #[diesel(table_name = inventory)]
 #[diesel(belongs_to(Product))]
 #[diesel(belongs_to(Warehouse))]
+
 pub struct Inventory {
-    pub id: i32,
+    pub id: Option<i32>,
     pub product_id: i32,
     pub warehouse_id: String,
     pub quantity: i32,
@@ -46,7 +47,7 @@ pub struct Inventory {
 #[diesel(table_name = warehouses)]
 pub struct Warehouse {
     pub id: String,
-    pub localkey: String,
+    pub localkey: Option<String>,
     pub name: String,
     pub location: String,
     pub created_at: Option<NaiveDateTime>,
@@ -71,7 +72,7 @@ pub struct WarehouseTransfer {
 #[derive(Queryable, Identifiable, Serialize, Deserialize)]
 #[diesel(table_name = administrators)]
 pub struct Administrator {
-    pub id: i32,
+    pub id: Option<i32>,
     pub username: String,
     pub password: String,
     pub superuser: bool,

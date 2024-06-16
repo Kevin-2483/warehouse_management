@@ -1,0 +1,114 @@
+2024-06-16T01:19:09.111539446+08:00 - INFO - Database migrations executed successfully
+2024-06-16T01:19:09.111710893+08:00 - ERROR - Failed to get warehouse local key: Record not found
+2024-06-16T01:19:09.112015581+08:00 - INFO - Generated and inserted new key "+otQX+nM85IY0YQU7S0J9++YbwjMLbZRplxDw/+nwkuVIfunaJikjQbQl5E9Uo6m9cIGCGAGSafwChyEnPpAcQ==" for warehouse ThisWarehouse
+2024-06-16T01:19:09.115411614+08:00 - INFO - Local peer id: PeerId("12D3KooWKrWyF8dtadA6RCdR4KB9sqndcosNqtCrdFJQKWtdq464")
+2024-06-16T01:19:09.123956856+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
+2024-06-16T01:19:09.124054163+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
+2024-06-16T01:19:09.124090535+08:00 - WARN - Warning: LISTENING_ADDR environment variable is not set, using default value:/ip4/0.0.0.0/tcp/12345
+2024-06-16T01:19:09.124156161+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node
+2024-06-16T01:19:09.124716633+08:00 - INFO - creating instance on iface 10.0.0.101
+2024-06-16T01:19:09.126693308+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.126760994+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.126815169+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.126864440+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.126918372+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.126965554+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127045499+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127071278+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127181503+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127233039+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127277057+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127385742+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127399265+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127495704+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127531975+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127635350+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127653706+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127809989+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127848988+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127942204+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.127966293+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.128083903+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.128114835+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.128251021+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.128282839+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.128378574+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.128445427+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.128477292+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.128588521+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.128609748+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.128694846+08:00 - ERROR - database is locked
+2024-06-16T01:19:09.534466563+08:00 - INFO - 默认管理员已创建，用户名: admin, 密码: 111
+2024-06-16T01:19:09.537900891+08:00 - INFO - 🔧 Configured for [4mdebug[0m.
+2024-06-16T01:19:09.537936340+08:00 - INFO - address: [1;39m127.0.0.1[0m
+2024-06-16T01:19:09.537952781+08:00 - INFO - port: [1;39m0[0m
+2024-06-16T01:19:09.537967072+08:00 - INFO - workers: [1;39m8[0m
+2024-06-16T01:19:09.537984160+08:00 - INFO - max blocking threads: [1;39m512[0m
+2024-06-16T01:19:09.537997765+08:00 - INFO - ident: [1;39mRocket[0m
+2024-06-16T01:19:09.538016896+08:00 - INFO - IP header: [1;39mX-Real-IP[0m
+2024-06-16T01:19:09.538037184+08:00 - INFO - limits: [1;39mbytes = 8KiB, data-form = 2MiB, file = 1MiB, form = 32KiB, json = 1MiB, msgpack = 1MiB, string = 8KiB[0m
+2024-06-16T01:19:09.538057488+08:00 - INFO - temp dir: [1;39m/tmp[0m
+2024-06-16T01:19:09.538074913+08:00 - INFO - http/2: [1;39mtrue[0m
+2024-06-16T01:19:09.538095345+08:00 - INFO - keep-alive: [1;39m5[0m[1;39ms[0m
+2024-06-16T01:19:09.538109576+08:00 - INFO - tls: [1;39mdisabled[0m
+2024-06-16T01:19:09.538141074+08:00 - INFO - shutdown: [1;39mctrlc = true, force = true, signals = [SIGTERM], grace = 2s, mercy = 3s[0m
+2024-06-16T01:19:09.538163611+08:00 - INFO - log level: [1;39mnormal[0m
+2024-06-16T01:19:09.538177848+08:00 - INFO - cli colors: [1;39mtrue[0m
+2024-06-16T01:19:09.538281660+08:00 - INFO - 📬 [35mRoutes[0m:
+2024-06-16T01:19:09.538377967+08:00 - INFO - [36m([0m[39mindex[0m[36m)[0m [32mGET[0m [34m/[0m
+2024-06-16T01:19:09.538415844+08:00 - INFO - [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T01:19:09.538441554+08:00 - INFO - [36m([0m[39moptions_login[0m[36m)[0m [32mOPTIONS[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T01:19:09.538467602+08:00 - INFO - [36m([0m[39msignup[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T01:19:09.538494392+08:00 - INFO - [36m([0m[39moptions_signup[0m[36m)[0m [32mOPTIONS[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T01:19:09.538523760+08:00 - INFO - [36m([0m[39mcreate_product[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/products[0m [33mapplication/json[0m
+2024-06-16T01:19:09.538549339+08:00 - INFO - [36m([0m[39mget_products[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/products?<start>&<end>&<categories_name>[0m
+2024-06-16T01:19:09.538575439+08:00 - INFO - [36m([0m[39mprotected_route[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/protected[0m
+2024-06-16T01:19:09.538602296+08:00 - INFO - [36m([0m[39mget_warehouses[0m[36m)[0m [32mGET[0m [4;34m/api[0m[34m/warehouses[0m
+2024-06-16T01:19:09.538629875+08:00 - INFO - [36m([0m[39mcreate_warehouse[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/warehouses[0m [33mapplication/json[0m
+2024-06-16T01:19:09.538654509+08:00 - INFO - [36m([0m[39mcreate_category[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/categories[0m [33mapplication/json[0m
+2024-06-16T01:19:09.538695230+08:00 - INFO - [32mGET[0m [4;34m/cors[0m[34m/<status>[0m
+2024-06-16T01:19:09.538734988+08:00 - INFO - 📡 [35mFairings[0m:
+2024-06-16T01:19:09.538753052+08:00 - INFO - [1;39mAdmin Initialization[0m ([1;34mignite[0m)
+2024-06-16T01:19:09.538777303+08:00 - INFO - [1;39mCORS[0m ([1;34mignite, request, response[0m)
+2024-06-16T01:19:09.538793780+08:00 - INFO - [1;39m'sqlite_db' Database Pool[0m ([1;34mignite[0m)
+2024-06-16T01:19:09.538817074+08:00 - INFO - [1;39mShield[0m ([1;34mliftoff, response, singleton[0m)
+2024-06-16T01:19:09.539004067+08:00 - INFO - 🛡️ [35mShield[0m:
+2024-06-16T01:19:09.539033557+08:00 - INFO - X-Content-Type-Options: [39mnosniff[0m
+2024-06-16T01:19:09.539048205+08:00 - INFO - Permissions-Policy: [39minterest-cohort=()[0m
+2024-06-16T01:19:09.539065749+08:00 - INFO - X-Frame-Options: [39mSAMEORIGIN[0m
+2024-06-16T01:19:09.539099370+08:00 - WARN - 🚀 [1;39mRocket has launched from [4mhttp://127.0.0.1:39597[0m
+2024-06-16T01:19:09.539178432+08:00 - WARN - Rocket is executing inside of a custom runtime.
+2024-06-16T01:19:09.539203110+08:00 - INFO - Rocket's runtime is enabled via `#[rocket::main]` or `#[launch]`.
+2024-06-16T01:19:09.539215916+08:00 - INFO - Forced shutdown is disabled. Runtime settings may be suboptimal.
+2024-06-16T01:20:04.701173212+08:00 - INFO - [32mOPTIONS[0m [34m/api/login[0m:
+2024-06-16T01:20:04.701288056+08:00 - INFO - Matched: [36m([0m[39moptions_login[0m[36m)[0m [32mOPTIONS[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T01:20:04.701373943+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T01:20:04.701647502+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T01:20:04.811486954+08:00 - INFO - [32mPOST[0m [34m/api/login[0m [33mapplication/json[0m:
+2024-06-16T01:20:04.811604218+08:00 - INFO - Matched: [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T01:20:04.812204497+08:00 - INFO - [1;39mOutcome: [0m[31mError[0m([39m401 Unauthorized[0m)
+2024-06-16T01:20:04.812247550+08:00 - WARN - No [1;34m401[0m catcher registered. Using Rocket default.
+2024-06-16T01:20:04.812505152+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T01:20:17.580797257+08:00 - INFO - [32mOPTIONS[0m [34m/api/login[0m:
+2024-06-16T01:20:17.580912122+08:00 - INFO - Matched: [36m([0m[39moptions_login[0m[36m)[0m [32mOPTIONS[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T01:20:17.580971227+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T01:20:17.581224194+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T01:20:17.588227917+08:00 - INFO - [32mPOST[0m [34m/api/login[0m [33mapplication/json[0m:
+2024-06-16T01:20:17.588335981+08:00 - INFO - Matched: [36m([0m[39mlogin[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/login[0m
+2024-06-16T01:20:17.589073322+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T01:20:17.589250224+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T01:20:27.117787507+08:00 - INFO - [32mOPTIONS[0m [34m/api/signup[0m:
+2024-06-16T01:20:27.117886181+08:00 - INFO - Matched: [36m([0m[39moptions_signup[0m[36m)[0m [32mOPTIONS[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T01:20:27.117934189+08:00 - INFO - [1;39mOutcome: [0m[32mSuccess[0m([39m200 OK[0m)
+2024-06-16T01:20:27.118170956+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T01:20:27.124139670+08:00 - INFO - [32mPOST[0m [34m/api/signup[0m [33mapplication/json[0m:
+2024-06-16T01:20:27.124219765+08:00 - INFO - Matched: [36m([0m[39msignup[0m[36m)[0m [32mPOST[0m [4;34m/api[0m[34m/signup[0m
+2024-06-16T01:20:27.124465857+08:00 - INFO - Token not found
+2024-06-16T01:20:27.124497711+08:00 - WARN - Request guard `JwtToken` failed: ().
+2024-06-16T01:20:27.124545252+08:00 - INFO - [1;39mOutcome: [0m[31mError[0m([39m401 Unauthorized[0m)
+2024-06-16T01:20:27.124586635+08:00 - WARN - No [1;34m401[0m catcher registered. Using Rocket default.
+2024-06-16T01:20:27.124787035+08:00 - INFO - [32mResponse succeeded.[0m
+2024-06-16T01:36:19.128284009+08:00 - WARN - Received shutdown signal, shutting down...
+2024-06-16T01:36:19.128405248+08:00 - WARN - Received SIGINT. Requesting shutdown.
+2024-06-16T01:36:19.128460637+08:00 - INFO - Waiting for tasks to finish...
+2024-06-16T01:36:19.128480677+08:00 - INFO - Shutdown requested. Waiting for pending I/O...
