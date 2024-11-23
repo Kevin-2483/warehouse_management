@@ -1,5 +1,0 @@
-2024-06-08T18:29:12.051409309+08:00 - INFO - Local peer id: PeerId("12D3KooWFwHBb3dCkFn7S55SGbBQjh2Y84mACpiU7pNUoe2CBYES")
-2024-06-08T18:29:12.053763480+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
-2024-06-08T18:29:12.053824899+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
-2024-06-08T18:29:12.053841943+08:00 - WARN - Warning: LISTENING_ADDR environment variable is not set, using default value:/ip4/0.0.0.0/tcp/12345
-2024-06-08T18:29:12.053889645+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node

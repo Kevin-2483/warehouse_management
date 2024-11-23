@@ -1,7 +1,0 @@
-2024-06-12T14:54:02.904585307+08:00 - INFO - Database migrations executed successfully
-2024-06-12T14:54:02.905090109+08:00 - INFO - Found warehouse: "o7qF4zfqNZC+pJyKkdyjT6jOJn6Zr7jD3FQp9JXfvw5b9/vB5DyZcYTnQ0XFCL0qWv6UZchbiqFxykyG4XMpwg=="
-2024-06-12T14:54:02.905266673+08:00 - INFO - Local peer id: PeerId("12D3KooWG1Nb1HFP5h4szmHwzCJHXeQiSjaBrUpSFTdmkWYGfXVs")
-2024-06-12T14:54:02.914189092+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
-2024-06-12T14:54:02.914264478+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
-2024-06-12T14:54:02.914282861+08:00 - INFO - Find LISTENING_ADDR "/ip4/0.0.0.0/tcp/12333"
-2024-06-12T14:54:02.914337798+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node
