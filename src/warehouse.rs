@@ -5,13 +5,12 @@ use libp2p::identity::ed25519;
 use libp2p::identity::PublicKey;
 use libp2p::PeerId;
 use log::info;
-use crate::models::Warehouse; // 根据需要导入 Warehouse 和 warehouses
+use crate::models::Warehouse;
 use base64::engine::general_purpose;
 use chrono::Utc;
-use crate::schema::warehouses; // 添加此行以导入 warehouses
+use crate::schema::warehouses;
 use diesel::RunQueryDsl;
-use diesel::prelude::*; // 添加此行以引入 QueryDsl 和其他特性
-
+use diesel::prelude::*;
 
 pub fn generate_and_insert_new_local_key(conn: &mut SqliteConnection) -> ed25519::Keypair {
     let local_key = ed25519::Keypair::generate();

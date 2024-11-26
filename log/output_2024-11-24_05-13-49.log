@@ -1,0 +1,48 @@
+2024-11-24T05:13:49.379848900+08:00 - INFO - Database migrations executed successfully
+2024-11-24T05:13:49.380307700+08:00 - INFO - Found warehouse: Some("6/xh5a6lKRH3rDzPhyO9VIukTJ0IuhADe/3eODMxbf8MztWSe4OYi8pwgizdjo0Di3MgMKEXDbOXPw5aK43LgA==")
+2024-11-24T05:13:49.380830100+08:00 - INFO - Local peer id: PeerId("12D3KooWAgMzAhJ6CmCw8R6JNC9mAwqKJyYroZp7Ra2q198VozUF")
+2024-11-24T05:13:49.424109300+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
+2024-11-24T05:13:49.424350500+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
+2024-11-24T05:13:49.425820800+08:00 - WARN - Warning: LISTENING_ADDR environment variable is not set, using default value:/ip4/0.0.0.0/tcp/12345
+2024-11-24T05:13:49.426108800+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node
+2024-11-24T05:13:49.437296300+08:00 - INFO - creating instance on iface 10.10.10.2
+2024-11-24T05:13:49.437684600+08:00 - INFO - creating instance on iface 198.18.0.1
+2024-11-24T05:13:49.437987700+08:00 - INFO - creating instance on iface 10.1.0.168
+2024-11-24T05:13:49.447230200+08:00 - INFO - Found warehouse: Some("6/xh5a6lKRH3rDzPhyO9VIukTJ0IuhADe/3eODMxbf8MztWSe4OYi8pwgizdjo0Di3MgMKEXDbOXPw5aK43LgA==")
+2024-11-24T05:13:49.447669900+08:00 - INFO - Configured for [4mdebug[0m.
+2024-11-24T05:13:49.447757500+08:00 - INFO - Sent discovery broadcast
+2024-11-24T05:13:49.447899900+08:00 - INFO - address: [1;39m127.0.0.1[0m
+2024-11-24T05:13:49.448038800+08:00 - INFO - port: [1;39m0[0m
+2024-11-24T05:13:49.448135700+08:00 - INFO - workers: [1;39m20[0m
+2024-11-24T05:13:49.448251600+08:00 - INFO - max blocking threads: [1;39m512[0m
+2024-11-24T05:13:49.448503300+08:00 - INFO - ident: [1;39mRocket[0m
+2024-11-24T05:13:49.448628+08:00 - INFO - IP header: [1;39mX-Real-IP[0m
+2024-11-24T05:13:49.448753400+08:00 - INFO - limits: [1;39mbytes = 8KiB, data-form = 2MiB, file = 1MiB, form = 32KiB, json = 1MiB, msgpack = 1MiB, string = 8KiB[0m
+2024-11-24T05:13:49.448841500+08:00 - INFO - temp dir: [1;39mC:\Users\kevin\AppData\Local\Temp\[0m
+2024-11-24T05:13:49.448968400+08:00 - INFO - http/2: [1;39mtrue[0m
+2024-11-24T05:13:49.449197200+08:00 - INFO - keep-alive: [1;39m5[0m[1;39ms[0m
+2024-11-24T05:13:49.449323500+08:00 - INFO - tls: [1;39mdisabled[0m
+2024-11-24T05:13:49.449457700+08:00 - INFO - shutdown: [1;39mctrlc = true, force = true, grace = 2s, mercy = 3s[0m
+2024-11-24T05:13:49.449687600+08:00 - INFO - log level: [1;39mnormal[0m
+2024-11-24T05:13:49.449806900+08:00 - INFO - cli colors: [1;39mtrue[0m
+2024-11-24T05:13:49.450098600+08:00 - INFO - [35mRoutes[0m:
+2024-11-24T05:13:49.450462+08:00 - INFO - [32mGET[0m [4;34m/cors[0m[34m/<status>[0m
+2024-11-24T05:13:49.450629400+08:00 - INFO - [35mFairings[0m:
+2024-11-24T05:13:49.450947900+08:00 - INFO - [1;39mAdmin Initialization[0m ([1;34mignite[0m)
+2024-11-24T05:13:49.451113600+08:00 - INFO - [1;39mCORS[0m ([1;34mignite, request, response[0m)
+2024-11-24T05:13:49.451270800+08:00 - INFO - [1;39mShield[0m ([1;34mliftoff, response, singleton[0m)
+2024-11-24T05:13:49.451419300+08:00 - INFO - [1;39m'sqlite_db' Database Pool[0m ([1;34mignite[0m)
+2024-11-24T05:13:49.451875300+08:00 - INFO - [35mShield[0m:
+2024-11-24T05:13:49.452002100+08:00 - INFO - X-Frame-Options: [39mSAMEORIGIN[0m
+2024-11-24T05:13:49.452175700+08:00 - INFO - X-Content-Type-Options: [39mnosniff[0m
+2024-11-24T05:13:49.452344+08:00 - INFO - Permissions-Policy: [39minterest-cohort=()[0m
+2024-11-24T05:13:49.452531100+08:00 - WARN - [1;39mRocket has launched from [4mhttp://127.0.0.1:8782[0m
+2024-11-24T05:13:49.452802600+08:00 - WARN - Rocket is executing inside of a custom runtime.
+2024-11-24T05:13:49.453048300+08:00 - INFO - Rocket's runtime is enabled via `#[rocket::main]` or `#[launch]`.
+2024-11-24T05:13:49.453181600+08:00 - INFO - Forced shutdown is disabled. Runtime settings may be suboptimal.
+2024-11-24T05:14:00.163444100+08:00 - WARN - Received shutdown signal, shutting down...
+2024-11-24T05:14:00.163635700+08:00 - WARN - Received SIGINT. Requesting shutdown.
+2024-11-24T05:14:00.164450600+08:00 - INFO - Shutting down swarm...
+2024-11-24T05:14:00.164709800+08:00 - INFO - Shutdown requested. Waiting for pending I/O...
+2024-11-24T05:14:00.164909100+08:00 - INFO - Waiting for tasks to finish...
+2024-11-24T05:14:00.165015100+08:00 - INFO - Graceful shutdown completed successfully.

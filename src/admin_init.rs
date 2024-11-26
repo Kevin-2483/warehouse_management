@@ -6,10 +6,11 @@ use log::info;
 use rand::distributions::Alphanumeric;
 use rand::Rng;
 
-use crate::schema::administrators; // 根据需要导入 administrators 模块
-use crate::models::DbConn; // 修改为正确的导入路径
 
-pub struct AdminInit; // 定义 AdminInit 结构体
+use crate::schema::administrators;
+use crate::models::DbConn;
+
+pub struct AdminInit;
 
 #[rocket::async_trait]
 impl Fairing for AdminInit {

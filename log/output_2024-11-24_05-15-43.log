@@ -1,0 +1,36 @@
+2024-11-24T05:15:43.453105800+08:00 - INFO - Database migrations executed successfully
+2024-11-24T05:15:43.453423200+08:00 - INFO - Found warehouse: Some("6/xh5a6lKRH3rDzPhyO9VIukTJ0IuhADe/3eODMxbf8MztWSe4OYi8pwgizdjo0Di3MgMKEXDbOXPw5aK43LgA==")
+2024-11-24T05:15:43.453654200+08:00 - INFO - Local peer id: PeerId("12D3KooWAgMzAhJ6CmCw8R6JNC9mAwqKJyYroZp7Ra2q198VozUF")
+2024-11-24T05:15:43.495118400+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
+2024-11-24T05:15:43.495265400+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
+2024-11-24T05:15:43.496575400+08:00 - WARN - Warning: LISTENING_ADDR environment variable is not set, using default value:/ip4/0.0.0.0/tcp/12345
+2024-11-24T05:15:43.496656+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node
+2024-11-24T05:15:43.506472800+08:00 - INFO - creating instance on iface 10.10.10.2
+2024-11-24T05:15:43.506713400+08:00 - INFO - creating instance on iface 198.18.0.1
+2024-11-24T05:15:43.506868500+08:00 - INFO - creating instance on iface 10.1.0.168
+2024-11-24T05:15:43.515750100+08:00 - INFO - Found warehouse: Some("6/xh5a6lKRH3rDzPhyO9VIukTJ0IuhADe/3eODMxbf8MztWSe4OYi8pwgizdjo0Di3MgMKEXDbOXPw5aK43LgA==")
+2024-11-24T05:15:43.515899700+08:00 - INFO - Sent discovery broadcast
+2024-11-24T05:15:43.525379800+08:00 - INFO - Configured for [4mrelease[0m.
+2024-11-24T05:15:43.525508600+08:00 - INFO - address: [1;39m127.0.0.1[0m
+2024-11-24T05:15:43.525562200+08:00 - INFO - port: [1;39m0[0m
+2024-11-24T05:15:43.525622700+08:00 - INFO - workers: [1;39m20[0m
+2024-11-24T05:15:43.525679200+08:00 - INFO - max blocking threads: [1;39m512[0m
+2024-11-24T05:15:43.525724900+08:00 - INFO - ident: [1;39mRocket[0m
+2024-11-24T05:15:43.525769+08:00 - INFO - IP header: [1;39mX-Real-IP[0m
+2024-11-24T05:15:43.525820800+08:00 - INFO - limits: [1;39mbytes = 8KiB, data-form = 2MiB, file = 1MiB, form = 32KiB, json = 1MiB, msgpack = 1MiB, string = 8KiB[0m
+2024-11-24T05:15:43.525865700+08:00 - INFO - temp dir: [1;39mC:\Users\kevin\AppData\Local\Temp\[0m
+2024-11-24T05:15:43.525909100+08:00 - INFO - http/2: [1;39mtrue[0m
+2024-11-24T05:15:43.525948+08:00 - INFO - keep-alive: [1;39m5[0m[1;39ms[0m
+2024-11-24T05:15:43.525987600+08:00 - INFO - tls: [1;39mdisabled[0m
+2024-11-24T05:15:43.526085300+08:00 - INFO - shutdown: [1;39mctrlc = true, force = true, grace = 2s, mercy = 3s[0m
+2024-11-24T05:15:43.526133500+08:00 - INFO - log level: [1;39mcritical[0m
+2024-11-24T05:15:43.526179900+08:00 - INFO - cli colors: [1;39mtrue[0m
+2024-11-24T05:15:43.526266200+08:00 - INFO - [35mFairings[0m:
+2024-11-24T05:15:43.526326+08:00 - INFO - [1;39mAdmin Initialization[0m ([1;34mignite[0m)
+2024-11-24T05:15:43.526373600+08:00 - INFO - [1;39mShield[0m ([1;34mliftoff, response, singleton[0m)
+2024-11-24T05:15:43.526419600+08:00 - INFO - [1;39m'sqlite_db' Database Pool[0m ([1;34mignite[0m)
+2024-11-24T05:15:43.526695500+08:00 - INFO - [35mShield[0m:
+2024-11-24T05:15:43.526745500+08:00 - INFO - Permissions-Policy: [39minterest-cohort=()[0m
+2024-11-24T05:15:43.526794800+08:00 - INFO - X-Content-Type-Options: [39mnosniff[0m
+2024-11-24T05:15:43.526839400+08:00 - INFO - X-Frame-Options: [39mSAMEORIGIN[0m
+2024-11-24T05:15:43.526896600+08:00 - WARN - [1;39mRocket has launched from [4mhttp://127.0.0.1:8810[0m

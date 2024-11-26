@@ -5,8 +5,8 @@ use rocket::figment::{providers::{Env, Serialized}, Figment};
 use rocket::Config;
 use crate::models::DbConn;
 use rocket::http::Method;
-use crate::admin_init::AdminInit; // 导入 AdminInit
-use rocket::routes; // 添加此行以导入 routes 宏
+use crate::admin_init::AdminInit;
+use rocket::routes;
 
 // 将 rocket 函数移到这里
 pub async fn rocket() -> Rocket<Build> {

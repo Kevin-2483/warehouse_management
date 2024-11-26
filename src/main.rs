@@ -1,11 +1,8 @@
 extern crate base64;
 extern crate rocket;
 use std::error::Error;
-// use std::io::Cursor;
 use chrono::Local;
 use libp2p::floodsub::Topic;
-// use futures::TryFutureExt;
-// use libp2p::floodsub::Topic;
 use async_std::sync::Arc;
 use log::LevelFilter;
 use log::{error, info, warn};
@@ -15,22 +12,21 @@ use log4rs::config::Config as LogConfig;
 use log4rs::config::{Appender, Root};
 use log4rs::encode::pattern::PatternEncoder;
 use log4rs::init_config;
-use std::result::Result as StdResult; // 为了避免名称冲突，使用别名
-use tokio;
+use std::result::Result as StdResult;
 use tokio::signal;
 use tokio::sync::mpsc;
 use tokio::sync::Mutex;
 use tokio::task;
 mod admin_init;
-mod claims; // 添加这一行以导入 claims 模块
-mod db; // 导入新的模块
-mod migrations; // 导入新的模块
+mod claims;
+mod db;
+mod migrations;
 pub mod models;
-mod network_setup; // 添加此行以导入新模块
-mod rocket_config; // 导入新的模块
-pub mod schema; // 确保 schema 模块被导入
-mod token; // 导入新的模块
-mod warehouse; // 导入新的模块 // 确保 schema 模块被导入
+mod network_setup;
+mod rocket_config;
+pub mod schema;
+mod token;
+mod warehouse;
 
 #[tokio::main]
 async fn main() -> StdResult<(), Box<dyn Error>> {
@@ -86,7 +82,7 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
                         info!("Processing message for topic: {:?}", topic);
                         let mut swarm = swarm.lock().await;
                         // 直接调用 send_message，不需要 match
-                        swarm.behaviour_mut().send_message(topic, message);
+                        let _ = swarm.behaviour_mut().send_message(topic, message);
                         info!("Message sent through swarm");
                     }
                     result = async {

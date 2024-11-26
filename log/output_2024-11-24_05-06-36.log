@@ -1,0 +1,57 @@
+2024-11-24T05:06:36.879182900+08:00 - INFO - Database migrations executed successfully
+2024-11-24T05:06:36.879704500+08:00 - INFO - Found warehouse: Some("6/xh5a6lKRH3rDzPhyO9VIukTJ0IuhADe/3eODMxbf8MztWSe4OYi8pwgizdjo0Di3MgMKEXDbOXPw5aK43LgA==")
+2024-11-24T05:06:36.880050+08:00 - INFO - Local peer id: PeerId("12D3KooWAgMzAhJ6CmCw8R6JNC9mAwqKJyYroZp7Ra2q198VozUF")
+2024-11-24T05:06:36.939290700+08:00 - WARN - Warning: BOOTSTRAP_PEER_ID environment variable is not set
+2024-11-24T05:06:36.939632+08:00 - WARN - Warning: BOOTSTRAP_ADDR environment variable is not set
+2024-11-24T05:06:36.941094100+08:00 - WARN - Warning: LISTENING_ADDR environment variable is not set, using default value:/ip4/0.0.0.0/tcp/12345
+2024-11-24T05:06:36.941319500+08:00 - WARN - BOOTSTRAP_ADDR environment variable is not set,run as bootstrap node
+2024-11-24T05:06:36.948641+08:00 - ERROR - database is locked
+2024-11-24T05:06:36.951315300+08:00 - INFO - creating instance on iface 10.10.10.2
+2024-11-24T05:06:36.951785900+08:00 - INFO - creating instance on iface 198.18.0.1
+2024-11-24T05:06:36.952251700+08:00 - INFO - creating instance on iface 10.1.0.168
+2024-11-24T05:06:36.960320700+08:00 - INFO - Found warehouse: Some("6/xh5a6lKRH3rDzPhyO9VIukTJ0IuhADe/3eODMxbf8MztWSe4OYi8pwgizdjo0Di3MgMKEXDbOXPw5aK43LgA==")
+2024-11-24T05:06:36.960654700+08:00 - INFO - Sent discovery broadcast
+2024-11-24T05:06:37.352758700+08:00 - INFO - Configured for [4mdebug[0m.
+2024-11-24T05:06:37.352970100+08:00 - INFO - address: [1;39m127.0.0.1[0m
+2024-11-24T05:06:37.353111400+08:00 - INFO - port: [1;39m0[0m
+2024-11-24T05:06:37.353297300+08:00 - INFO - workers: [1;39m20[0m
+2024-11-24T05:06:37.353440400+08:00 - INFO - max blocking threads: [1;39m512[0m
+2024-11-24T05:06:37.353597500+08:00 - INFO - ident: [1;39mRocket[0m
+2024-11-24T05:06:37.353850500+08:00 - INFO - IP header: [1;39mX-Real-IP[0m
+2024-11-24T05:06:37.354298400+08:00 - INFO - limits: [1;39mbytes = 8KiB, data-form = 2MiB, file = 1MiB, form = 32KiB, json = 1MiB, msgpack = 1MiB, string = 8KiB[0m
+2024-11-24T05:06:37.354535+08:00 - INFO - temp dir: [1;39mC:\Users\kevin\AppData\Local\Temp\[0m
+2024-11-24T05:06:37.355323900+08:00 - INFO - http/2: [1;39mtrue[0m
+2024-11-24T05:06:37.355767900+08:00 - INFO - keep-alive: [1;39m5[0m[1;39ms[0m
+2024-11-24T05:06:37.355995500+08:00 - INFO - tls: [1;39mdisabled[0m
+2024-11-24T05:06:37.356201100+08:00 - INFO - shutdown: [1;39mctrlc = true, force = true, grace = 2s, mercy = 3s[0m
+2024-11-24T05:06:37.356390800+08:00 - INFO - log level: [1;39mnormal[0m
+2024-11-24T05:06:37.356567800+08:00 - INFO - cli colors: [1;39mtrue[0m
+2024-11-24T05:06:37.356872800+08:00 - INFO - [35mRoutes[0m:
+2024-11-24T05:06:37.357173300+08:00 - INFO - [32mGET[0m [4;34m/cors[0m[34m/<status>[0m
+2024-11-24T05:06:37.357405700+08:00 - INFO - [35mFairings[0m:
+2024-11-24T05:06:37.357525+08:00 - INFO - [1;39mCORS[0m ([1;34mignite, request, response[0m)
+2024-11-24T05:06:37.357726400+08:00 - INFO - [1;39m'sqlite_db' Database Pool[0m ([1;34mignite[0m)
+2024-11-24T05:06:37.357828300+08:00 - INFO - [1;39mShield[0m ([1;34mliftoff, response, singleton[0m)
+2024-11-24T05:06:37.357943200+08:00 - INFO - [1;39mAdmin Initialization[0m ([1;34mignite[0m)
+2024-11-24T05:06:37.358462600+08:00 - INFO - [35mShield[0m:
+2024-11-24T05:06:37.358801900+08:00 - INFO - X-Content-Type-Options: [39mnosniff[0m
+2024-11-24T05:06:37.359049300+08:00 - INFO - X-Frame-Options: [39mSAMEORIGIN[0m
+2024-11-24T05:06:37.359177600+08:00 - INFO - Permissions-Policy: [39minterest-cohort=()[0m
+2024-11-24T05:06:37.359354400+08:00 - WARN - [1;39mRocket has launched from [4mhttp://127.0.0.1:8514[0m
+2024-11-24T05:06:37.359922200+08:00 - WARN - Rocket is executing inside of a custom runtime.
+2024-11-24T05:06:37.360272300+08:00 - INFO - Rocket's runtime is enabled via `#[rocket::main]` or `#[launch]`.
+2024-11-24T05:06:37.360401600+08:00 - INFO - Forced shutdown is disabled. Runtime settings may be suboptimal.
+2024-11-24T05:06:46.956851600+08:00 - INFO - Sending periodic debug message...
+2024-11-24T05:06:46.961624100+08:00 - INFO - Successfully sent periodic message
+2024-11-24T05:06:46.962299+08:00 - INFO - Processing message for topic: Topic("example_topic")
+2024-11-24T05:06:46.963739800+08:00 - INFO - Found warehouse: Some("6/xh5a6lKRH3rDzPhyO9VIukTJ0IuhADe/3eODMxbf8MztWSe4OYi8pwgizdjo0Di3MgMKEXDbOXPw5aK43LgA==")
+2024-11-24T05:06:46.964386700+08:00 - INFO - Message sent through swarm
+2024-11-24T05:06:46.966351800+08:00 - INFO - Found warehouse: Some("6/xh5a6lKRH3rDzPhyO9VIukTJ0IuhADe/3eODMxbf8MztWSe4OYi8pwgizdjo0Di3MgMKEXDbOXPw5aK43LgA==")
+2024-11-24T05:06:46.966676900+08:00 - INFO - Sent discovery broadcast
+2024-11-24T05:06:50.894535600+08:00 - WARN - Received shutdown signal, shutting down...
+2024-11-24T05:06:50.894768400+08:00 - WARN - Received SIGINT. Requesting shutdown.
+2024-11-24T05:06:50.894942700+08:00 - INFO - Shutting down swarm...
+2024-11-24T05:06:50.895134600+08:00 - INFO - Shutting down debug message sender...
+2024-11-24T05:06:50.895228200+08:00 - INFO - Waiting for tasks to finish...
+2024-11-24T05:06:50.895319600+08:00 - INFO - Shutdown requested. Waiting for pending I/O...
+2024-11-24T05:06:50.895534800+08:00 - INFO - Graceful shutdown completed successfully.
