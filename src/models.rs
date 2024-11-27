@@ -1,15 +1,14 @@
-use chrono::NaiveDateTime;
+use chrono::{NaiveDate, NaiveDateTime};
 use diesel::prelude::*;
-use serde::{Deserialize, Serialize};
-use rocket_sync_db_pools::database;
 use rust_decimal::Decimal;
+use serde::{Serialize, Deserialize};
 
-#[database("sqlite_db")]
-pub struct DbConn(diesel::SqliteConnection);
+use crate::schema::*;
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::warehouses)]
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable)]
+#[diesel(table_name = warehouses)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(warehouse_id))]
 pub struct Warehouse {
     pub warehouse_id: i32,
     pub localkey: Option<String>,
@@ -20,8 +19,8 @@ pub struct Warehouse {
     pub last_updated: NaiveDateTime,
 }
 
-#[derive(Insertable, Deserialize)]
-#[diesel(table_name = crate::schema::warehouses)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = warehouses)]
 pub struct NewWarehouse {
     pub localkey: Option<String>,
     pub warehouse_name: String,
@@ -29,8 +28,11 @@ pub struct NewWarehouse {
     pub capacity: Option<i32>,
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::warehouse_stock)]
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable, Associations)]
+#[diesel(belongs_to(Warehouse))]
+#[diesel(belongs_to(Material))]
+#[diesel(primary_key(warehouse_id, material_id))]
+#[diesel(table_name = warehouse_stock)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct WarehouseStock {
     pub warehouse_id: i32,
@@ -39,17 +41,18 @@ pub struct WarehouseStock {
     pub last_updated: NaiveDateTime,
 }
 
-#[derive(Insertable, Deserialize)]
-#[diesel(table_name = crate::schema::warehouse_stock)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = warehouse_stock)]
 pub struct NewWarehouseStock {
     pub warehouse_id: i32,
     pub material_id: i32,
     pub quantity: i32,
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::users)]
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable)]
+#[diesel(table_name = users)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(user_id))]
 pub struct User {
     pub user_id: i32,
     pub username: String,
@@ -61,8 +64,8 @@ pub struct User {
     pub created_at: NaiveDateTime,
 }
 
-#[derive(Insertable, Deserialize)]
-#[diesel(table_name = crate::schema::users)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = users)]
 pub struct NewUser {
     pub username: String,
     pub password_hash: String,
@@ -71,228 +74,81 @@ pub struct NewUser {
     pub contact_info: Option<String>,
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::roles)]
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable)]
+#[diesel(table_name = roles)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(role_id))]
 pub struct Role {
     pub role_id: i32,
     pub role_name: String,
     pub description: Option<String>,
 }
 
-#[derive(Insertable, Deserialize)]
-#[diesel(table_name = crate::schema::roles)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = roles)]
 pub struct NewRole {
     pub role_name: String,
     pub description: Option<String>,
 }
 
-#[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::user_roles)]
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable, Associations)]
+#[diesel(belongs_to(User))]
+#[diesel(belongs_to(Role))]
+#[diesel(primary_key(user_id, role_id))]
+#[diesel(table_name = user_roles)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct UserRole {
     pub user_id: i32,
     pub role_id: i32,
 }
 
-#[derive(Insertable)]
-#[diesel(table_name = crate::schema::user_roles)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = user_roles)]
 pub struct NewUserRole {
     pub user_id: i32,
     pub role_id: i32,
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::materials)]
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable)]
+#[diesel(table_name = permissions)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Material {
-    pub material_id: i32,
-    pub material_code: String,
-    pub material_name: String,
-    pub description: Option<String>,
-    pub unit: String,
-    pub minimum_stock: i32,
-    pub created_at: NaiveDateTime,
-}
-
-#[derive(Insertable, Deserialize)]
-#[diesel(table_name = crate::schema::materials)]
-pub struct NewMaterial {
-    pub material_code: String,
-    pub material_name: String,
-    pub description: Option<String>,
-    pub unit: String,
-    pub minimum_stock: i32,
-}
-
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::inbound_records)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct InboundRecord {
-    pub record_id: i32,
-    pub warehouse_id: i32,
-    pub material_id: i32,
-    pub quantity: i32,
-    pub unit_price: Decimal,
-    pub supplier: String,
-    pub inbound_date: NaiveDateTime,
-    pub operator_id: i32,
-    pub status: String,
-}
-
-#[derive(Insertable, Deserialize)]
-#[diesel(table_name = crate::schema::inbound_records)]
-pub struct NewInboundRecord {
-    pub warehouse_id: i32,
-    pub material_id: i32,
-    pub quantity: i32,
-    pub unit_price: Decimal,
-    pub supplier: String,
-    pub operator_id: i32,
-}
-
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::outbound_records)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct OutboundRecord {
-    pub record_id: i32,
-    pub warehouse_id: i32,
-    pub material_id: i32,
-    pub quantity: i32,
-    pub recipient: String,
-    pub outbound_date: NaiveDateTime,
-    pub operator_id: i32,
-    pub status: String,
-}
-
-#[derive(Insertable, Deserialize)]
-#[diesel(table_name = crate::schema::outbound_records)]
-pub struct NewOutboundRecord {
-    pub warehouse_id: i32,
-    pub material_id: i32,
-    pub quantity: i32,
-    pub recipient: String,
-    pub operator_id: i32,
-}
-
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::transfer_records)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct TransferRecord {
-    pub transfer_id: i32,
-    pub from_warehouse_id: i32,
-    pub to_warehouse_id: i32,
-    pub material_id: i32,
-    pub quantity: i32,
-    pub transfer_date: NaiveDateTime,
-    pub operator_id: i32,
-    pub status: String,
-}
-
-#[derive(Insertable, Deserialize)]
-#[diesel(table_name = crate::schema::transfer_records)]
-pub struct NewTransferRecord {
-    pub from_warehouse_id: i32,
-    pub to_warehouse_id: i32,
-    pub material_id: i32,
-    pub quantity: i32,
-    pub operator_id: i32,
-}
-
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::inventory_checks)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct InventoryCheck {
-    pub check_id: i32,
-    pub warehouse_id: i32,
-    pub check_date: NaiveDateTime,
-    pub operator_id: i32,
-    pub status: String,
-    pub notes: Option<String>,
-}
-
-#[derive(Insertable, Deserialize)]
-#[diesel(table_name = crate::schema::inventory_checks)]
-pub struct NewInventoryCheck {
-    pub warehouse_id: i32,
-    pub operator_id: i32,
-    pub notes: Option<String>,
-}
-
-#[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::inventory_check_details)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct InventoryCheckDetail {
-    pub check_id: i32,
-    pub material_id: i32,
-    pub system_quantity: i32,
-    pub actual_quantity: i32,
-    pub difference: i32,
-    pub notes: Option<String>,
-}
-
-#[derive(Insertable)]
-#[diesel(table_name = crate::schema::inventory_check_details)]
-pub struct NewInventoryCheckDetail {
-    pub check_id: i32,
-    pub material_id: i32,
-    pub system_quantity: i32,
-    pub actual_quantity: i32,
-    pub difference: i32,
-    pub notes: Option<String>,
-}
-
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::material_requests)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct MaterialRequest {
-    pub request_id: i32,
-    pub material_id: i32,
-    pub quantity: i32,
-    pub requested_by: i32,
-    pub request_date: NaiveDateTime,
-    pub status: String,
-    pub approved_by: Option<i32>,
-    pub approval_date: Option<NaiveDateTime>,
-    pub notes: Option<String>,
-}
-
-#[derive(Insertable, Deserialize)]
-#[diesel(table_name = crate::schema::material_requests)]
-pub struct NewMaterialRequest {
-    pub material_id: i32,
-    pub quantity: i32,
-    pub requested_by: i32,
-    pub notes: Option<String>,
-}
-
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::permissions)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(permission_id))]
 pub struct Permission {
     pub permission_id: i32,
     pub permission_name: String,
     pub description: Option<String>,
 }
 
-#[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::role_permissions)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = permissions)]
+pub struct NewPermission {
+    pub permission_name: String,
+    pub description: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable, Associations)]
+#[diesel(belongs_to(Role))]
+#[diesel(belongs_to(Permission))]
+#[diesel(primary_key(role_id, permission_id))]
+#[diesel(table_name = role_permissions)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct RolePermission {
     pub role_id: i32,
     pub permission_id: i32,
 }
 
-#[derive(Insertable)]
-#[diesel(table_name = crate::schema::role_permissions)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = role_permissions)]
 pub struct NewRolePermission {
     pub role_id: i32,
     pub permission_id: i32,
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::operation_logs)]
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable, Associations)]
+#[diesel(belongs_to(User))]
+#[diesel(table_name = operation_logs)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(log_id))]
 pub struct OperationLog {
     pub log_id: i32,
     pub user_id: i32,
@@ -300,22 +156,43 @@ pub struct OperationLog {
     pub timestamp: NaiveDateTime,
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::production_tasks)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = operation_logs)]
+pub struct NewOperationLog {
+    pub user_id: i32,
+    pub action: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable, Associations)]
+#[diesel(belongs_to(ProductSpecification, foreign_key = product_id))]
+#[diesel(belongs_to(User, foreign_key = created_by))]
+#[diesel(table_name = production_tasks)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(task_id))]
 pub struct ProductionTask {
     pub task_id: i32,
     pub product_id: i32,
     pub quantity: i32,
-    pub due_date: Option<chrono::NaiveDate>,
+    pub due_date: Option<NaiveDate>,
     pub created_by: i32,
     pub created_at: NaiveDateTime,
     pub status: String,
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::production_costs)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = production_tasks)]
+pub struct NewProductionTask {
+    pub product_id: i32,
+    pub quantity: i32,
+    pub due_date: Option<NaiveDate>,
+    pub created_by: i32,
+}
+
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable, Associations)]
+#[diesel(belongs_to(User, foreign_key = created_by))]
+#[diesel(table_name = production_costs)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(cost_id))]
 pub struct ProductionCost {
     pub cost_id: i32,
     pub process_type: String,
@@ -324,9 +201,19 @@ pub struct ProductionCost {
     pub created_at: NaiveDateTime,
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::price_formulas)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = production_costs)]
+pub struct NewProductionCost {
+    pub process_type: String,
+    pub cost_per_unit: Decimal,
+    pub created_by: i32,
+}
+
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable, Associations)]
+#[diesel(belongs_to(User, foreign_key = created_by))]
+#[diesel(table_name = price_formulas)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(formula_id))]
 pub struct PriceFormula {
     pub formula_id: i32,
     pub formula_name: Option<String>,
@@ -343,9 +230,27 @@ pub struct PriceFormula {
     pub created_at: NaiveDateTime,
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::product_specifications)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = price_formulas)]
+pub struct NewPriceFormula {
+    pub formula_name: Option<String>,
+    pub base_material_cost: Decimal,
+    pub additional_material_cost: Decimal,
+    pub galvanization_cost: Decimal,
+    pub labor_cost: Decimal,
+    pub management_fee: Decimal,
+    pub sales_fee: Decimal,
+    pub manufacturing_fee: Decimal,
+    pub vat: Decimal,
+    pub profit: Decimal,
+    pub created_by: i32,
+}
+
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable, Associations)]
+#[diesel(belongs_to(User, foreign_key = created_by))]
+#[diesel(table_name = product_specifications)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(product_id))]
 pub struct ProductSpecification {
     pub product_id: i32,
     pub product_name: String,
@@ -355,4 +260,67 @@ pub struct ProductSpecification {
     pub dimensions: Option<String>,
     pub created_by: i32,
     pub created_at: NaiveDateTime,
+}
+
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = product_specifications)]
+pub struct NewProductSpecification {
+    pub product_name: String,
+    pub model: Option<String>,
+    pub material_type: Option<String>,
+    pub color: Option<String>,
+    pub dimensions: Option<String>,
+    pub created_by: i32,
+}
+
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable, Associations)]
+#[diesel(belongs_to(User, foreign_key = created_by))]
+#[diesel(table_name = materials)]
+#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(material_id))]
+pub struct Material {
+    pub material_id: i32,
+    pub material_name: String,
+    pub category: Option<String>,
+    pub type_: Option<String>,
+    pub supplier: Option<String>,
+    pub created_by: i32,
+    pub created_at: NaiveDateTime,
+}
+
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = materials)]
+pub struct NewMaterial {
+    pub material_name: String,
+    pub category: Option<String>,
+    pub type_: Option<String>,
+    pub supplier: Option<String>,
+    pub created_by: i32,
+}
+
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Identifiable, Associations)]
+#[diesel(belongs_to(Material))]
+#[diesel(belongs_to(User, foreign_key = requested_by))]
+#[diesel(belongs_to(Warehouse))]
+#[diesel(table_name = material_requests)]
+#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(primary_key(request_id))]
+pub struct MaterialRequest {
+    pub request_id: i32,
+    pub material_id: i32,
+    pub quantity: i32,
+    pub requested_by: i32,
+    pub warehouse_id: i32,
+    pub request_date: NaiveDateTime,
+    pub status: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[diesel(table_name = material_requests)]
+pub struct NewMaterialRequest {
+    pub material_id: i32,
+    pub quantity: i32,
+    pub requested_by: i32,
+    pub warehouse_id: i32,
+    pub status: String,
 }
