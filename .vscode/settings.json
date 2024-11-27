@@ -1,5 +1,6 @@
 {
 	"cSpell.enabledFileTypes": {
 		"rust": false
-	}
+	},
+	"nixEnvSelector.nixFile": "${workspaceFolder}/shell.nix"
 }
