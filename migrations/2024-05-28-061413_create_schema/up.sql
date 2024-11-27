@@ -90,7 +90,7 @@ CREATE TABLE production_tasks (
 CREATE TABLE production_costs (
     cost_id INTEGER PRIMARY KEY AUTOINCREMENT,
     process_type TEXT NOT NULL,
-    cost_per_unit DECIMAL(10, 2) NOT NULL,
+    cost_per_unit NUMERIC NOT NULL,
     created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (created_by) REFERENCES users(user_id)
@@ -100,15 +100,15 @@ CREATE TABLE production_costs (
 CREATE TABLE price_formulas (
     formula_id INTEGER PRIMARY KEY AUTOINCREMENT,
     formula_name TEXT,
-    base_material_cost DECIMAL(10, 2),
-    additional_material_cost DECIMAL(10, 2),
-    galvanization_cost DECIMAL(10, 2),
-    labor_cost DECIMAL(10, 2),
-    management_fee DECIMAL(10, 2),
-    sales_fee DECIMAL(10, 2),
-    manufacturing_fee DECIMAL(10, 2),
-    vat DECIMAL(10, 2),
-    profit DECIMAL(10, 2),
+    base_material_cost DOUBLE PRECISION,
+    additional_material_cost DOUBLE PRECISION,
+    galvanization_cost DOUBLE PRECISION,
+    labor_cost DOUBLE PRECISION,
+    management_fee DOUBLE PRECISION,
+    sales_fee DOUBLE PRECISION,
+    manufacturing_fee DOUBLE PRECISION,
+    vat DOUBLE PRECISION,
+    profit DOUBLE PRECISION,
     created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (created_by) REFERENCES users(user_id)

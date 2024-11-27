@@ -6,9 +6,10 @@ use log::info;
 use rand::distributions::Alphanumeric;
 use rand::Rng;
 
+use bcrypt;
 
-use crate::schema::administrators;
-use crate::models::DbConn;
+use crate::schema::users;
+use crate::models::{DbConn, NewUser};
 
 pub struct AdminInit;
 
@@ -25,38 +26,40 @@ impl Fairing for AdminInit {
         let db = DbConn::get_one(&rocket).await.expect("database connection");
 
         db.run(|c| {
-            use self::administrators::dsl::*;
+            use self::users::dsl::*;
 
-            let admin_count: i64 = administrators
+            let admin_count: i64 = users
                 .count()
                 .get_result(c)
-                .expect("Error counting admins");
+                .expect("Error counting users");
 
             if admin_count == 0 {
-                let mut random_password = String::from("111");
+                // Generate a random password for initial admin
+                let password: String = rand::thread_rng()
+                    .sample_iter(&Alphanumeric)
+                    .take(12)
+                    .map(char::from)
+                    .collect();
 
-                #[cfg(not(debug_assertions))]
-                {
-                    random_password = rand::thread_rng()
-                        .sample_iter(&Alphanumeric)
-                        .take(12)
-                        .map(char::from)
-                        .collect();
-                }
+                let new_admin = NewUser {
+                    username: "admin".to_string(),
+                    password_hash: bcrypt::hash(password.as_bytes(), bcrypt::DEFAULT_COST)
+                        .expect("Failed to hash password"),
+                    full_name: Some("System Administrator".to_string()),
+                    position: Some("Administrator".to_string()),
+                    contact_info: None,
+                    status: Some("active".to_string()),
+                };
 
-                info!("默认管理员已创建，用户名: admin, 密码: {}", random_password);
-                diesel::insert_into(administrators)
-                    .values((
-                        username.eq("admin"),
-                        password.eq(random_password),
-                        superuser.eq(true),
-                    ))
+                diesel::insert_into(users)
+                    .values(&new_admin)
                     .execute(c)
-                    .expect("Error inserting admin");
-            }
-        })
-        .await;
+                    .expect("Error saving admin user");
 
-        Ok(rocket)
+                info!("Created initial admin user with username: 'admin' and password: '{}'", password);
+            }
+
+            Ok(rocket)
+        }).await
     }
-} 
+}
