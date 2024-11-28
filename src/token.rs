@@ -1,6 +1,28 @@
 use jsonwebtoken::{encode, decode, DecodingKey, EncodingKey, Header, Validation};
 use std::time::{SystemTime, UNIX_EPOCH};
 use rocket::serde::{Deserialize, Serialize};
+use rocket::request::{FromRequest, Outcome};
+use rocket::Request;
+use rocket::http::Status;
+pub struct TokenGuard(String);
+
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for TokenGuard {
+    type Error = &'static str;
+
+    async fn from_request(request: &'r Request<'_>) -> Outcome<TokenGuard, &'static str> {
+        match request.headers().get_one("Authorization") {
+            Some(token) => {
+                if crate::token::decode_token(token).is_some() {
+                    Outcome::Success(TokenGuard(token.to_string()))
+                } else {
+                    Outcome::Failure((Status::Unauthorized, "Invalid token"))
+                }
+            }
+            None => Outcome::Failure((Status::Unauthorized, "Missing token"))
+        }
+    }
+}
 
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -58,4 +80,3 @@ pub fn decode_token(token: &str) -> Option<String> {
         Err(_) => None,
     }
 }
-

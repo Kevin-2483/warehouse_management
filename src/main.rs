@@ -27,6 +27,7 @@ mod rocket_config;
 pub mod schema;
 mod token;
 mod warehouse;
+mod routers;
 
 #[tokio::main]
 async fn main() -> StdResult<(), Box<dyn Error>> {
@@ -101,7 +102,15 @@ async fn main() -> StdResult<(), Box<dyn Error>> {
     let mut swarm_handle = Some(swarm_handle);
 
     // 调用 rocket 函数并启动
-    let rocket = rocket_config::rocket().await;
+    let rocket = rocket::build()
+        .attach(DbConn::fairing())
+        .mount("/api", routes![
+            routers::user::get_users,
+            routers::user::get_user,
+            routers::user::create_user,
+            routers::user::update_user,
+            routers::user::delete_user,
+        ]);
 
     // 将 Rocket 的启动任务交给 tokio::spawn
     let rocket_handle = tokio::spawn(async move {

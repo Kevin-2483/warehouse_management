@@ -104,7 +104,7 @@ diesel::table! {
 
 diesel::table! {
     roles (role_id) {
-        role_id -> Nullable<Integer>,
+        role_id -> Integer,
         role_name -> Text,
         description -> Nullable<Text>,
     }

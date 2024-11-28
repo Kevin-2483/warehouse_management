@@ -86,7 +86,7 @@ pub struct NewUser {
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 #[diesel(primary_key(role_id))]
 pub struct Role {
-    pub role_id: Option<i32>,
+    pub role_id: i32,
     pub role_name: String,
     pub description: Option<String>,
 }

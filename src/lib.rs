@@ -10,6 +10,7 @@ pub mod token;
 pub mod migrations;
 pub mod db;
 pub mod warehouse;
+pub mod routers;
 
 
 extern crate diesel;
