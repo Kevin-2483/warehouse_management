@@ -5,6 +5,8 @@ use diesel::prelude::*;
 use crate::models::{User, NewUser, DbConn};
 use crate::schema::users;
 use crate::token;
+use serde::Deserialize;
+use rocket_dyn_templates::serde::Serialize;
 
 #[get("/users")]
 pub async fn get_users(conn: DbConn) -> Result<Json<Vec<User>>, Status> {
@@ -57,12 +59,20 @@ pub async fn create_user(
         Err(_) => Err(Status::InternalServerError)
     }
 }
+#[derive(Debug, Serialize, Deserialize, AsChangeset)]
+#[diesel(table_name = users)]
+pub struct UpdateUser {
+    pub full_name: Option<String>,
+    pub position: Option<String>,
+    pub contact_info: Option<String>,
+    pub status: Option<String>,
+}
 
 #[put("/user/<user_id>", data = "<user>")]
 pub async fn update_user(
     conn: DbConn,
     user_id: i32,
-    user: Json<NewUser>,
+    user: Json<UpdateUser>,
     token: String,
 ) -> Result<Status, Status> {
     // Verify token

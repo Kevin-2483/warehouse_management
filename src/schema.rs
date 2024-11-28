@@ -119,7 +119,7 @@ diesel::table! {
 
 diesel::table! {
     users (user_id) {
-        user_id -> Nullable<Integer>,
+        user_id -> Integer,
         username -> Text,
         password_hash -> Text,
         full_name -> Nullable<Text>,
@@ -141,7 +141,7 @@ diesel::table! {
 
 diesel::table! {
     warehouses (warehouse_id) {
-        warehouse_id -> Nullable<Integer>,
+        warehouse_id -> Integer,
         localkey -> Nullable<Text>,
         warehouse_name -> Text,
         location -> Text,

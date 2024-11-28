@@ -7,15 +7,13 @@ in
 nixpkgs.mkShell {
   buildInputs = with nixpkgs; [
     # C++ 编译工具链
-    gcc
-    clang
-    clang-tools
+    
     cmake
-    gnumake
 
     # Rust 工具链 (nightly)
     latest.rustChannels.nightly.rust
     latest.rustChannels.nightly.rust-src
+    latest.rustChannels.nightly.gcc
     rust-analyzer
 
     # 库依赖

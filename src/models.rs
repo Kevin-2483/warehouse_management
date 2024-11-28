@@ -16,7 +16,7 @@ use crate::schema::*;
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 #[diesel(primary_key(warehouse_id))]
 pub struct Warehouse {
-    pub warehouse_id: Option<i32>,
+    pub warehouse_id: i32,
     pub localkey: Option<String>,
     pub warehouse_name: String,
     pub location: String,
@@ -60,7 +60,7 @@ pub struct NewWarehouseStock {
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 #[diesel(primary_key(user_id))]
 pub struct User {
-    pub user_id: Option<i32>,
+    pub user_id: i32,
     pub username: String,
     pub password_hash: String,
     pub full_name: Option<String>,

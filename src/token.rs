@@ -8,18 +8,18 @@ pub struct TokenGuard(String);
 
 #[rocket::async_trait]
 impl<'r> FromRequest<'r> for TokenGuard {
-    type Error = &'static str;
+    type Error = String;
 
-    async fn from_request(request: &'r Request<'_>) -> Outcome<TokenGuard, &'static str> {
+    async fn from_request(request: &'r Request<'_>) -> Outcome<Self, Self::Error> {
         match request.headers().get_one("Authorization") {
             Some(token) => {
                 if crate::token::decode_token(token).is_some() {
                     Outcome::Success(TokenGuard(token.to_string()))
                 } else {
-                    Outcome::Failure((Status::Unauthorized, "Invalid token"))
+                    Outcome::Error((Status::Unauthorized, "Invalid token".to_string()))
                 }
             }
-            None => Outcome::Failure((Status::Unauthorized, "Missing token"))
+            None => Outcome::Error((Status::Unauthorized, "Missing token".to_string()))
         }
     }
 }

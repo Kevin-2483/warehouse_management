@@ -1,2 +1,13 @@
 pub mod role;
 pub mod user;
+pub mod warehouse;
+pub mod permission;
+pub mod operation_log;
+pub mod production_task;
+pub mod user_role;
+pub mod role_permission;
+pub mod production_cost;
+pub mod price_formula;
+pub mod product_specification;
+pub mod material;
+pub mod material_request;
